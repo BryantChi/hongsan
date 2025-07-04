@@ -6,7 +6,7 @@
             <div class="row g-4 ">
                 <div class="col-12 mb-4">
                     <div class="hp-sc-title w-fit mx-auto text-center wow fadeInUp" data-wow-delay="0.1s">
-                        <h3>建設機械</h3>
+                        <h3>{{__('machinery')}}</h3>
                         <div class="hp-sc-title-line mx-auto"></div>
                         <p>CONSTRUCTION MACHINERY</p>
                     </div>
@@ -20,7 +20,7 @@
                             <div class="d-flex align-items-center wow fadeInUp" data-wow-delay="0.1s">
                                 <img src="{{ asset('assets/images/03/icon_back.png') }}" class="img-fluid me-1"
                                     alt="">
-                                <p class="text-main mb-0">返回上一頁</p>
+                                <p class="text-main mb-0">{{__('button_back')}}</p>
                             </div>
                         </a>
                     </div>
@@ -38,7 +38,7 @@
                     <div class="col-lg-2 mb-3">
                         <div class="category mb-3">
                             <div class="category-header d-flex justify-content-center align-items-center">
-                                <h6 class="text-white mb-0">產品類別</h6>
+                                <h6 class="text-white mb-0">{{__('category')}}</h6>
                             </div>
                             <div class="category-body">
                                 <ul class="list-unstyled category-list">
@@ -60,7 +60,7 @@
 
                         <div class="brand mb-3">
                             <div class="brand-header d-flex justify-content-center align-items-center">
-                                <h6 class="text-white mb-0">品牌</h6>
+                                <h6 class="text-white mb-0">{{__('brand')}}</h6>
                             </div>
                             <div class="brand-body">
                                 <ul class="list-unstyled brand-list">

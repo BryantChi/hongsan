@@ -524,6 +524,13 @@ p {
   transform: translateY(-15px);
 }
 
+.animate-hover-2 {
+  transition: transform 0.3s ease-in-out;
+}
+.animate-hover-2:hover {
+  transform: translate(2px, 2px);
+}
+
 .hot-item-box:hover {
   border: 1px solid var(--color-main);
 }
@@ -859,6 +866,20 @@ p {
     height: 100%;
     background-color: #fff;
 }
+
+.ab-ser-box .icon img {
+    min-width: 80px !important;
+    width: 80px !important;
+    height: 80px !important;
+}
+
+/* @media (max-width: 768px) {
+    .ab-ser-box .icon img {
+        min-width: 60px !important;
+        width: 60px !important;
+        height: 60px !important;
+    }
+} */
 
 .bg-history {
     background-color: #fff !important;

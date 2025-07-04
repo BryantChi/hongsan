@@ -3,25 +3,25 @@
     <div class="container py-4">
         <div class="row g-5">
             <div class="col-lg-4 text-white contact-info">
-                <h5 class="text-white">鴻盛建設機械有限公司</h5>
+                <h5 class="text-white">{{__('footer_address_a')}}</h5>
                 <div class="contact-info-line"></div>
                 <p class="mb-0">
                     <!-- 電話 -->
                     <a href="tel:03-8421671" class="text-white">
-                        <i class="fa fa-phone-alt me-2"></i> 電話：03-8421671
+                        <i class="fa fa-phone-alt me-2"></i> {{__('footer_address_a_aa')}}
                     </a>
                 </p>
                 <p class="mb-0">
                     <!-- 傳真 -->
                     <a href="tel:03-8421675" class="text-white">
-                        <i class="fa fa-fax me-2"></i> 傳真：03-8421675
+                        <i class="fa fa-fax me-2"></i> {{__('footer_address_aaa')}}
                     </a>
                 </p>
                 <p class="mb-0">
                     <!-- 地址 -->
                     <a href="https://maps.google.com/maps?ll=23.946739,121.594911&z=14&t=m&hl=zh-TW&gl=TW&mapclient=embed&cid=3009831125680241027"
                         class="text-white">
-                        <i class="fa fa-map-marker-alt me-2"></i> 地址：花蓮縣吉安鄉南海六街21號
+                        <i class="fa fa-map-marker-alt me-2"></i> {{__('footer_address_aaaa')}}
                     </a>
                 </p>
                 <div class="fb-content mt-2">
@@ -34,25 +34,25 @@
             </div>
 
             <div class="col-lg-4 text-white contact-info">
-                <h5 class="text-white">台灣建設機械有限公司</h5>
+                <h5 class="text-white">{{__('footer_address_b')}}</h5>
                 <div class="contact-info-line"></div>
                 <p class="mb-0">
                     <!-- 電話 -->
                     <a href="tel:03-3809586" class="text-white">
-                        <i class="fa fa-phone-alt me-2"></i> 電話：03-3809586
+                        <i class="fa fa-phone-alt me-2"></i> {{__('footer_address_bb')}}
                     </a>
                 </p>
                 <p class="mb-0">
                     <!-- 傳真 -->
                     <a href="tel:03-3809591" class="text-white">
-                        <i class="fa fa-fax me-2"></i> 傳真：03-3809591
+                        <i class="fa fa-fax me-2"></i> {{__('footer_address_bbb')}}
                     </a>
                 </p>
                 <p class="mb-0">
                     <!-- 地址 -->
                     <a href="https://maps.google.com/maps?ll=24.890993,121.267205&z=14&t=m&hl=zh-TW&gl=TW&mapclient=embed&cid=1075453785519217724"
                         class="text-white">
-                        <i class="fa fa-map-marker-alt me-2"></i> 地址：桃園市大溪區永昌路383號
+                        <i class="fa fa-map-marker-alt me-2"></i> {{__('footer_address_bbbb')}}
                     </a>
                 </p>
                 <div class="fb-content mt-2">
@@ -68,13 +68,13 @@
             <div class="col-lg-4 text-white contact-info">
                 <p class="mb-0">
                     <a href="tel:0800-005577" class="text-white">
-                        免費技術諮詢專線：0800-005577
+                        {{__('footer_address_c')}}
                     </a>
                 </p>
                 <p class="mb-0">
                     <!-- 電子信箱 -->
                     <a href="mailto:info@hongsan.com.tw" class="text-white">
-                        電子信箱：info@hongsan.com.tw
+                        {{__('footer_address_cc')}}
                     </a>
                 </p>
                 <p class="mb-0">
@@ -130,12 +130,12 @@
 <div class="container-fluid copyright py-2">
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-auto text-center text-md-end mb-3 mb-md-0">
+            <div class="col-md-12 text-center mb-3 mb-md-0">
                 <p class="mb-0 fw-light">
                     <img src="{{asset('assets/images/00-hp/lock.png')}}" class="img-fluid" width="20" alt="">
-                    <span>本網站採用全球最先進的TLS加密處理技術以確保所有傳輸資訊安全無憂</span>
-                    <span>© Copyright 2025 All Rights Reserved 鴻盛建設機械有限公司 Web Design Power By </span>
-                    <a href="https://cheni.com.tw/" target="_blank">誠翊資訊</a>
+                    <span>{{__('footer_copyright_a')}}</span>
+                    <span>© Copyright 2025 All Rights Reserved {{__('footer_copyright_b')}} Web Design Power By </span>
+                    <a href="https://cheni.com.tw/" target="_blank">{{__('footer_copyright_c')}}</a>
                 </p>
             </div>
             <!-- <div class="col-md-auto text-center text-md-start">

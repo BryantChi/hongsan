@@ -7,7 +7,7 @@
             <div class="row g-4" id="products">
                 <div class="col-12 mb-4">
                     <div class="hp-sc-title w-fit mx-auto text-center wow fadeInUp" data-wow-delay="0.1s">
-                        <h3>產品總覽</h3>
+                        <h3>{{__('products')}}</h3>
                         <div class="hp-sc-title-line mx-auto"></div>
                         <p>PRODUCTS</p>
                     </div>
@@ -19,7 +19,7 @@
                 <div class="row g-4">
                     <div class="col-12">
                         <p class="text-main fw-normal text-end" style="font-size: 15px;">
-                            總共有 {{ 12 }} 件產品
+                            {{__('products_total', ['num' => 28])}}
                         </p>
                     </div>
 

@@ -20,7 +20,7 @@
                     </div>
                     <a href="{{ localized_route('products') }}" class="nav-item nav-link">{{__('products')}}</a>
                     <a href="{{ localized_route('catetype') }}" class="nav-item nav-link">{{__('menu_applications')}}</a>
-                    <a href="{{ localized_route('news') }}" class="nav-item nav-link">{{__('news')}}</a>
+                    <a href="{{ localized_route('news') }}" class="nav-item nav-link">{{__('content_news')}}</a>
                     <a href="{{ localized_route('contact') }}" class="nav-item nav-link">{{__('menu_contact')}}</a>
 
                 </div>

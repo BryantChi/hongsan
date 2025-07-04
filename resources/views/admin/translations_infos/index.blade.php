@@ -51,12 +51,17 @@
 
             var table = $('#translations-infos-table').DataTable({
                 lengthChange: true, // 呈現選單
-                lengthMenu: [10, 15, 20, 30, 50], // 選單值設定
+                // 全部顯示
+                // lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "全部"]],
+                // 每頁顯示數量選單
+                lengthMenu: [[10, 25, 50, 100, 500, -1],
+                    [10, 25, 50, 100, 500, "全部"]
+                ],
                 pageLength: 10, // 不用選單設定也可改用固定每頁列數
 
                 searching: true, // 搜索功能
                 ordering: true,
-                // stateSave: true, // 保留狀態
+                stateSave: true, // 保留狀態
                 scrollCollapse: true,
                 scrollX: scrollX_enable,
                 language: {

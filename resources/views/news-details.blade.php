@@ -6,7 +6,7 @@
             <div class="row g-4" id="products">
                 <div class="col-12 mb-4">
                     <div class="hp-sc-title w-fit mx-auto text-center wow fadeInUp" data-wow-delay="0.1s">
-                        <h3>最新消息</h3>
+                        <h3>{{__('content_news')}}</h3>
                         <div class="hp-sc-title-line mx-auto"></div>
                         <p>NEWS</p>
                     </div>
@@ -33,9 +33,9 @@
 
                     <div class="col-12 d-flex justify-content-center">
                         <a href="{{ localized_route('news') }}">
-                            <div class="d-flex align-items-center px-3 py-1 post-back wow fadeInUp" data-wow-delay="0.1s">
+                            <div class="d-flex align-items-center px-3 py-1 post-back animate-hover-2 wow fadeInUp" data-wow-delay="0.1s">
                                 <img src="{{ asset('assets/images/00-hp/iconarrowwhite32.png') }}" class="img-fluid me-1" alt="">
-                                <p class="text-white mb-0">返回列表</p>
+                                <p class="text-white mb-0">{{__('back_to_list')}}</p>
                             </div>
                         </a>
                     </div>

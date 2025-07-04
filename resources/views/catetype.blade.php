@@ -7,7 +7,7 @@
             <div class="row g-4 ">
                 <div class="col-12 mb-4">
                     <div class="hp-sc-title w-fit mx-auto text-center wow fadeInUp" data-wow-delay="0.1s">
-                        <h3>應用類別</h3>
+                        <h3>{{__('content_category')}}</h3>
                         <div class="hp-sc-title-line mx-auto"></div>
                         <p>CATEGORY</p>
                     </div>
@@ -17,7 +17,7 @@
                     <a href="{{ localized_route('construction') }}">
                         <div class="category-item wow fadeInUp" data-wow-delay="0.1s">
                             <div class="cg-header d-flex justify-content-between align-items-center py-lg-4 py-2 px-2">
-                                <h5 class="mb-0">建設機械</h5>
+                                <h5 class="mb-0">{{__('machinery')}}</h5>
                                 <img class="img-fluid" src="{{asset('assets/images/00-hp/icon_plus.png')}}" alt="建設機械">
                             </div>
                             <div class="cg-body">
@@ -29,7 +29,7 @@
                 <div class="col-lg-3 col-6">
                     <div class="category-item wow fadeInUp" data-wow-delay="0.3s">
                         <div class="cg-header d-flex justify-content-between align-items-center py-lg-4 py-2 px-2">
-                            <h5 class="mb-0">液壓配件</h5>
+                            <h5 class="mb-0">{{__('applications')}}</h5>
                             <img class="img-fluid" src="{{asset('assets/images/00-hp/icon_plus.png')}}" alt="液壓配件">
                         </div>
                         <div class="cg-body">
@@ -40,7 +40,7 @@
                 <div class="col-lg-3 col-6">
                     <div class="category-item wow fadeInUp" data-wow-delay="0.3s">
                         <div class="cg-header d-flex justify-content-between align-items-center py-lg-4 py-2 px-2">
-                            <h5 class="mb-0">農業機械</h5>
+                            <h5 class="mb-0">{{__('agriculture')}}</h5>
                             <img class="img-fluid" src="{{asset('assets/images/00-hp/icon_plus.png')}}" alt="農業機械">
                         </div>
                         <div class="cg-body">
@@ -51,7 +51,7 @@
                 <div class="col-lg-3 col-6">
                     <div class="category-item wow fadeInUp" data-wow-delay="0.5s">
                         <div class="cg-header d-flex justify-content-between align-items-center py-lg-4 py-2 px-2">
-                            <h5 class="mb-0">環保能源</h5>
+                            <h5 class="mb-0">{{__('recycling')}}</h5>
                             <img class="img-fluid" src="{{asset('assets/images/00-hp/icon_plus.png')}}" alt="環保能源">
                         </div>
                         <div class="cg-body">

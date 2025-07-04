@@ -20,13 +20,14 @@
                             <div class="d-flex align-items-center wow fadeInUp" data-wow-delay="0.1s">
                                 <img src="{{ asset('assets/images/03/icon_back.png') }}" class="img-fluid me-1"
                                     alt="">
-                                <p class="text-main mb-0">返回上一頁</p>
+                                <p class="text-main mb-0">{{__('button_back')}}</p>
                             </div>
                         </a>
                     </div>
 
                     <div class="col-12 my-3">
-                        <h5 class="text-18 fw-normal text-center bg-white py-2 wow fadeInUp" data-wow-delay="0.1s">請選擇服務
+                        <h5 class="text-18 fw-normal text-center bg-white py-2 wow fadeInUp" data-wow-delay="0.1s">
+                            {{__('select_service')}}
                         </h5>
                     </div>
 
@@ -35,7 +36,7 @@
                             <div class="pro-buy construction wow fadeInUp" data-wow-delay="0.1s">
                                 <img src="{{ asset('assets/images/03/pic_buy.jpg') }}" class="img-fluid" alt="">
                                 <div class="construction-mask d-flex justify-content-center align-items-center text-center">
-                                    <p>購買</p>
+                                    <p>{{__('sale_service')}}</p>
                                 </div>
                             </div>
                         </a>
@@ -46,7 +47,7 @@
                             <div class="pro-rent construction wow fadeInUp" data-wow-delay="0.1s">
                                 <img src="{{ asset('assets/images/03/pic_rent.jpg') }}" class="img-fluid" alt="">
                                 <div class="construction-mask d-flex justify-content-center align-items-center text-center">
-                                    <p>租賃</p>
+                                    <p>{{__('rental_service')}}</p>
                                 </div>
                             </div>
                         </a>

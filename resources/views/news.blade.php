@@ -6,7 +6,7 @@
             <div class="row g-4" id="products">
                 <div class="col-12 mb-4">
                     <div class="hp-sc-title w-fit mx-auto text-center wow fadeInUp" data-wow-delay="0.1s">
-                        <h3>最新消息</h3>
+                        <h3>{{__('content_news')}}</h3>
                         <div class="hp-sc-title-line mx-auto"></div>
                         <p>NEWS</p>
                     </div>
@@ -18,7 +18,7 @@
                 <div class="row g-4">
                     <div class="col-12">
                         <p class="text-main fw-normal text-end" style="font-size: 15px;">
-                            共有 {{ 28 }} 則消息
+                            {{__('total_news', ['num' => 12])}}
                         </p>
                     </div>
 
