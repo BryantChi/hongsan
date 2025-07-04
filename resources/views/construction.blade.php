@@ -6,9 +6,11 @@
             <div class="row g-4 ">
                 <div class="col-12 mb-4">
                     <div class="hp-sc-title w-fit mx-auto text-center wow fadeInUp" data-wow-delay="0.1s">
-                        <h3>建設機械</h3>
+                        <h3>{{__('machinery')}}</h3>
+                        @if (App::getLocale() == 'zh_TW')
                         <div class="hp-sc-title-line mx-auto"></div>
                         <p>CONSTRUCTION</p>
+                        @endif
                     </div>
                 </div>
             </div>

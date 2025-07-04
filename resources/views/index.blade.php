@@ -8,8 +8,10 @@
                 <div class="col-12 mb-4">
                     <div class="hp-sc-title w-fit mx-auto text-center wow fadeInUp" data-wow-delay="0.1s">
                         <h3>{{__('content_category')}}</h3>
+                        @if (App::getLocale() == 'zh_TW')
                         <div class="hp-sc-title-line mx-auto"></div>
                         <p>CATEGORY</p>
+                        @endif
                     </div>
                 </div>
 
@@ -91,8 +93,10 @@
                 <div class="col-12 mb-4">
                     <div class="hp-sc-title w-fit mx-auto text-center wow fadeInUp" data-wow-delay="0.1s">
                         <h3>{{__('hot_items')}}</h3>
+                        @if (App::getLocale() == 'zh_TW')
                         <div class="hp-sc-title-line mx-auto"></div>
                         <p>HOT ITEMS</p>
+                        @endif
                     </div>
                 </div>
 
@@ -159,8 +163,10 @@
                 <div class="col-12 mb-4">
                     <div class="hp-sc-title w-fit mx-auto text-center wow fadeInUp" data-wow-delay="0.1s">
                         <h3>{{__('content_news')}}</h3>
+                        @if (App::getLocale() == 'zh_TW')
                         <div class="hp-sc-title-line mx-auto"></div>
                         <p>NEWS</p>
+                        @endif
                     </div>
                 </div>
 
@@ -255,8 +261,10 @@
                 <div class="col-lg-7 py-5 px-3 hp-ab-bg">
                     <div class="hp-sc-title w-fit mx-auto text-center wow fadeInUp" data-wow-delay="0.1s">
                         <h3>{{__('content_about_hongsan')}}</h3>
+                        @if (App::getLocale() == 'zh_TW')
                         <div class="hp-sc-title-line mx-auto"></div>
                         <p>ABOUT</p>
+                        @endif
                     </div>
 
                     <div class="mt-4 row align-items-center justify-content-center g-4">
@@ -322,8 +330,10 @@
                 <div class="col-12 mb-4">
                     <div class="hp-sc-title w-fit mx-auto text-center wow fadeInUp" data-wow-delay="0.1s">
                         <h3>{{__('brands_links')}}</h3>
+                        @if (App::getLocale() == 'zh_TW')
                         <div class="hp-sc-title-line mx-auto"></div>
                         <p>LINKS</p>
+                        @endif
                     </div>
                 </div>
 
@@ -398,8 +408,10 @@
                 <div class="col-12 mb-4">
                     <div class="hp-sc-title w-fit mx-auto text-center wow fadeInUp" data-wow-delay="0.1s">
                         <h3>{{__('content_contact_us_title')}}</h3>
+                        @if (App::getLocale() == 'zh_TW')
                         <div class="hp-sc-title-line mx-auto"></div>
                         <p>CONTACT US</p>
+                        @endif
                     </div>
 
                     <p class="text-center text-18 fw-light my-3 wow fadeInUp" data-wow-delay="0.1s">

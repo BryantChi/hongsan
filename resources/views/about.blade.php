@@ -19,8 +19,10 @@
                 <div class="col-12 mb-3 mt-3">
                     <div class="hp-sc-title w-fit mx-auto text-center wow fadeInUp" data-wow-delay="0.1s">
                         <h3>{{ __('about_us') }}</h3>
+                        @if (App::getLocale() == 'zh_TW')
                         <div class="hp-sc-title-line mx-auto"></div>
                         <p>ABOUT US</p>
+                        @endif
                     </div>
                 </div>
 

@@ -8,8 +8,10 @@
                 <div class="col-12 mb-4">
                     <div class="hp-sc-title w-fit mx-auto text-center wow fadeInUp" data-wow-delay="0.1s">
                         <h3>{{__('content_category')}}</h3>
+                        @if (App::getLocale() == 'zh_TW')
                         <div class="hp-sc-title-line mx-auto"></div>
                         <p>CATEGORY</p>
+                        @endif
                     </div>
                 </div>
 

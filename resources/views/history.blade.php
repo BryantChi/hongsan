@@ -19,8 +19,10 @@
                 <div class="col-12 mb-3 mt-3">
                     <div class="hp-sc-title w-fit mx-auto text-center wow fadeInUp" data-wow-delay="0.1s">
                         <h3> {{ __('page_wy_history') }}</h3>
+                        @if (App::getLocale() == 'zh_TW')
                         <div class="hp-sc-title-line mx-auto"></div>
                         <p>HISTORY</p>
+                        @endif
                     </div>
                 </div>
 
