@@ -134,6 +134,7 @@ Route::prefix('admin')->group(function () {
         // Route::resource('productTypes', App\Http\Controllers\Admin\ProductTypeController::class, ["as" => 'admin']);
         // Route::resource('products', App\Http\Controllers\Admin\ProductController::class, ["as" => 'admin']);
         Route::resource('translationsInfos', \App\Http\Controllers\Admin\TranslationsInfoController::class, ["as" => 'admin']);
+        Route::resource('brandsInfos', \App\Http\Controllers\Admin\BrandsInfoController::class, ["as" => 'admin']);
 
         // AJAX 預覽清洗結果的路由
         Route::post('/seo/preview', [\App\Http\Controllers\Admin\SeoSettingController::class, 'preview'])->name('admin.seo.preview');
@@ -157,4 +158,15 @@ Route::prefix('admin')->group(function () {
 //         'destroy' => 'admin.translationsInfos.destroy',
 //         'create' => 'admin.translationsInfos.create',
 //         'edit' => 'admin.translationsInfos.edit'
+//     ]);
+
+// Route::resource('admin/brands-infos', App\Http\Controllers\Admin\BrandsInfoController::class)
+//     ->names([
+//         'index' => 'admin.brandsInfos.index',
+//         'store' => 'admin.brandsInfos.store',
+//         'show' => 'admin.brandsInfos.show',
+//         'update' => 'admin.brandsInfos.update',
+//         'destroy' => 'admin.brandsInfos.destroy',
+//         'create' => 'admin.brandsInfos.create',
+//         'edit' => 'admin.brandsInfos.edit'
 //     ]);
