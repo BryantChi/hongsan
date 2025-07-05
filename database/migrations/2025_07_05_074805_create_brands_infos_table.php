@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('slug')->unique()->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('brands_info_translations', function (Blueprint $table) {
