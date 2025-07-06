@@ -26,12 +26,14 @@ class ProductCategories extends Model implements TranslatableContract
         'id' => 'integer',
         'application_categories_info_id' => 'integer',
         'name' => 'string',
-        'slug' => 'string'
+        'slug' => 'string',
+        'image' => 'json',
     ];
 
     public static array $rules = [
         'application_categories_info_id' => 'nullable',
         'slug' => 'nullable|string|max:255|unique:product_categories,slug',
+        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:1024',
     ];
 
     public static array $translationRules = [

@@ -16,6 +16,24 @@
     {!! Form::select('application_categories_info_id', $applicationCategoriesInfos, isset($productCategoriesInfo) ? $productCategoriesInfo->application_categories_info_id : null, ['class' => 'form-control', 'placeholder' => '請選擇', 'required' => true]) !!}
     {{-- <small>※請選擇應用類別</small> --}}
 </div>
+<div class="clearfix w-100"></div>
+
+<!-- Cover Front Image Field -->
+<div class="form-group col-sm-6">
+    {!! Form::label('image', '圖片:') !!}
+    <div class="custom-file">
+        <input type="file" class="custom-file-input" id="image" name="image" accept="image/*">
+        <label class="custom-file-label" for="image">Choose file</label>
+    </div>
+    <div class="img-preview-cover mt-2">
+        @if ($productCategoriesInfo->image ?? null)
+            <p for="">預覽</p>
+            <img src="{{ url('') . '/uploads/' . $productCategoriesInfo->image }}"
+                style="max-width: 200px; max-height: 200px;">
+        @endif
+    </div>
+</div>
+<div class="clearfix w-100"></div>
 
 <!-- 多語系欄位 -->
 <div class="col-sm-12">
@@ -40,3 +58,34 @@
         @endforeach
     </div>
 </div>
+
+@push('page_scripts')
+<script>
+    $(document).ready(function() {
+        $(document).on('change', '#image', function () {
+            let fileInput = this;
+            let fileReader = new FileReader();
+
+            fileReader.onload = function(e) {
+                let previewHtml = `<p for="">預覽</p><img src="${e.target.result}" style="max-width: 200px; max-height: 200px;">`;
+                $(fileInput).closest('.form-group').find('.img-preview-cover').html(previewHtml);
+            };
+
+            fileReader.readAsDataURL(fileInput.files[0]);
+        });
+        // $(document).on('change', '[id^="plan_style_"]', function () {
+        //     let fileInput = this;
+        //     let fileReader = new FileReader();
+        //     let id = $(fileInput).attr('id'); // 獲取元素的ID
+        //     let previewClass = `.img-preview-s${id.split('_').pop()}`; // 根據ID動態生成對應的預覽class
+
+        //     fileReader.onload = function (e) {
+        //         let previewHtml = `<p>預覽</p><img src="${e.target.result}" style="max-width: 200px; max-height: 200px;">`;
+        //         $(fileInput).closest('.form-group').find(previewClass).html(previewHtml);
+        //     };
+
+        //     fileReader.readAsDataURL(fileInput.files[0]);
+        // });
+    });
+</script>
+@endpush

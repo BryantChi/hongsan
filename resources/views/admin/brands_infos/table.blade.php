@@ -4,6 +4,7 @@
             <thead>
             <tr>
                 <th>ID</th>
+                <th>圖片</th>
                 <th>名稱</th>
                 <th>應用類別</th>
                 <th>Slug</th>
@@ -14,6 +15,15 @@
             @foreach($brandsInfos as $brandsInfo)
                 <tr>
                     <td>{{ $brandsInfo->id }}</td>
+                    <td>
+                        {{-- 顯示圖片，如果有的話 --}}
+                        @if ($brandsInfo->image ?? null)
+                            <img src="{{ url('') . '/uploads/' . $brandsInfo->image }}" style="max-width: 100px; max-height: 100px;">
+                        @else
+                            <span class="text-muted">無圖片</span>
+                        @endif
+                    </td>
+                    {{-- 顯示品牌名稱 --}}
                     <td style="width: 35%">
                         {{-- 顯示品牌名稱 --}}
                         {{-- 使用 translations 來獲取所有語系的名稱 --}}

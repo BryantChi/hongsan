@@ -59,6 +59,9 @@ class BrandsInfoController extends AppBaseController
         $input['slug'] = Str::slug($input[config('translatable.fallback_locale')]['name']);
         // }
 
+        // 處理圖片上傳
+        $input['image'] = $this->processImage($request->file('image'), 'brands_image');
+
         // 處理多語系資料
         $translationData = [];
         $locales = config('translatable.locales');
@@ -144,6 +147,9 @@ class BrandsInfoController extends AppBaseController
             $input['slug'] = Str::slug($input[config('translatable.fallback_locale')]['name']);
         // }
 
+        // 處理圖片上傳
+        $input['image'] = $this->handleImageUpload($request->file('image'), $brandsInfo->image, 'brands_image');
+
         // 處理多語系資料
         $translationData = [];
         $locales = config('translatable.locales');
@@ -186,8 +192,74 @@ class BrandsInfoController extends AppBaseController
 
         $this->brandsInfoRepository->delete($id);
 
+        // 刪除圖片
+        if (!empty($brandsInfo->image) && file_exists(public_path('uploads/' . $brandsInfo->image))) {
+            File::delete(public_path('uploads/' . $brandsInfo->image));
+        }
+
         Flash::success('品牌資訊已成功刪除。');
 
         return redirect(route('admin.brandsInfos.index'));
+    }
+
+    // 共用的圖片處理函式
+    function processImage($image, $uploadDir, $resizeWidth = 800, $quality = 75)
+    {
+        if ($image) {
+            $path = public_path('uploads/images/' . $uploadDir) . '/';
+            $filename = time() . '_' . $image->getClientOriginalName();
+
+            if (!file_exists($path)) {
+                mkdir($path, 0755, true);
+            }
+
+            // 壓縮圖片
+            $image = Image::make($image)
+                ->orientate()
+                ->resize($resizeWidth, null, function ($constraint) {
+                    $constraint->aspectRatio();
+                    $constraint->upsize();
+                })
+                ->encode('jpg', $quality); // 設定 JPG 格式和品質
+            $image->save($path . $filename);
+
+            return 'images/' . $uploadDir . '/' . $filename;
+        }
+
+        return '';
+    }
+
+    // 共用圖片處理函式
+    function handleImageUpload($newImage, $existingImagePath, $uploadDir, $resizeWidth = 800, $quality = 75)
+    {
+        if ($newImage) {
+            $path = public_path('uploads/images/' . $uploadDir . '/');
+            $filename = time() . '_' . $newImage->getClientOriginalName();
+
+            // 確保目錄存在
+            if (!file_exists($path)) {
+                mkdir($path, 0755, true);
+            }
+
+            // 若已有圖片，刪除舊圖片
+            if (!empty($existingImagePath) && File::exists(public_path('uploads/' . $existingImagePath))) {
+                File::delete(public_path('uploads/' . $existingImagePath));
+            }
+
+            // 壓縮並保存新圖片
+            $image = Image::make($newImage)
+                ->orientate()
+                ->resize($resizeWidth, null, function ($constraint) {
+                    $constraint->aspectRatio();
+                    $constraint->upsize();
+                })
+                ->encode('jpg', $quality); // 設定 JPG 格式和品質
+            $image->save($path . $filename);
+
+            return 'images/' . $uploadDir . '/' . $filename;
+        }
+
+        // 若無新圖片，返回舊圖片路徑
+        return $existingImagePath;
     }
 }

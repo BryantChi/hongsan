@@ -20,6 +20,7 @@ return new class extends Migration
                 ->constrained('application_categories_infos')
                 ->nullOnDelete();
             $table->string('slug')->unique()->nullable();
+            $table->longText('image')->nullable()->comment('類型圖片');
             $table->timestamps();
             $table->softDeletes();
         });
