@@ -137,9 +137,13 @@ Route::prefix('admin')->group(function () {
         Route::resource('applicationCategoriesInfos', \App\Http\Controllers\Admin\ApplicationCategoriesInfoController::class, ["as" => 'admin']);
         Route::resource('brandsInfos', \App\Http\Controllers\Admin\BrandsInfoController::class, ["as" => 'admin']);
         Route::resource('productCategoriesInfos', \App\Http\Controllers\Admin\ProductCategoriesInfoController::class, ["as" => 'admin']);
+        Route::resource('productsInfos', \App\Http\Controllers\Admin\ProductsInfoController::class, ["as" => 'admin']);
 
         // AJAX 預覽清洗結果的路由
         Route::post('/seo/preview', [\App\Http\Controllers\Admin\SeoSettingController::class, 'preview'])->name('admin.seo.preview');
+
+        // 添加獲取關聯數據的路由
+        Route::get('/get-categories-data', [\App\Http\Controllers\Admin\ProductsInfoController::class, 'getCategoriesData'])->name('admin.get-categories-data');
 
         Route::any('adminUsers', [\App\Http\Controllers\Admin\AdminAccountController::class, 'index'])->name('admin.adminUsers.index');
         Route::any('adminUsers/create', [\App\Http\Controllers\Admin\AdminAccountController::class, 'create'])->name('admin.adminUsers.create');
@@ -150,6 +154,8 @@ Route::prefix('admin')->group(function () {
         Route::any('adminUsers/destroy/{id}', [\App\Http\Controllers\Admin\AdminAccountController::class, 'destroy'])->name('admin.adminUsers.destroy');
     });
 });
+
+
 
 // Route::resource('admin/translations-infos', App\Http\Controllers\Admin\TranslationsInfoController::class)
 //     ->names([
@@ -193,4 +199,15 @@ Route::prefix('admin')->group(function () {
 //         'destroy' => 'admin.productCategoriesInfos.destroy',
 //         'create' => 'admin.productCategoriesInfos.create',
 //         'edit' => 'admin.productCategoriesInfos.edit'
+//     ]);
+
+// Route::resource('admin/products-infos', App\Http\Controllers\Admin\ProductsInfoController::class)
+//     ->names([
+//         'index' => 'admin.productsInfos.index',
+//         'store' => 'admin.productsInfos.store',
+//         'show' => 'admin.productsInfos.show',
+//         'update' => 'admin.productsInfos.update',
+//         'destroy' => 'admin.productsInfos.destroy',
+//         'create' => 'admin.productsInfos.create',
+//         'edit' => 'admin.productsInfos.edit'
 //     ]);

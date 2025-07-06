@@ -37,7 +37,7 @@
 </li>
 
 {{--產品相關，可收合，子選單縮排 --}}
-<li class="nav-item has-treeview {{ Request::is('admin/products*') || Request::is('admin/applicationCategoriesInfos*') || Request::is('admin/brandsInfos*') || Request::is('admin/productCategoriesInfos*') ? 'menu-open' : '' }}">
+<li class="nav-item has-treeview {{ Request::is('admin/productsInfos*') || Request::is('admin/applicationCategoriesInfos*') || Request::is('admin/brandsInfos*') || Request::is('admin/productCategoriesInfos*') ? 'menu-open' : '' }}">
     <a href="#" class="nav-link {{ Request::is('admin/products*') ? 'active' : '' }}">
         <span class="mr-2 brand-image"><i class="fas fa-box"></i></span>
         <p>產品管理<i class="right fas fa-angle-left"></i></p>
@@ -60,6 +60,12 @@
             <a href="{{ localized_route('admin.productCategoriesInfos.index') }}" class="nav-link {{ Request::is('admin/productCategoriesInfos*') ? 'active' : '' }}">
                 <span class="mr-2 brand-image"><i class="fas fa-tags"></i></span>
                 <p>產品類別</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{ localized_route('admin.productsInfos.index') }}" class="nav-link {{ Request::is('admin/productsInfos*') ? 'active' : '' }}">
+                <span class="mr-2 brand-image"><i class="fas fa-box"></i></span>
+                <p>產品</p>
             </a>
         </li>
     </ul>

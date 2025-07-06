@@ -1,0 +1,342 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Requests\Admin\CreateProductsInfoRequest;
+use App\Http\Requests\Admin\UpdateProductsInfoRequest;
+use App\Http\Controllers\AppBaseController;
+use App\Repositories\Admin\ProductsInfoRepository;
+use Illuminate\Http\Request;
+use App\Models\Admin\ProductImage;
+use Flash;
+use Illuminate\Support\Facades\Storage;
+
+class ProductsInfoController extends AppBaseController
+{
+    /** @var ProductsInfoRepository $productsInfoRepository*/
+    private $productsInfoRepository;
+
+    // 設定每個產品的最大圖片數量
+    private const MAX_IMAGES_PER_PRODUCT = 10;
+
+    public function __construct(ProductsInfoRepository $productsInfoRepo)
+    {
+        $this->productsInfoRepository = $productsInfoRepo;
+    }
+
+    /**
+     * Display a listing of the ProductsInfo.
+     */
+    public function index(Request $request)
+    {
+        $productsInfos = $this->productsInfoRepository->paginate(10);
+
+        return view('admin.products_infos.index')
+            ->with('productsInfos', $productsInfos);
+    }
+
+    /**
+     * Show the form for creating a new ProductsInfo.
+     */
+    public function create()
+    {
+        // 取得系統支援的語系
+        $locales = config('translatable.locales');
+        // 取得應用類別資訊列表
+        $applicationCategoriesInfos = \App\Models\Admin\ApplicationCategoriesInfo::pluck('name', 'id')->toArray();
+        // 將應用類別資訊轉換為選擇列表格式
+        $applicationCategoriesInfos = ['' => '請選擇'] + $applicationCategoriesInfos;
+
+        return view('admin.products_infos.create', compact('locales', 'applicationCategoriesInfos'));
+    }
+
+    /**
+     * Store a newly created ProductsInfo in storage.
+     */
+    public function store(CreateProductsInfoRequest $request)
+    {
+        $input = $request->all();
+
+        // 自動生成 slug (如果沒有提供)
+        // if (empty($input['slug']) && isset($input[config('translatable.fallback_locale')]['name'])) {
+        //     $input['slug'] = \Illuminate\Support\Str::slug($input[config('translatable.fallback_locale')]['name']);
+        // }
+
+        // 處理多語系資料
+        $translationData = [];
+        $locales = config('translatable.locales');
+
+        foreach ($locales as $locale) {
+            if (isset($input[$locale])) {
+                $translationData[$locale] = $input[$locale];
+                unset($input[$locale]); // 移除以免影響主表資料
+            }
+        }
+
+        $productsInfo = $this->productsInfoRepository->create($input);
+
+        // 處理多語系翻譯
+        foreach ($translationData as $locale => $data) {
+            $productsInfo->translateOrNew($locale)->fill($data);
+        }
+        $productsInfo->save();
+
+        // 處理產品圖片上傳
+        if ($request->hasFile('product_images')) {
+            // 檢查圖片數量
+            $uploadCount = count($request->file('product_images'));
+
+            // 如果超過最大數量，顯示錯誤
+            if ($uploadCount > self::MAX_IMAGES_PER_PRODUCT) {
+                Flash::error('每個產品最多只能有 '.self::MAX_IMAGES_PER_PRODUCT.' 張圖片');
+                return redirect()->back()->withInput();
+            }
+
+            $this->saveProductImages($productsInfo, $request);
+        }
+
+        Flash::success('產品建立成功');
+
+        return redirect(route('admin.productsInfos.index'));
+    }
+
+    /**
+     * Display the specified ProductsInfo.
+     */
+    public function show($id)
+    {
+        $productsInfo = $this->productsInfoRepository->find($id);
+
+        if (empty($productsInfo)) {
+            Flash::error('找不到產品資訊');
+
+            return redirect(route('admin.productsInfos.index'));
+        }
+
+        return view('admin.products_infos.show')->with('productsInfo', $productsInfo);
+    }
+
+    /**
+     * Show the form for editing the specified ProductsInfo.
+     */
+    public function edit($id)
+    {
+        $productsInfo = $this->productsInfoRepository->find($id);
+
+        if (empty($productsInfo)) {
+            Flash::error('找不到產品資訊');
+
+            return redirect(route('admin.productsInfos.index'));
+        }
+
+        // 取得系統支援的語系
+        $locales = config('translatable.locales');
+        // 取得應用類別資訊列表
+        $applicationCategoriesInfos = \App\Models\Admin\ApplicationCategoriesInfo::pluck('name', 'id')->toArray();
+        // 將應用類別資訊轉換為選擇列表格式
+        $applicationCategoriesInfos = ['' => '請選擇'] + $applicationCategoriesInfos;
+
+        // 傳遞資料到編輯視圖
+        return view('admin.products_infos.edit', compact('productsInfo', 'locales', 'applicationCategoriesInfos'));
+
+    }
+
+    /**
+     * Update the specified ProductsInfo in storage.
+     */
+    public function update($id, UpdateProductsInfoRequest $request)
+    {
+        $productsInfo = $this->productsInfoRepository->find($id);
+
+        if (empty($productsInfo)) {
+            Flash::error('Products Info not found');
+
+            return redirect(route('admin.productsInfos.index'));
+        }
+
+        $input = $request->all();
+
+        // 自動生成 slug (如果沒有提供)
+        // if (empty($input['slug']) && isset($input[config('translatable.fallback_locale')]['name'])) {
+        //     $input['slug'] = \Illuminate\Support\Str::slug($input[config('translatable.fallback_locale')]['name']);
+        // }
+
+        // 處理多語系資料
+        $translationData = [];
+        $locales = config('translatable.locales');
+        foreach ($locales as $locale) {
+            if (isset($input[$locale])) {
+                $translationData[$locale] = $input[$locale];
+                unset($input[$locale]); // 移除以免影響主表資料
+            }
+        }
+
+        $productsInfo = $this->productsInfoRepository->update($input, $id);
+
+        // 處理多語系翻譯
+        foreach ($translationData as $locale => $data) {
+            $productsInfo->translateOrNew($locale)->fill($data);
+        }
+        $productsInfo->save();
+
+        // 計算更新後的圖片數量
+        $existingImageCount = $productsInfo->images->count();
+        $deleteCount = $request->has('delete_images') ? count($request->delete_images) : 0;
+        $uploadCount = $request->hasFile('product_images') ? count($request->file('product_images')) : 0;
+
+        // 計算最終圖片數量
+        $finalImageCount = $existingImageCount - $deleteCount + $uploadCount;
+
+        // 檢查是否超過限制
+        if ($finalImageCount > self::MAX_IMAGES_PER_PRODUCT) {
+            Flash::error('每個產品最多只能有 '.self::MAX_IMAGES_PER_PRODUCT.' 張圖片');
+            return redirect()->back()->withInput();
+        }
+
+        // 處理圖片刪除
+        if ($request->has('delete_images')) {
+            $this->deleteProductImages($request->delete_images);
+        }
+
+        // 處理圖片排序
+        if ($request->has('sort_orders')) {
+            $this->updateImageSortOrders($request->sort_orders);
+        }
+
+        // 處理新上傳的圖片
+        if ($request->hasFile('product_images')) {
+            $this->saveProductImages($productsInfo, $request);
+        }
+
+        Flash::success('產品更新成功');
+
+        return redirect(route('admin.productsInfos.index'));
+    }
+
+    /**
+     * Remove the specified ProductsInfo from storage.
+     *
+     * @throws \Exception
+     */
+    public function destroy($id)
+    {
+        $productsInfo = $this->productsInfoRepository->find($id);
+
+        if (empty($productsInfo)) {
+            Flash::error('Products Info not found');
+
+            return redirect(route('admin.productsInfos.index'));
+        }
+
+        // 刪除產品關聯的所有圖片
+        foreach ($productsInfo->images as $image) {
+            Storage::disk('public')->delete($image->image_path);
+            $image->delete();
+        }
+
+        $this->productsInfoRepository->delete($id);
+
+        Flash::success('產品刪除成功');
+
+        return redirect(route('admin.productsInfos.index'));
+    }
+
+    /**
+     * 儲存產品圖片
+     */
+    private function saveProductImages($product, $request)
+    {
+        $files = $request->file('product_images');
+        $newSortOrders = $request->new_sort_orders ?? [];
+        $maxSortOrder = ProductImage::where('product_id', $product->id)->max('sort_order') ?? 0;
+
+        foreach ($files as $key => $file) {
+            // 存儲圖片到儲存空間
+            $path = $file->store('product_images', 'public');
+
+            // 儲存圖片記錄到資料庫
+            $sortOrder = isset($newSortOrders[$key]) ? $newSortOrders[$key] : $maxSortOrder + 1;
+            $maxSortOrder = max($maxSortOrder, $sortOrder);
+
+            ProductImage::create([
+                'product_id' => $product->id,
+                'image_path' => $path,
+                'sort_order' => $sortOrder
+            ]);
+        }
+    }
+
+    /**
+     * 刪除產品圖片
+     */
+    private function deleteProductImages($imageIds)
+    {
+        foreach ($imageIds as $imageId) {
+            $image = ProductImage::find($imageId);
+
+            if ($image) {
+                // 刪除實際圖片檔案
+                Storage::disk('public')->delete($image->image_path);
+
+                // 刪除資料庫記錄
+                $image->delete();
+            }
+        }
+    }
+
+    /**
+     * 更新圖片排序（根據拖曳排序的結果）
+     */
+    private function updateImageSortOrders($sortOrders)
+    {
+        foreach ($sortOrders as $imageId => $sortOrder) {
+            ProductImage::where('id', $imageId)
+                ->update(['sort_order' => $sortOrder]);
+        }
+    }
+
+    /**
+     * 根據應用類別獲取對應的產品品牌和產品類別
+     */
+    public function getCategoriesData(Request $request)
+    {
+        $applicationCategoryId = $request->input('application_category_id');
+        // 取得語系
+        $locale = app()->getLocale();
+
+        // 獲取對應的品牌列表，包含翻譯
+        $brands = \App\Models\Admin\BrandsInfo::with(['translations' => function($query) use ($locale) {
+                $query->where('locale', $locale);
+            }])
+            ->where('application_categories_info_id', $applicationCategoryId)
+            ->get()
+            ->map(function($brand) {
+                return [
+                    'id' => $brand->id,
+                    'name' => $brand->translate()->name ?? $brand->id // 如果翻譯不存在則使用ID
+                ];
+            })
+            ->pluck('name', 'id')
+            ->toArray();
+
+        // 獲取對應的產品類別列表，包含翻譯
+        $productCategories = \App\Models\Admin\ProductCategories::with(['translations' => function($query) use ($locale) {
+                $query->where('locale', $locale);
+            }])
+            ->where('application_categories_info_id', $applicationCategoryId)
+            ->get()
+            ->map(function($category) {
+                return [
+                    'id' => $category->id,
+                    'name' => $category->translate()->name ?? $category->id // 如果翻譯不存在則使用ID
+                ];
+            })
+            ->pluck('name', 'id')
+            ->toArray();
+
+        return response()->json([
+            'brands' => $brands,
+            'productCategories' => $productCategories
+        ]);
+    }
+}
