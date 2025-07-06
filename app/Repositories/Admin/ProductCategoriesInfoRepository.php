@@ -2,10 +2,10 @@
 
 namespace App\Repositories\Admin;
 
-use App\Models\Admin\BrandsInfo;
+use App\Models\Admin\ProductCategories as ProductCategoriesInfo;
 use App\Repositories\BaseRepository;
 
-class BrandsInfoRepository extends BaseRepository
+class ProductCategoriesInfoRepository extends BaseRepository
 {
     protected $fieldSearchable = [
         'application_categories_info_id',
@@ -20,7 +20,7 @@ class BrandsInfoRepository extends BaseRepository
 
     public function model(): string
     {
-        return BrandsInfo::class;
+        return ProductCategoriesInfo::class;
     }
 
     /**
@@ -58,5 +58,4 @@ class BrandsInfoRepository extends BaseRepository
         // 這樣可以確保即使沒有指定語系，也能取得所有翻譯資料
         return $this->model->with('translations')->find($id, $columns);
     }
-
 }
