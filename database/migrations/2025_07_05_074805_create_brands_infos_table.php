@@ -15,6 +15,11 @@ return new class extends Migration
     {
         Schema::create('brands_infos', function (Blueprint $table) {
             $table->id();
+            // foreign key to application_categories_infos
+            $table->foreignId('application_categories_info_id')
+                ->nullable()
+                ->constrained('application_categories_infos')
+                ->nullOnDelete();
             $table->string('slug')->unique()->nullable();
             $table->timestamps();
             $table->softDeletes();

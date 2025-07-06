@@ -7,13 +7,13 @@
                 <div class="col-sm-6">
                     <h1>應用類別資訊</h1>
                 </div>
-                <div class="col-sm-6">
+                {{-- <div class="col-sm-6">
                     <a class="btn btn-primary float-right"
                        href="{{ localized_route('admin.applicationCategoriesInfos.create') }}">
                         <i class="fas fa-plus"></i>
                         新增
                     </a>
-                </div>
+                </div> --}}
             </div>
         </div>
     </section>

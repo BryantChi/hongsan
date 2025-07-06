@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('application_categories_infos', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->nullable()->comment('應用類別名稱');
             $table->timestamps();
             $table->softDeletes();
         });

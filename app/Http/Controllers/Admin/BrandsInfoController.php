@@ -39,8 +39,12 @@ class BrandsInfoController extends AppBaseController
     {
         // 取得系統支援的語系
         $locales = config('translatable.locales');
+        // 取得應用類別資訊列表
+        $applicationCategoriesInfos = \App\Models\Admin\ApplicationCategoriesInfo::pluck('name', 'id')->toArray();
+        // 將應用類別資訊轉換為選擇列表格式
+        // $applicationCategoriesInfos = ['' => '請選擇'] + $applicationCategoriesInfos;
 
-        return view('admin.brands_infos.create', compact('locales'));
+        return view('admin.brands_infos.create', compact('locales', 'applicationCategoriesInfos'));
     }
 
     /**
@@ -51,9 +55,9 @@ class BrandsInfoController extends AppBaseController
         $input = $request->all();
 
         // 自動生成 slug (如果沒有提供)
-        if (empty($input['slug']) && isset($input[config('translatable.fallback_locale')]['name'])) {
-            $input['slug'] = Str::slug($input[config('translatable.fallback_locale')]['name']);
-        }
+        // if (empty($input['slug']) && isset($input[config('translatable.fallback_locale')]['name'])) {
+        $input['slug'] = Str::slug($input[config('translatable.fallback_locale')]['name']);
+        // }
 
         // 處理多語系資料
         $translationData = [];
@@ -112,7 +116,12 @@ class BrandsInfoController extends AppBaseController
         // 取得系統支援的語系
         $locales = config('translatable.locales');
 
-        return view('admin.brands_infos.edit')->with('brandsInfo', $brandsInfo)->with('locales', $locales);
+        // 取得應用類別資訊列表
+        $applicationCategoriesInfos = \App\Models\Admin\ApplicationCategoriesInfo::pluck('name', 'id')->toArray();
+        // 將應用類別資訊轉換為選擇列表格式
+        $applicationCategoriesInfos = ['' => '請選擇'] + $applicationCategoriesInfos;
+
+        return view('admin.brands_infos.edit')->with('brandsInfo', $brandsInfo)->with('locales', $locales)->with('applicationCategoriesInfos', $applicationCategoriesInfos);
     }
 
     /**

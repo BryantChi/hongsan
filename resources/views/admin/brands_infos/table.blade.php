@@ -5,6 +5,7 @@
             <tr>
                 <th>ID</th>
                 <th>名稱</th>
+                <th>應用類別</th>
                 <th>Slug</th>
                 <th>操作</th>
             </tr>
@@ -23,6 +24,20 @@
                                 <span class="col-auto text-center">{{ $translation->name }}</span>
                             </div>
                         @endforeach
+                    </td>
+                    <td>
+                        @php
+                            // 獲取應用類別名稱
+                            $brandsInfo->application_categories_info_id = $brandsInfo->application_categories_info_id ?? null;
+                            // 如果沒有設定 application_categories_info_id，則顯示 '無'
+                            if (is_null($brandsInfo->application_categories_info_id)) {
+                                $applicationCategoriesInfo = '無';
+                            } else {
+                                // 否則，獲取對應的應用類別名稱
+                                $applicationCategoriesInfo = \App\Models\Admin\ApplicationCategoriesInfo::where('id', $brandsInfo->application_categories_info_id)->first()->name;
+                            }
+                        @endphp
+                        {{ $applicationCategoriesInfo }}
                     </td>
                     <td>{{ $brandsInfo->slug }}</td>
                     <td  style="width: 120px">

@@ -36,21 +36,20 @@
     </a>
 </li>
 
-<li class="nav-item">
-    <a href="{{ localized_route('admin.applicationCategoriesInfos.index') }}" class="nav-link {{ Request::is('admin/applicationCategoriesInfos*') ? 'active' : '' }}">
-        <span class="mr-2 brand-image"><i class="fas fa-tags"></i></span>
-        <p>應用類別設定</p>
-    </a>
-</li>
-
 {{--產品相關，可收合，子選單縮排 --}}
-<li class="nav-item has-treeview {{ Request::is('admin/products*') || Request::is('admin/brandsInfos*') ? 'menu-open' : '' }}">
+<li class="nav-item has-treeview {{ Request::is('admin/products*') || Request::is('admin/applicationCategoriesInfos*') || Request::is('admin/brandsInfos*') ? 'menu-open' : '' }}">
     <a href="#" class="nav-link {{ Request::is('admin/products*') ? 'active' : '' }}">
         <span class="mr-2 brand-image"><i class="fas fa-box"></i></span>
         <p>產品管理<i class="right fas fa-angle-left"></i></p>
     </a>
     {{-- 子選單，縮排效果 --}}
     <ul class="nav nav-treeview">
+        <li class="nav-item">
+            <a href="{{ localized_route('admin.applicationCategoriesInfos.index') }}" class="nav-link {{ Request::is('admin/applicationCategoriesInfos*') ? 'active' : '' }}">
+                <span class="mr-2 brand-image"><i class="fas fa-tags"></i></span>
+                <p>應用類別設定</p>
+            </a>
+        </li>
         <li class="nav-item">
             <a href="{{ localized_route('admin.brandsInfos.index') }}" class="nav-link {{ Request::is('admin/brandsInfos*') ? 'active' : '' }}">
                 <span class="mr-2 brand-image"><i class="fas fa-tags"></i></span>

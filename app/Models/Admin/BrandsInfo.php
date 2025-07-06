@@ -13,6 +13,7 @@ class BrandsInfo extends Model implements TranslatableContract
     public $table = 'brands_infos';
 
     public $fillable = [
+        'application_categories_info_id',
         'slug'
     ];
 
@@ -23,11 +24,13 @@ class BrandsInfo extends Model implements TranslatableContract
 
     protected $casts = [
         'id' => 'integer',
+        'application_categories_info_id' => 'integer',
         'name' => 'string',
         'slug' => 'string'
     ];
 
     public static array $rules = [
+        'application_categories_info_id' => 'nullable',
         'slug' => 'nullable|string|max:255|unique:brands_infos,slug',
     ];
 
