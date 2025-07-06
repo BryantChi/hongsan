@@ -13,7 +13,7 @@
 <!-- Application Categories Info Id Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('application_categories_info_id', '應用類別:', ['class' => 'control-label font-weight-bold']) !!}
-    {!! Form::select('application_categories_info_id', $applicationCategoriesInfos, isset($productCategoriesInfo) ? $brandsInfo->application_categories_info_id : null, ['class' => 'form-control', 'placeholder' => '請選擇', 'required' => true]) !!}
+    {!! Form::select('application_categories_info_id', $applicationCategoriesInfos, isset($productCategoriesInfo) ? $productCategoriesInfo->application_categories_info_id : null, ['class' => 'form-control', 'placeholder' => '請選擇', 'required' => true]) !!}
     {{-- <small>※請選擇應用類別</small> --}}
 </div>
 
