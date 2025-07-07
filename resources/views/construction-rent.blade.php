@@ -31,7 +31,20 @@
                         <h5 class="text-18 fw-normal text-center bg-white py-2 wow fadeInUp" data-wow-delay="0.1s">{{__('choose_rental')}}</h5>
                     </div>
 
-                    <div class="col-lg-4">
+                    @foreach ($categoriesInfo as $category)
+                        <div class="col-lg-4">
+                            <a href="{{ localized_route('construction.rent.list', ['category' => $category->id]) }}">
+                                <div class="construction wow fadeInUp" data-wow-delay="0.1s">
+                                    <img src="{{ asset('uploads/' . $category->image) }}" class="img-fluid" alt="">
+                                    <div class="construction-mask d-flex justify-content-center align-items-center text-center">
+                                        <p>{{ $category->translateOrDefault(app()->getLocale())->name }}</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    @endforeach
+
+                    {{-- <div class="col-lg-4">
                         <a href="{{ localized_route('construction.rent.list') }}">
                             <div class="construction wow fadeInUp" data-wow-delay="0.1s">
                                 <img src="{{ asset('assets/images/03/rent_1.jpg') }}" class="img-fluid" alt="">
@@ -58,7 +71,7 @@
                                 <p>鏟裝車</p>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
 
 
                 </div>

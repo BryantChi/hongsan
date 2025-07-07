@@ -29,37 +29,43 @@
                     </a>
                 </div>
                 <div class="col-lg-3 col-6">
-                    <div class="category-item wow fadeInUp" data-wow-delay="0.3s">
-                        <div class="cg-header d-flex justify-content-between align-items-center py-lg-4 py-2 px-2">
-                            <h5 class="mb-0">{{__('applications')}}</h5>
-                            <img class="img-fluid" src="{{asset('assets/images/00-hp/icon_plus.png')}}" alt="液壓配件">
+                    <a href="{{ localized_route('attachments.categories') }}">
+                        <div class="category-item wow fadeInUp" data-wow-delay="0.3s">
+                            <div class="cg-header d-flex justify-content-between align-items-center py-lg-4 py-2 px-2">
+                                <h5 class="mb-0">{{__('applications')}}</h5>
+                                <img class="img-fluid" src="{{asset('assets/images/00-hp/icon_plus.png')}}" alt="液壓配件">
+                            </div>
+                            <div class="cg-body">
+                                <img src="{{asset('assets/images/00-hp/cate_pic2.jpg')}}" class="img-fluid" alt="液壓配件">
+                            </div>
                         </div>
-                        <div class="cg-body">
-                            <img src="{{asset('assets/images/00-hp/cate_pic2.jpg')}}" class="img-fluid" alt="液壓配件">
-                        </div>
-                    </div>
+                    </a>
                 </div>
                 <div class="col-lg-3 col-6">
-                    <div class="category-item wow fadeInUp" data-wow-delay="0.3s">
-                        <div class="cg-header d-flex justify-content-between align-items-center py-lg-4 py-2 px-2">
-                            <h5 class="mb-0">{{__('agriculture')}}</h5>
-                            <img class="img-fluid" src="{{asset('assets/images/00-hp/icon_plus.png')}}" alt="農業機械">
+                    <a href="{{ localized_route('agriculture') }}">
+                        <div class="category-item wow fadeInUp" data-wow-delay="0.3s">
+                            <div class="cg-header d-flex justify-content-between align-items-center py-lg-4 py-2 px-2">
+                                <h5 class="mb-0">{{__('agriculture')}}</h5>
+                                <img class="img-fluid" src="{{asset('assets/images/00-hp/icon_plus.png')}}" alt="農業機械">
+                            </div>
+                            <div class="cg-body">
+                                <img src="{{asset('assets/images/00-hp/cate_pic3.jpg')}}" class="img-fluid" alt="農業機械">
+                            </div>
                         </div>
-                        <div class="cg-body">
-                            <img src="{{asset('assets/images/00-hp/cate_pic3.jpg')}}" class="img-fluid" alt="農業機械">
-                        </div>
-                    </div>
+                    </a>
                 </div>
                 <div class="col-lg-3 col-6">
-                    <div class="category-item wow fadeInUp" data-wow-delay="0.5s">
-                        <div class="cg-header d-flex justify-content-between align-items-center py-lg-4 py-2 px-2">
-                            <h5 class="mb-0">{{__('recycling')}}</h5>
-                            <img class="img-fluid" src="{{asset('assets/images/00-hp/icon_plus.png')}}" alt="環保能源">
+                    <a href="{{ localized_route('recycling') }}">
+                        <div class="category-item wow fadeInUp" data-wow-delay="0.5s">
+                            <div class="cg-header d-flex justify-content-between align-items-center py-lg-4 py-2 px-2">
+                                <h5 class="mb-0">{{__('recycling')}}</h5>
+                                <img class="img-fluid" src="{{asset('assets/images/00-hp/icon_plus.png')}}" alt="環保能源">
+                            </div>
+                            <div class="cg-body">
+                                <img src="{{asset('assets/images/00-hp/cate_pic4.jpg')}}" class="img-fluid" alt="環保能源">
+                            </div>
                         </div>
-                        <div class="cg-body">
-                            <img src="{{asset('assets/images/00-hp/cate_pic4.jpg')}}" class="img-fluid" alt="環保能源">
-                        </div>
-                    </div>
+                    </a>
                 </div>
 
 

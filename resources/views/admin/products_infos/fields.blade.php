@@ -6,6 +6,13 @@
 </div>
 <div class="clearfix w-100"></div>
 
+<!-- Purchase_Lease Field -->
+<div class="form-group col-sm-6" id="purchase_lease_container" style="display:none;">
+    {!! Form::label('purchase_lease', '產品購買/租賃:') !!}
+    {!! Form::select('purchase_lease', ['' => '請選擇', 'purchase' => '購買', 'lease' => '租賃'], null, ['class' => 'form-control', 'placeholder' => '請選擇產品購買/租賃方式', 'required' => true]) !!}
+</div>
+<div class="clearfix w-100"></div>
+
 <!-- Brands Info Id Field -->
 <div class="form-group col-sm-4">
     {!! Form::label('brands_info_id', '產品品牌:') !!}
@@ -437,6 +444,16 @@
             $('#application_categories_info_id').on('change', function() {
                 var applicationCategoryId = $(this).val();
 
+                // 控制 purchase_lease 欄位顯示和必填狀態
+                if (applicationCategoryId == 1) { // 1為建設機械
+                    $('#purchase_lease_container').show();
+                    $('#purchase_lease_field').prop('required', true);
+                } else {
+                    $('#purchase_lease_container').hide();
+                    $('#purchase_lease_field').prop('required', false);
+                    $('#purchase_lease_field').val(''); // 清空選擇的值
+                }
+
                 // 清空產品品牌和產品類別下拉選單
                 $('#brands_info_id').empty().append('<option value="">請選擇</option>');
                 $('#product_categories_id').empty().append('<option value="">請選擇</option>');
@@ -492,6 +509,18 @@
             if ($('#application_categories_info_id').val()) {
                 $('#application_categories_info_id').trigger('change');
             }
+
+            // 頁面載入時初始化購買/租賃欄位的狀態
+            $(document).ready(function() {
+                // 檢查並設置 purchase_lease 欄位的初始顯示狀態
+                if ($('#application_categories_info_id').val() == 1) {
+                    $('#purchase_lease_container').show();
+                    $('#purchase_lease_field').prop('required', true);
+                } else {
+                    $('#purchase_lease_container').hide();
+                    $('#purchase_lease_field').prop('required', false);
+                }
+            });
         });
     </script>
 @endpush

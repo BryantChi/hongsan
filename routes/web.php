@@ -1,14 +1,18 @@
 <?php
 
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\AgricultureController;
+use App\Http\Controllers\AttachmentsController;
 use App\Http\Controllers\CatetypeController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\RecyclingController;
 use App\Repositories\Admin\SeoSettingRepository;
 use App\Services\DatabaseTranslationLoader;
+use Illuminate\Mail\Attachment;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Log;
@@ -87,6 +91,16 @@ Route::group([
     Route::get('/construction-buy', [CatetypeController::class, 'constructionBuy'])->name('construction.buy');
     Route::get('/construction-buy-list', [CatetypeController::class, 'constructionBuyList'])->name('construction.buy.list');
 
+    Route::get('/agriculture', [AgricultureController::class, 'index'])->name('agriculture');
+    Route::get('/agriculture/{id}', [AgricultureController::class, 'productIntro'])->name('agriculture.detail');
+
+    Route::get('/recycling', [RecyclingController::class, 'index'])->name('recycling');
+    Route::get('/recycling/{id}', [RecyclingController::class, 'productIntro'])->name('recycling.detail');
+
+    Route::get('/attachments-categories', [AttachmentsController::class, 'pgCategory'])->name('attachments.categories');
+    Route::get('/attachments', [AttachmentsController::class, 'index'])->name('attachments');
+    Route::get('/attachments/{id}', [AttachmentsController::class, 'productIntro'])->name('attachments.detail');
+
     Route::get('/news', [NewsController::class, 'index'])->name('news');
     Route::get('/news/{id}', [NewsController::class, 'detail'])->name('news.detail');
     Route::get('/news-detail-mock', function () {
@@ -96,6 +110,8 @@ Route::group([
 
 
     Route::get('/products', [ProductsController::class, 'index'])->name('products');
+    Route::get('/products/{id}', [ProductsController::class, 'productIntro'])->name('products.detail');
+    // Route::get('/products-details', function () { return view('product-intro'); })->name('products.detail.mock');
 
     Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 
@@ -154,60 +170,3 @@ Route::prefix('admin')->group(function () {
         Route::any('adminUsers/destroy/{id}', [\App\Http\Controllers\Admin\AdminAccountController::class, 'destroy'])->name('admin.adminUsers.destroy');
     });
 });
-
-
-
-// Route::resource('admin/translations-infos', App\Http\Controllers\Admin\TranslationsInfoController::class)
-//     ->names([
-//         'index' => 'admin.translationsInfos.index',
-//         'store' => 'admin.translationsInfos.store',
-//         'show' => 'admin.translationsInfos.show',
-//         'update' => 'admin.translationsInfos.update',
-//         'destroy' => 'admin.translationsInfos.destroy',
-//         'create' => 'admin.translationsInfos.create',
-//         'edit' => 'admin.translationsInfos.edit'
-//     ]);
-
-// Route::resource('admin/brands-infos', App\Http\Controllers\Admin\BrandsInfoController::class)
-//     ->names([
-//         'index' => 'admin.brandsInfos.index',
-//         'store' => 'admin.brandsInfos.store',
-//         'show' => 'admin.brandsInfos.show',
-//         'update' => 'admin.brandsInfos.update',
-//         'destroy' => 'admin.brandsInfos.destroy',
-//         'create' => 'admin.brandsInfos.create',
-//         'edit' => 'admin.brandsInfos.edit'
-//     ]);
-
-// Route::resource('admin/application-categories-infos', App\Http\Controllers\Admin\ApplicationCategoriesInfoController::class)
-//     ->names([
-//         'index' => 'admin.applicationCategoriesInfos.index',
-//         'store' => 'admin.applicationCategoriesInfos.store',
-//         'show' => 'admin.applicationCategoriesInfos.show',
-//         'update' => 'admin.applicationCategoriesInfos.update',
-//         'destroy' => 'admin.applicationCategoriesInfos.destroy',
-//         'create' => 'admin.applicationCategoriesInfos.create',
-//         'edit' => 'admin.applicationCategoriesInfos.edit'
-//     ]);
-
-// Route::resource('admin/product-categories-infos', App\Http\Controllers\Admin\ProductCategoriesInfoController::class)
-//     ->names([
-//         'index' => 'admin.productCategoriesInfos.index',
-//         'store' => 'admin.productCategoriesInfos.store',
-//         'show' => 'admin.productCategoriesInfos.show',
-//         'update' => 'admin.productCategoriesInfos.update',
-//         'destroy' => 'admin.productCategoriesInfos.destroy',
-//         'create' => 'admin.productCategoriesInfos.create',
-//         'edit' => 'admin.productCategoriesInfos.edit'
-//     ]);
-
-// Route::resource('admin/products-infos', App\Http\Controllers\Admin\ProductsInfoController::class)
-//     ->names([
-//         'index' => 'admin.productsInfos.index',
-//         'store' => 'admin.productsInfos.store',
-//         'show' => 'admin.productsInfos.show',
-//         'update' => 'admin.productsInfos.update',
-//         'destroy' => 'admin.productsInfos.destroy',
-//         'create' => 'admin.productsInfos.create',
-//         'edit' => 'admin.productsInfos.edit'
-//     ]);

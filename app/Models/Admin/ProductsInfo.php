@@ -17,6 +17,7 @@ class ProductsInfo extends Model implements TranslatableContract
         'application_categories_info_id',
         'brands_info_id',
         'product_categories_id',
+        'purchase_lease', // 新增購買/租賃欄位
         'version',
         'quick_bucket_changer',
         'operating_converter'
@@ -35,6 +36,7 @@ class ProductsInfo extends Model implements TranslatableContract
         'application_categories_info_id' => 'integer',
         'brands_info_id' => 'integer',
         'product_categories_id' => 'integer',
+        'purchase_lease' => 'string', // 購買/租賃欄位
         'version' => 'string',
         'quick_bucket_changer' => 'boolean',
         'operating_converter' => 'boolean',
@@ -44,6 +46,7 @@ class ProductsInfo extends Model implements TranslatableContract
         'application_categories_info_id' => 'required|exists:application_categories_infos,id',
         'brands_info_id' => 'required|exists:brands_infos,id',
         'product_categories_id' => 'required|exists:product_categories,id',
+        'purchase_lease' => 'nullable|string|max:255',
         'version' => 'nullable|string|max:255',
     ];
 

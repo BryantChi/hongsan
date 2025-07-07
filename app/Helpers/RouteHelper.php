@@ -19,6 +19,17 @@ if (!function_exists('localized_route')) {
         // 添加當前語系作為參數
         $parameters['locale'] = app()->getLocale();
 
+        // // 獲取目前所有查詢參數
+        // $queryParams = request()->query();
+
+        // // 合併路徑參數和查詢參數 (但不覆蓋已明確設定的參數)
+        // $mergedParameters = array_merge($queryParams, $parameters);
+
+        // // 如果沒有明確指定語系，才設定為當前語系
+        // if (!isset($mergedParameters['locale'])) {
+        //     $mergedParameters['locale'] = app()->getLocale();
+        // }
+
         return route($name, $parameters, $absolute);
     }
 }

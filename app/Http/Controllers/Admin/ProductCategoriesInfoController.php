@@ -59,6 +59,7 @@ class ProductCategoriesInfoController extends AppBaseController
         // }
 
         // 處理圖片上傳
+        $input['icon'] = $this->processImage($request->file('icon'), 'product_categories_icon');
         $input['image'] = $this->processImage($request->file('image'), 'product_categories_image');
 
         // 處理多語系資料
@@ -149,6 +150,7 @@ class ProductCategoriesInfoController extends AppBaseController
         // }
 
         // 處理圖片上傳
+        $input['icon'] = $this->handleImageUpload($request->file('icon'), $productCategoriesInfo->icon, 'product_categories_icon');
         $input['image'] = $this->handleImageUpload($request->file('image'), $productCategoriesInfo->image, 'product_categories_image');
 
         // 處理多語系資料

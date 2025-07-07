@@ -964,6 +964,13 @@ p {
     transform: translate(3px, 3px);
 }
 
+.construction img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
 .construction-mask {
     position: absolute;
     top: 0;
@@ -977,6 +984,19 @@ p {
 
 .construction-mask:hover {
     background-color: #5574aa;
+}
+
+.construction-mask .icon-text-all {
+    color: #fff !important;
+    font-size: 2.5rem;
+    font-weight: 900;
+    text-align: center;
+}
+
+.construction-mask img {
+    width: 120px;
+    height: auto;
+    margin-bottom: 10px;
 }
 
 .construction-mask p {
@@ -1153,4 +1173,87 @@ p {
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
+}
+
+.sc-product .swiper {
+    width: 100%;
+    height: 100%;
+}
+
+.sc-product .swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sc-product .swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.sc-product .swiper {
+    width: 100%;
+    height: 300px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.sc-product .swiper-slide {
+    background-size: cover;
+    background-position: center;
+}
+
+.sc-product .mySwiper2 {
+    height: 80%;
+    width: 100%;
+}
+
+.sc-product .mySwiper {
+    height: 20%;
+    box-sizing: border-box;
+    padding: 10px 0;
+}
+
+.sc-product .mySwiper .swiper-slide {
+    width: 25%;
+    height: 100%;
+    opacity: 0.4;
+    margin: 0 !important;
+}
+
+.sc-product .mySwiper .swiper-slide-thumb-active {
+    opacity: 1;
+}
+
+.sc-product .swiper-slide img {
+    display: block;
+    width: 100% !important;
+    height: 100%;
+    object-fit: cover;
+}
+
+.product-info-content {
+    border: 1px solid rgba(191, 201, 211, 1);
+}
+
+.product-info-content p:not(:last-child) {
+    border-bottom: 1px dashed rgba(191, 201, 211, 1);
+}
+
+.text-44 {
+    color: #444444 !important;
+}
+
+.prod-intro p {
+    color: #444444 !important;
+    line-height: 1.65rem;
+}
+
+.prod-intro-header {
+    border-bottom: 1px solid rgba(180,180,180,1);
 }

@@ -14,7 +14,9 @@ class ProductCategories extends Model implements TranslatableContract
 
     public $fillable = [
         'application_categories_info_id',
-        'slug'
+        'slug',
+        'icon',
+        'image',
     ];
 
     // 可翻譯的欄位
@@ -27,12 +29,14 @@ class ProductCategories extends Model implements TranslatableContract
         'application_categories_info_id' => 'integer',
         'name' => 'string',
         'slug' => 'string',
+        'icon' => 'json',
         'image' => 'json',
     ];
 
     public static array $rules = [
         'application_categories_info_id' => 'nullable',
         'slug' => 'nullable|string|max:255|unique:product_categories,slug',
+        'icon' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:512',
         'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:1024',
     ];
 

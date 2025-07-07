@@ -31,7 +31,20 @@
                         <h5 class="text-18 fw-normal text-center bg-white py-2 wow fadeInUp" data-wow-delay="0.1s">{{__('sale_choose_service')}}</h5>
                     </div>
 
-                    <div class="col-lg-6">
+                    @foreach ($brandsInfo as $brands)
+                        <div class="col-lg-6">
+                            <a href="{{ localized_route('construction.buy.list', ['brand' => $brands->id]) }}">
+                                <div class="construction wow fadeInUp" data-wow-delay="0.1s">
+                                    <img src="{{ asset('uploads/' . $brands->image) }}" class="img-fluid" alt="">
+                                    <div class="construction-mask d-flex justify-content-center align-items-center text-center">
+                                        <p>{{ $brands->translateOrDefault(app()->getLocale())->name }}</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    @endforeach
+
+                    {{-- <div class="col-lg-6">
                         <a href="{{ localized_route('construction.buy.list') }}">
                             <div class="construction wow fadeInUp" data-wow-delay="0.1s">
                                 <img src="{{ asset('assets/images/03/buy_1.jpg') }}" class="img-fluid" alt="">
@@ -67,7 +80,7 @@
                                 <p>日本外匯</p>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
 
 
                 </div>

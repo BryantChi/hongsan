@@ -18,6 +18,23 @@
 </div>
 <div class="clearfix w-100"></div>
 
+<!-- Icon Field -->
+<div class="form-group col-sm-6">
+    {!! Form::label('icon', '分類圖示:') !!}
+    <div class="custom-file">
+        <input type="file" class="custom-file-input" id="icon" name="icon" accept="image/*">
+        <label class="custom-file-label" for="icon">Choose file</label>
+    </div>
+    <div class="img-preview-icon mt-2">
+        @if ($productCategoriesInfo->icon ?? null)
+            <p for="">預覽</p>
+            <img src="{{ url('') . '/uploads/' . $productCategoriesInfo->icon }}"
+                style="max-width: 200px; max-height: 200px;">
+        @endif
+    </div>
+</div>
+<div class="clearfix w-100"></div>
+
 <!-- Cover Front Image Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('image', '圖片:') !!}
@@ -69,6 +86,17 @@
             fileReader.onload = function(e) {
                 let previewHtml = `<p for="">預覽</p><img src="${e.target.result}" style="max-width: 200px; max-height: 200px;">`;
                 $(fileInput).closest('.form-group').find('.img-preview-cover').html(previewHtml);
+            };
+
+            fileReader.readAsDataURL(fileInput.files[0]);
+        });
+        $(document).on('change', '#icon', function () {
+            let fileInput = this;
+            let fileReader = new FileReader();
+
+            fileReader.onload = function(e) {
+                let previewHtml = `<p for="">預覽</p><img src="${e.target.result}" style="max-width: 200px; max-height: 200px;">`;
+                $(fileInput).closest('.form-group').find('.img-preview-icon').html(previewHtml);
             };
 
             fileReader.readAsDataURL(fileInput.files[0]);

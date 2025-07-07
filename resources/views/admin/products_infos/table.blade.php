@@ -43,6 +43,10 @@
                             } else {
                                 // 否則，獲取對應的應用類別名稱
                                 $applicationCategoriesInfo = \App\Models\Admin\ApplicationCategoriesInfo::where('id', $productsInfo->application_categories_info_id)->first()->name;
+                                if ($productsInfo->application_categories_info_id == 1) {
+                                    // 如果是建設機械，則顯示購買/租賃選項
+                                    $applicationCategoriesInfo .= ' - ' . ($productsInfo->purchase_lease == 'purchase' ? '購買' : ($productsInfo->purchase_lease == 'lease' ? '租賃' : '無'));
+                                }
                             }
                         @endphp
                         {{ $applicationCategoriesInfo }}
