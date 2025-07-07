@@ -23,12 +23,12 @@
                     <div class="col-12">
                         <div class="news-content px-3 py-4">
                             <div class="news-header text-center wow fadeInUp" data-wow-delay="0.1s">
-                                <h4 class="text-main">{{ $news->title ?? '案例分享—台北水下工程案' }}</h4>
-                                <p class="text-sub fw-normal">2023.06.21</p>
+                                <h4 class="text-main">{{ $news->translate(App::getLocale())->title ?? '' }}</h4>
+                                <p class="text-sub fw-normal">{{ \Carbon\Carbon::parse($news->created_at)->format('Y.m.d') }}</p>
                             </div>
 
                             <div class="news-body py-5 wow fadeInUp" data-wow-delay="0.1s">
-                                {!!  $news->content ?? '' !!}
+                                {!!  $news->translate(App::getLocale())->content ?? '' !!}
 
                             </div>
                         </div>

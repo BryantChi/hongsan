@@ -103,10 +103,10 @@ Route::group([
 
     Route::get('/news', [NewsController::class, 'index'])->name('news');
     Route::get('/news/{id}', [NewsController::class, 'detail'])->name('news.detail');
-    Route::get('/news-detail-mock', function () {
-        $seoInfo = SeoSettingRepository::getInfo('/news');
-        return view('news-details')->with('seoInfo', $seoInfo);
-    })->name('news.detail.mock');
+    // Route::get('/news-detail-mock', function () {
+    //     $seoInfo = SeoSettingRepository::getInfo('/news');
+    //     return view('news-details')->with('seoInfo', $seoInfo);
+    // })->name('news.detail.mock');
 
 
     Route::get('/products', [ProductsController::class, 'index'])->name('products');
