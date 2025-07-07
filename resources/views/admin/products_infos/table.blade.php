@@ -1,5 +1,5 @@
 <div class="card-body p-0">
-    <div class="table-responsive">
+    <div class="table-responsive p-3">
         <table class="table" id="products-infos-table">
             <thead>
             <tr>
@@ -25,9 +25,9 @@
                         {{-- 獲取目前語系的名稱 --}}
                         @foreach($productsInfo->translations as $translation)
                             {{-- 表格化，美化要對齊 --}}
-                            <div class="d-flex flex-lg-row flex-column justify-content-start align-items-start mb-3">
+                            <div class="d-flex flex-lg-row flex-column justify-content-start align-items-start mb-1 pb-2 {{ $loop->last ? 'border-bottom-0' : 'border-bottom' }}">
                                 <span class="col-md-6 mr-2 font-weight-bold">{{ strtoupper($translation->locale) === 'ZH_TW' ? '中文' : 'English' }}:</span>
-                                <span class="col-auto text-center">{{ $translation->name }}</span>
+                                <span class="col-auto text-start">{{ $translation->name }}</span>
                             </div>
                         @endforeach
                     </td>
@@ -100,9 +100,9 @@
                         {{-- 獲取目前語系的名稱 --}}
                         @foreach($productsInfo->translations as $translation)
                             {{-- 表格化，美化要對齊 --}}
-                            <div class="d-flex flex-lg-row flex-column justify-content-start align-items-start mb-3">
+                            <div class="d-flex flex-lg-row flex-column justify-content-start align-items-start mb-1 pb-2 {{ $loop->last ? 'border-bottom-0' : 'border-bottom' }}">
                                 <span class="col-md-6 mr-2 font-weight-bold">{{ strtoupper($translation->locale) === 'ZH_TW' ? '中文' : 'English' }}:</span>
-                                <span class="col-auto text-center">{{ $translation->piping }}</span>
+                                <span class="col-auto text-start">{{ $translation->piping }}</span>
                             </div>
                         @endforeach
                     </td>
@@ -111,9 +111,9 @@
                         {{-- 獲取目前語系的名稱 --}}
                         @foreach($productsInfo->translations as $translation)
                             {{-- 表格化，美化要對齊 --}}
-                            <div class="d-flex flex-lg-row flex-column justify-content-start align-items-start mb-3">
+                            <div class="d-flex flex-lg-row flex-column justify-content-start align-items-start mb-1 pb-2 {{ $loop->last ? 'border-bottom-0' : 'border-bottom' }}">
                                 <span class="col-md-6 mr-2 font-weight-bold">{{ strtoupper($translation->locale) === 'ZH_TW' ? '中文' : 'English' }}:</span>
-                                <span class="col-auto text-center">{{ $translation->glue_block }}</span>
+                                <span class="col-auto text-start">{{ $translation->glue_block }}</span>
                             </div>
                         @endforeach
                     </td>
@@ -138,9 +138,9 @@
         </table>
     </div>
 
-    <div class="card-footer clearfix">
+    {{-- <div class="card-footer clearfix">
         <div class="float-right">
             @include('adminlte-templates::common.paginate', ['records' => $productsInfos])
         </div>
-    </div>
+    </div> --}}
 </div>

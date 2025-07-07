@@ -9,13 +9,13 @@
 <!-- Brands Info Id Field -->
 <div class="form-group col-sm-4">
     {!! Form::label('brands_info_id', '產品品牌:') !!}
-    {!! Form::select('brands_info_id', [], null, ['class' => 'form-control', 'placeholder' => '請先選擇應用類別', 'id' => 'brands_info_id']) !!}
+    {!! Form::select('brands_info_id', [], null, ['class' => 'form-control', 'placeholder' => '請先選擇應用類別', 'id' => 'brands_info_id', 'required' => true]) !!}
 </div>
 
 <!-- Product Categories Id Field -->
 <div class="form-group col-sm-4">
     {!! Form::label('product_categories_id', '產品類別:') !!}
-    {!! Form::select('product_categories_id', [], null, ['class' => 'form-control', 'placeholder' => '請先選擇應用類別', 'id' => 'product_categories_id']) !!}
+    {!! Form::select('product_categories_id', [], null, ['class' => 'form-control', 'placeholder' => '請先選擇應用類別', 'id' => 'product_categories_id', 'required' => true]) !!}
 </div>
 
 <!-- Version Field -->
@@ -64,7 +64,7 @@
                     <!-- Name Field -->
                     <div class="form-group col-sm-6">
                         {!! Form::label($locale.'[name]', '產品名稱('.strtoupper($locale).'):') !!}
-                        {!! Form::text($locale.'[name]', isset($productsInfo) ? $productsInfo->translate($locale)->name : null, ['class' => 'form-control']) !!}
+                        {!! Form::text($locale.'[name]', isset($productsInfo) ? $productsInfo->translate($locale)->name : null, ['class' => 'form-control', 'required' => true]) !!}
                     </div>
 
                     <!-- Piping Field -->
