@@ -49,7 +49,7 @@
                             <div class="category-body">
                                 <ul class="list-unstyled category-list">
                                     @if (!empty($categoriesInfo))
-                                        @foreach ($categoriesInfo as $category)
+                                        @foreach ($categoriesInfo ?? [] as $category)
                                             <li class="wow fadeInUp" data-wow-delay="0.1s">
                                                 <a href="{{ localized_route('attachments', ['category' => $category->id, 'brand' => request('brand')]) }}" class="text-18">{{ $category->translateOrDefault(app()->getLocale())->name }}</a>
                                             </li>
@@ -68,7 +68,7 @@
                                 <ul class="list-unstyled brand-list">
                                     {{-- 確認是否有品牌資訊 --}}
                                     @if (!empty($brandsInfo))
-                                        @foreach ($brandsInfo as $brand)
+                                        @foreach ($brandsInfo ?? [] as $brand)
                                             <li class="wow fadeInUp" data-wow-delay="0.1s">
                                                 <a href="{{ localized_route('attachments', ['brand' => $brand->id, 'category' => request('category')]) }}" class="text-18">{{ $brand->translateOrDefault(app()->getLocale())->name }}</a>
                                             </li>
@@ -82,7 +82,7 @@
                     <div class="{{ $brandsInfo->isEmpty() && $categoriesInfo->isEmpty() ? 'col-12' : 'col-lg-10' }}">
                         <div class="row g-3">
 
-                            @foreach ($attachmentsList as $attachment)
+                            @foreach ($attachmentsList ?? [] as $attachment)
                                 <div class="col-lg-3 col-6">
                                     <a href="{{ localized_route('attachments.detail', ['id' => $attachment->id]) }}">
                                         <div class="hot-item-box animate-hover-15">

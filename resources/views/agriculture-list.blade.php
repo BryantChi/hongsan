@@ -82,7 +82,7 @@
                     <div class="{{ $brandsInfo->isEmpty() ? 'col-12' : 'col-lg-10' }}">
                         <div class="row g-3">
 
-                            @foreach ($agricultureList as $agriculture)
+                            @foreach ($agricultureList ?? [] as $agriculture)
                                 <div class="col-lg-3 col-6">
                                     <a href="{{ localized_route('agriculture.detail', ['id' => $agriculture->id]) }}">
                                         <div class="hot-item-box animate-hover-15">

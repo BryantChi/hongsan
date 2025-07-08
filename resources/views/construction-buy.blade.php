@@ -31,7 +31,7 @@
                         <h5 class="text-18 fw-normal text-center bg-white py-2 wow fadeInUp" data-wow-delay="0.1s">{{__('sale_choose_service')}}</h5>
                     </div>
 
-                    @foreach ($brandsInfo as $brands)
+                    @foreach ($brandsInfo ?? [] as $brands)
                         <div class="col-lg-6">
                             <a href="{{ localized_route('construction.buy.list', ['brand' => $brands->id]) }}">
                                 <div class="construction wow fadeInUp" data-wow-delay="0.1s">

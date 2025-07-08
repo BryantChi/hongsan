@@ -34,7 +34,7 @@
                             <div class="hp-new-box p-2 d-flex flex-lg-row flex-column wow fadeInUp" data-wow-delay="0.1s">
                                 <div class="hp-new-img col-lg-5 align-self-center">
                                     <a href="{{ localized_route('news.detail', ['id' => $news->id]) }}">
-                                        <img src="{{ asset('assets/images/00-hp/n_pic.jpg') }}" class="img-fluid"
+                                        <img src="{{ asset('uploads/'. $news->cover_front_image) }}" class="img-fluid"
                                             alt="">
                                     </a>
                                 </div>

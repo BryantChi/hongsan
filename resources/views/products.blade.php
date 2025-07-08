@@ -24,7 +24,7 @@
                         </p>
                     </div>
 
-                    @foreach ($products as $product)
+                    @foreach ($products ?? [] as $product)
                         <div class="col-lg-3 col-6">
                             <a href="{{ localized_route('products.detail', ['id' => $product->id]) }}">
                                 <div class="hot-item-box animate-hover-15">

@@ -46,7 +46,7 @@
                             <div class="category-body">
                                 <ul class="list-unstyled category-list">
                                     @if (!empty($categoriesInfo))
-                                        @foreach ($categoriesInfo as $category)
+                                        @foreach ($categoriesInfo ?? [] as $category)
                                             <li class="wow fadeInUp" data-wow-delay="0.1s">
                                                 <a href="{{ localized_route('attachments', ['category' => $category->id, 'brand' => request('brand')]) }}" class="text-18">{{ $category->translateOrDefault(app()->getLocale())->name }}</a>
                                             </li>
@@ -60,7 +60,7 @@
                     <div class="{{ $categoriesInfo->isEmpty() ? 'col-12' : 'col-lg-10' }}">
                         <div class="row g-3">
 
-                            @foreach ($machineryList as $machinery)
+                            @foreach ($machineryList ?? [] as $machinery)
                                 <div class="col-lg-3 col-6">
                                     <div class="hot-item-box animate-hover-15">
                                         @php

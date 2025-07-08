@@ -85,7 +85,7 @@
                     <div class="col-12">
                         <div class="row g-3">
 
-                            @foreach ($machineryList as $machinery)
+                            @foreach ($machineryList ?? [] as $machinery)
                                 <div class="col-lg-3 col-6">
                                     <div class="hot-item-box animate-hover-15">
                                         @php

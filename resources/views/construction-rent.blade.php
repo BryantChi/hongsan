@@ -31,7 +31,7 @@
                         <h5 class="text-18 fw-normal text-center bg-white py-2 wow fadeInUp" data-wow-delay="0.1s">{{__('choose_rental')}}</h5>
                     </div>
 
-                    @foreach ($categoriesInfo as $category)
+                    @foreach ($categoriesInfo ?? [] as $category)
                         <div class="col-lg-4">
                             <a href="{{ localized_route('construction.rent.list', ['category' => $category->id]) }}">
                                 <div class="construction wow fadeInUp" data-wow-delay="0.1s">

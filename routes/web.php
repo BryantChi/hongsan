@@ -157,6 +157,7 @@ Route::prefix('admin')->group(function () {
         Route::resource('brandsInfos', \App\Http\Controllers\Admin\BrandsInfoController::class, ["as" => 'admin']);
         Route::resource('productCategoriesInfos', \App\Http\Controllers\Admin\ProductCategoriesInfoController::class, ["as" => 'admin']);
         Route::resource('productsInfos', \App\Http\Controllers\Admin\ProductsInfoController::class, ["as" => 'admin']);
+        Route::resource('linkInfos', \App\Http\Controllers\Admin\LinkInfoController::class, ["as" => 'admin']);
         Route::resource('contactInfos', \App\Http\Controllers\Admin\ContactInfoController::class, ["as" => 'admin']);
         Route::resource('catalogInfos', \App\Http\Controllers\Admin\CatalogInfoController::class, ["as" => 'admin']);
 
@@ -176,25 +177,3 @@ Route::prefix('admin')->group(function () {
         Route::any('adminUsers/destroy/{id}', [\App\Http\Controllers\Admin\AdminAccountController::class, 'destroy'])->name('admin.adminUsers.destroy');
     });
 });
-
-// Route::resource('admin/contact-infos', App\Http\Controllers\Admin\ContactInfoController::class)
-//     ->names([
-//         'index' => 'admin.contactInfos.index',
-//         'store' => 'admin.contactInfos.store',
-//         'show' => 'admin.contactInfos.show',
-//         'update' => 'admin.contactInfos.update',
-//         'destroy' => 'admin.contactInfos.destroy',
-//         'create' => 'admin.contactInfos.create',
-//         'edit' => 'admin.contactInfos.edit'
-//     ]);
-
-// Route::resource('admin/catalog-infos', App\Http\Controllers\Admin\CatalogInfoController::class)
-//     ->names([
-//         'index' => 'admin.catalogInfos.index',
-//         'store' => 'admin.catalogInfos.store',
-//         'show' => 'admin.catalogInfos.show',
-//         'update' => 'admin.catalogInfos.update',
-//         'destroy' => 'admin.catalogInfos.destroy',
-//         'create' => 'admin.catalogInfos.create',
-//         'edit' => 'admin.catalogInfos.edit'
-//     ]);

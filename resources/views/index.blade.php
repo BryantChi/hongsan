@@ -120,38 +120,66 @@
 
             <div class="container mb-4 px-lg-auto px-3">
                 <div class="row g-4">
-                    <div class="col-lg-3 col-6">
-                        <div class="hot-item-box animate-hover-15">
-                            <img src="{{ asset('assets/images/00-hp/hot_pic.jpg') }}" class="img-fluid" alt="">
-                            <div class="hot-item-content bg-main text-center py-lg-3 py-2 px-3">
-                                <h5 class="text-white">熱銷產品</h5>
+                    @foreach ($products ?? [] as $product)
+                        <div class="col-lg-3 col-6">
+                            <a href="{{ localized_route('products.detail', ['id' => $product->id]) }}">
+                                <div class="hot-item-box animate-hover-15">
+                                    @php
+                                        $product_img = \App\Models\Admin\ProductImage::where('product_id', $product->id)
+                                            ->orderBy('sort_order', 'asc')
+                                            ->first();
+                                        $prod_img = $product_img->image_path ?? '';
+                                    @endphp
+                                    <img src="{{ asset('uploads/' . $prod_img) }}" class="img-fluid">
+                                    {{-- <img src="{{ asset('assets/images/00-hp/hot_pic.jpg') }}" class="img-fluid"
+                                        alt=""> --}}
+                                    <div class="hot-item-content bg-main text-center py-lg-3 py-2 px-3">
+                                        <h5 class="text-white">
+                                            {{ $product->translateOrDefault(app()->getLocale())->name }}
+                                        </h5>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    @endforeach
+
+                    @if (($products ?? [])->isEmpty())
+                        <div class="col-lg-3 col-6">
+                            <div class="hot-item-box animate-hover-15">
+                                <img src="{{ asset('assets/images/00-hp/hot_pic.jpg') }}" class="img-fluid" alt="">
+                                <div class="hot-item-content bg-main text-center py-lg-3 py-2 px-3">
+                                    <h5 class="text-white">熱銷產品</h5>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-lg-3 col-6">
-                        <div class="hot-item-box animate-hover-15">
-                            <img src="{{ asset('assets/images/00-hp/hot_pic.jpg') }}" class="img-fluid" alt="">
-                            <div class="hot-item-content bg-main text-center py-lg-3 py-2 px-3">
-                                <h5 class="text-white">熱銷產品</h5>
+                        <div class="col-lg-3 col-6">
+                            <div class="hot-item-box animate-hover-15">
+                                <img src="{{ asset('assets/images/00-hp/hot_pic.jpg') }}" class="img-fluid"
+                                    alt="">
+                                <div class="hot-item-content bg-main text-center py-lg-3 py-2 px-3">
+                                    <h5 class="text-white">熱銷產品</h5>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-lg-3 col-6">
-                        <div class="hot-item-box animate-hover-15">
-                            <img src="{{ asset('assets/images/00-hp/hot_pic.jpg') }}" class="img-fluid" alt="">
-                            <div class="hot-item-content bg-main text-center py-lg-3 py-2 px-3">
-                                <h5 class="text-white">熱銷產品</h5>
+                        <div class="col-lg-3 col-6">
+                            <div class="hot-item-box animate-hover-15">
+                                <img src="{{ asset('assets/images/00-hp/hot_pic.jpg') }}" class="img-fluid"
+                                    alt="">
+                                <div class="hot-item-content bg-main text-center py-lg-3 py-2 px-3">
+                                    <h5 class="text-white">熱銷產品</h5>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-lg-3 col-6">
-                        <div class="hot-item-box animate-hover-15">
-                            <img src="{{ asset('assets/images/00-hp/hot_pic.jpg') }}" class="img-fluid" alt="">
-                            <div class="hot-item-content bg-main text-center py-lg-3 py-2 px-3">
-                                <h5 class="text-white">熱銷產品</h5>
+                        <div class="col-lg-3 col-6">
+                            <div class="hot-item-box animate-hover-15">
+                                <img src="{{ asset('assets/images/00-hp/hot_pic.jpg') }}" class="img-fluid"
+                                    alt="">
+                                <div class="hot-item-content bg-main text-center py-lg-3 py-2 px-3">
+                                    <h5 class="text-white">熱銷產品</h5>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    @endif
 
                     <div class="col-12 mt-4">
                         <a href="{{ localized_route('products') }}">
@@ -189,60 +217,110 @@
             </div>
 
             <div class="row g-4">
-                <div class="col-lg-6">
-                    <div class="hp-new-box p-2 d-flex flex-lg-row flex-column wow fadeInUp" data-wow-delay="0.1s">
-                        <div class="hp-new-img col-lg-5 align-self-center">
-                            <img src="{{ asset('assets/images/00-hp/n_pic.jpg') }}" class="img-fluid" alt="">
-                        </div>
-                        <div class="hp-new-content col-lg-7">
-                            <div class="new-date text-end text-sub">2023.06.21</div>
-                            <div class="hp-new-title mb-2">案例分享—台北水下工程案</div>
-                            <p class="fw-normal">
-                                台北市地下工程建設項目向鴻盛建設機械
-                                ，採購了領先全球的建設機械...more
-                            </p>
-                            <div class="mt-4">
-                                <a href="javascript:void(0)">
-                                    <div class="btn-sub01 d-flex align-items-center justify-content-between px-3 py-2 ms-auto wow fadeInUp"
-                                        data-wow-delay="0.1s">
-                                        <span class="text">MORE</span>
-                                        <span class="icon">
-                                            <i class="fa fa-angle-right"></i>
-                                        </span>
-                                    </div>
+                @foreach ($newsItems ?? [] as $news)
+                    <div class="col-lg-6">
+
+                        <div class="hp-new-box p-2 d-flex flex-lg-row flex-column wow fadeInUp" data-wow-delay="0.1s">
+                            <div class="hp-new-img col-lg-5 align-self-center">
+                                <a href="{{ localized_route('news.detail', ['id' => $news->id]) }}">
+                                    <img src="{{ asset('uploads/' . $news->cover_front_image) }}" class="img-fluid"
+                                        alt="">
                                 </a>
                             </div>
-                        </div>
-
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="hp-new-box p-2 d-flex flex-lg-row flex-column wow fadeInUp" data-wow-delay="0.1s">
-                        <div class="hp-new-img col-lg-5 align-self-center">
-                            <img src="{{ asset('assets/images/00-hp/n_pic.jpg') }}" class="img-fluid" alt="">
-                        </div>
-                        <div class="hp-new-content col-lg-7">
-                            <div class="new-date text-end text-sub">2023.06.20</div>
-                            <div class="hp-new-title mb-2">品牌故事集—麥格尼 MAGNI</div>
-                            <p class="fw-normal">
-                                麥格尼自1950年代開始發跡，從同時擁有
-                                製造商與技術出身的皮特羅先生...more
-                            </p>
-                            <div class="mt-4">
-                                <a href="javascript:void(0)">
-                                    <div class="btn-sub01 d-flex align-items-center justify-content-between px-3 py-2 ms-auto wow fadeInUp"
-                                        data-wow-delay="0.1s">
-                                        <span class="text">MORE</span>
-                                        <span class="icon">
-                                            <i class="fa fa-angle-right"></i>
-                                        </span>
-                                    </div>
+                            <div class="hp-new-content col-lg-7">
+                                <div class="new-date text-end text-sub">
+                                    {{ \Carbon\Carbon::parse($news->created_at)->format('Y.m.d') }}</div>
+                                <a href="{{ localized_route('news.detail', ['id' => $news->id]) }}">
+                                    <div class="hp-new-title mb-2">{{ $news->translate(App::getLocale())->title }}</div>
                                 </a>
+                                @php
+                                    $content = preg_replace(
+                                        '/<img[^>]*>/i',
+                                        '',
+                                        $news->translate(App::getLocale())->content,
+                                    );
+                                    // 移除其他 HTML 標籤
+                                    $cleanText = strip_tags($content);
+                                    // // 截取前100字（處理UTF-8中文）
+                                    // $preview = mb_substr($cleanText, 0, 100);
+                                @endphp
+                                <p class="fw-normal">
+                                    {{ Str::limit($cleanText, 100, '...more') }}
+                                </p>
+                                <div class="mt-4">
+                                    <a href="{{ localized_route('news.detail', ['id' => $news->id]) }}">
+                                        <div class="btn-sub01 d-flex align-items-center justify-content-between px-3 py-2 ms-auto wow fadeInUp"
+                                            data-wow-delay="0.1s">
+                                            <span class="text">MORE</span>
+                                            <span class="icon">
+                                                <i class="fa fa-angle-right"></i>
+                                            </span>
+                                        </div>
+                                    </a>
+                                </div>
                             </div>
                         </div>
-
                     </div>
-                </div>
+                @endforeach
+
+                @if (($newsItems ?? [])->isEmpty())
+                    <div class="col-lg-6">
+                        <div class="hp-new-box p-2 d-flex flex-lg-row flex-column wow fadeInUp" data-wow-delay="0.1s">
+                            <div class="hp-new-img col-lg-5 align-self-center">
+                                <img src="{{ asset('assets/images/00-hp/n_pic.jpg') }}" class="img-fluid"
+                                    alt="">
+                            </div>
+                            <div class="hp-new-content col-lg-7">
+                                <div class="new-date text-end text-sub">2023.06.21</div>
+                                <div class="hp-new-title mb-2">案例分享—台北水下工程案</div>
+                                <p class="fw-normal">
+                                    台北市地下工程建設項目向鴻盛建設機械
+                                    ，採購了領先全球的建設機械...more
+                                </p>
+                                <div class="mt-4">
+                                    <a href="javascript:void(0)">
+                                        <div class="btn-sub01 d-flex align-items-center justify-content-between px-3 py-2 ms-auto wow fadeInUp"
+                                            data-wow-delay="0.1s">
+                                            <span class="text">MORE</span>
+                                            <span class="icon">
+                                                <i class="fa fa-angle-right"></i>
+                                            </span>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="hp-new-box p-2 d-flex flex-lg-row flex-column wow fadeInUp" data-wow-delay="0.1s">
+                            <div class="hp-new-img col-lg-5 align-self-center">
+                                <img src="{{ asset('assets/images/00-hp/n_pic.jpg') }}" class="img-fluid"
+                                    alt="">
+                            </div>
+                            <div class="hp-new-content col-lg-7">
+                                <div class="new-date text-end text-sub">2023.06.20</div>
+                                <div class="hp-new-title mb-2">品牌故事集—麥格尼 MAGNI</div>
+                                <p class="fw-normal">
+                                    麥格尼自1950年代開始發跡，從同時擁有
+                                    製造商與技術出身的皮特羅先生...more
+                                </p>
+                                <div class="mt-4">
+                                    <a href="javascript:void(0)">
+                                        <div class="btn-sub01 d-flex align-items-center justify-content-between px-3 py-2 ms-auto wow fadeInUp"
+                                            data-wow-delay="0.1s">
+                                            <span class="text">MORE</span>
+                                            <span class="icon">
+                                                <i class="fa fa-angle-right"></i>
+                                            </span>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                @endif
 
                 <div class="col-12 mt-4">
                     <a href="{{ localized_route('news') }}">
@@ -361,69 +439,31 @@
                 <div class="col-12">
                     <div class="swiper linksSwiper">
                         <div class="swiper-wrapper">
-                            <div class="swiper-slide animate-hover-15">
-                                <a href="javascript:void(0)">
-                                    <img src="{{ asset('assets/images/00-hp/brand01.jpg') }}" class="img-fluid"
-                                        alt="友站連結1">
-                                </a>
-                            </div>
-                            <div class="swiper-slide animate-hover-15">
-                                <a href="javascript:void(0)">
-                                    <img src="{{ asset('assets/images/00-hp/brand02.jpg') }}" class="img-fluid"
-                                        alt="友站連結2">
-                                </a>
-                            </div>
-                            <div class="swiper-slide animate-hover-15">
-                                <a href="javascript:void(0)">
-                                    <img src="{{ asset('assets/images/00-hp/brand03.jpg') }}" class="img-fluid"
-                                        alt="友站連結3">
-                                </a>
-                            </div>
-                            <div class="swiper-slide animate-hover-15">
-                                <a href="javascript:void(0)">
-                                    <img src="{{ asset('assets/images/00-hp/brand04.jpg') }}" class="img-fluid"
-                                        alt="友站連結4">
-                                </a>
-                            </div>
-                            <div class="swiper-slide animate-hover-15">
-                                <a href="javascript:void(0)">
-                                    <img src="{{ asset('assets/images/00-hp/brand05.jpg') }}" class="img-fluid"
-                                        alt="友站連結5">
-                                </a>
-                            </div>
-                            <div class="swiper-slide animate-hover-15">
-                                <a href="javascript:void(0)">
-                                    <img src="{{ asset('assets/images/00-hp/brand06.jpg') }}" class="img-fluid"
-                                        alt="友站連結6">
-                                </a>
-                            </div>
-                            <div class="swiper-slide animate-hover-15">
-                                <a href="javascript:void(0)">
-                                    <img src="{{ asset('assets/images/00-hp/brand07.jpg') }}" class="img-fluid"
-                                        alt="友站連結7">
-                                </a>
-                            </div>
-                            <div class="swiper-slide animate-hover-15">
-                                <a href="javascript:void(0)">
-                                    <img src="{{ asset('assets/images/00-hp/brand08.jpg') }}" class="img-fluid"
-                                        alt="友站連結8">
-                                </a>
-                            </div>
-                            <div class="swiper-slide animate-hover-15">
-                                <a href="javascript:void(0)">
-                                    <img src="{{ asset('assets/images/00-hp/brand09.jpg') }}" class="img-fluid"
-                                        alt="友站連結9">
-                                </a>
-                            </div>
-                            <div class="swiper-slide animate-hover-15">
-                                <a href="javascript:void(0)">
-                                    <img src="{{ asset('assets/images/00-hp/brand10.jp') }}g" class="img-fluid"
-                                        alt="友站連結10">
-                                </a>
-                            </div>
+                            @foreach ($linkInfos ?? [] as $linkInfo)
+                                <div class="swiper-slide animate-hover-15">
+                                    <a href="{{ $linkInfo->url }}" target="_blank">
+                                        <img src="{{ asset('uploads/' . $linkInfo->image) }}" class="img-fluid"
+                                            alt="{{ $linkInfo->name }}" title="{{ $linkInfo->name }}">
+                                    </a>
+                                </div>
+                            @endforeach
+
+                            @if (($linkInfos ?? [])->isEmpty())
+                                {{-- 如果沒有友站連結，則顯示預設的 22 張圖片 --}}
+                                @for ($i = 1; $i < 23; $i++)
+                                    <div class="swiper-slide animate-hover-15">
+                                        <a href="javascript:void(0)">
+                                            {{-- $i 個位數自動前面補零，大於 9 的數字不補零 --}}
+                                            <img src="{{ asset('assets/images/00-hp/brand' . str_pad($i, 2, '0', STR_PAD_LEFT) . '.jpg') }}"
+                                                class="img-fluid" alt="友站連結{{ $i }}"
+                                                title="友站連結{{ $i }}">
+                                        </a>
+                                    </div>
+                                @endfor
+                            @endif
                         </div>
                         <!-- <div class="swiper-button-next"></div>
-                                    <div class="swiper-button-prev"></div> -->
+                                            <div class="swiper-button-prev"></div> -->
                         <!-- <div class="swiper-pagination"></div> -->
                     </div>
                 </div>
@@ -561,11 +601,11 @@
                             </div>
                             <!-- 驗證碼 -->
                             <!-- <div class="col-lg-12">
-                                                <div class="form-floating g-2">
-                                                    <input type="text" class="form-control" id="captcha" name="captcha" placeholder="請輸入驗證碼" required/>
-                                                    <label for="captcha">驗證碼 <span class="text-danger">*</span></label>
-                                                </div>
-                                            </div> -->
+                                                        <div class="form-floating g-2">
+                                                            <input type="text" class="form-control" id="captcha" name="captcha" placeholder="請輸入驗證碼" required/>
+                                                            <label for="captcha">驗證碼 <span class="text-danger">*</span></label>
+                                                        </div>
+                                                    </div> -->
 
                             <!-- 清除重填、送出按鈕 -->
                             <div class="col-12 d-flex flex-row align-items-center justify-content-center g-2">

@@ -39,7 +39,7 @@
                     <div class="col-12">
                         <div class="row g-3">
 
-                            @foreach ($recyclingList as $recycling)
+                            @foreach ($recyclingList ?? [] as $recycling)
                                 <div class="col-lg-3 col-6">
                                     <a href="{{ localized_route('recycling.detail', ['id' => $recycling->id]) }}">
                                         <div class="hot-item-box animate-hover-15">
