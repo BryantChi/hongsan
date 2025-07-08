@@ -291,19 +291,28 @@
                         success: function(response) {
                             if (response.success) {
                                 // 下載PDF
-                                window.location.href = response.download_url;
+                                // window.location.href = response.download_url;
 
                                 // 隱藏表單
-                                $('.catalog').slideUp();
+                                // $('.catalog').slideUp();
 
                                 // 顯示成功訊息 sweetalert2
                                 // alert('表單已送出，開始下載型錄');
+                                // 使用 sweetalert2 顯示成功訊息，點擊確定後下載型錄
                                 Swal.fire({
                                     title: '成功',
                                     text: '表單已送出，開始下載型錄',
                                     icon: 'success',
                                     confirmButtonText: '確定'
-                                });
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        // 下載PDF
+                                        window.location.href = response.download_url;
+
+                                        // 隱藏表單
+                                        $('.catalog').slideUp();
+                                    }
+                                })
                             }
                         },
                         error: function(xhr) {
