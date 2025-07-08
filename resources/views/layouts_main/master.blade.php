@@ -140,6 +140,7 @@
     <script src="{{asset('assets/lib/easing/easing.min.js')}}"></script>
     <script src="{{asset('assets/lib/waypoints/waypoints.min.js')}}"></script>
     <script src="{{asset('assets/lib/owlcarousel/owl.carousel.min.js')}}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- {{-- aos.js cdn --}} -->
     <!-- <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script> -->

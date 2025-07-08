@@ -45,13 +45,13 @@
 <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js "></script>
 
 <script>
-    // $(function() {
-    //     bsCustomFileInput.init();
-    // });
+    $(function() {
+        bsCustomFileInput.init();
+    });
 
-    // $("input[data-bootstrap-switch]").each(function() {
-    //     $(this).bootstrapSwitch('state', $(this).prop('checked'));
-    // });
+    $("input[data-bootstrap-switch]").each(function() {
+        $(this).bootstrapSwitch('state', $(this).prop('checked'));
+    });
 
     $('select').select2({
         language: 'zh-TW',

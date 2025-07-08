@@ -62,6 +62,13 @@ class ProductsInfoController extends AppBaseController
         //     $input['slug'] = \Illuminate\Support\Str::slug($input[config('translatable.fallback_locale')]['name']);
         // }
 
+        // 處理檔案上傳
+        $input['pdf'] = $this->handleFileUpload($request->file('pdf'), '', 'catalog_files');
+        // 如果沒有上傳檔案，則設置為空字串
+        if (!$input['pdf']) {
+            $input['pdf'] = '';
+        }
+
         // 處理多語系資料
         $translationData = [];
         $locales = config('translatable.locales');
@@ -160,6 +167,13 @@ class ProductsInfoController extends AppBaseController
         // if (empty($input['slug']) && isset($input[config('translatable.fallback_locale')]['name'])) {
         //     $input['slug'] = \Illuminate\Support\Str::slug($input[config('translatable.fallback_locale')]['name']);
         // }
+
+        // 處理檔案上傳
+        $input['pdf'] = $this->handleFileUpload($request->file('pdf'), '', 'catalog_files');
+        // 如果沒有上傳檔案，則設置為空字串
+        if (!$input['pdf']) {
+            $input['pdf'] = '';
+        }
 
         // 處理多語系資料
         $translationData = [];
@@ -293,6 +307,33 @@ class ProductsInfoController extends AppBaseController
             ProductImage::where('id', $imageId)
                 ->update(['sort_order' => $sortOrder]);
         }
+    }
+
+    // 共用檔案處理函式
+    function handleFileUpload($newFile, $existingFilePath, $uploadDir)
+    {
+        if ($newFile) {
+            $path = public_path('uploads/files/' . $uploadDir . '/');
+            $filename = time() . '_' . $newFile->getClientOriginalName();
+
+            // 確保目錄存在
+            if (!file_exists($path)) {
+                mkdir($path, 0755, true);
+            }
+
+            // 若已有檔案，刪除舊檔案
+            if (!empty($existingFilePath) && File::exists(public_path('uploads/' . $existingFilePath))) {
+                File::delete(public_path('uploads/' . $existingFilePath));
+            }
+
+            // 儲存新檔案
+            $newFile->move($path, $filename);
+
+            return 'files/' . $uploadDir . '/' . $filename;
+        }
+
+        // 若無新檔案，返回舊檔案路徑
+        return $existingFilePath;
     }
 
     /**

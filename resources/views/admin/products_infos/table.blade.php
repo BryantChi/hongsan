@@ -20,7 +20,7 @@
             @foreach($productsInfos as $productsInfo)
                 <tr>
                     <td>{{ $productsInfo->id }}</td>
-                    <td style="width: 250px">
+                    <td style="min-width: 300px">
                         {{-- 顯示產品名稱 --}}
                         {{-- 獲取目前語系的名稱 --}}
                         @foreach($productsInfo->translations as $translation)
@@ -99,7 +99,7 @@
                             <i class="fas fa-times text-danger"></i>
                         @endif
                     </td>
-                    <td style="width: 250px">
+                    <td style="min-width: 300px">
                         {{-- 顯示配管 --}}
                         {{-- 獲取目前語系的名稱 --}}
                         @foreach($productsInfo->translations as $translation)
@@ -110,7 +110,7 @@
                             </div>
                         @endforeach
                     </td>
-                    <td style="width: 250px">
+                    <td style="min-width: 300px">
                         {{-- 顯示膠塊 --}}
                         {{-- 獲取目前語系的名稱 --}}
                         @foreach($productsInfo->translations as $translation)

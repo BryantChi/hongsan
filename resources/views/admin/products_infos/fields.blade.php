@@ -97,6 +97,21 @@
     </div>
 </div>
 
+<!-- PDF Field -->
+<div class="form-group col-sm-6">
+    {!! Form::label('pdf', '產品PDF檔案:') !!}
+    <div class="custom-file">
+        <input type="file" class="custom-file-input" id="pdf" name="pdf" accept=".pdf">
+        <label class="custom-file-label" for="pdf">選擇PDF檔案</label>
+    </div>
+    <div class="mt-2">
+        @if (isset($productsInfo) && $productsInfo->pdf)
+            <p>已上傳PDF檔案: <a href="{{ asset('uploads/' . $productsInfo->pdf) }}" target="_blank">{{ basename($productsInfo->pdf) }}</a></p>
+        @else
+            <p>尚未上傳PDF檔案</p>
+        @endif
+    </div>
+</div>
 
 <!-- Product Images Field -->
 <div class="form-group col-sm-12">

@@ -3,6 +3,7 @@
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\AgricultureController;
 use App\Http\Controllers\AttachmentsController;
+use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\CatetypeController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HistoryController;
@@ -111,9 +112,11 @@ Route::group([
 
     Route::get('/products', [ProductsController::class, 'index'])->name('products');
     Route::get('/products/{id}', [ProductsController::class, 'productIntro'])->name('products.detail');
+    Route::post('/download-catalog', [CatalogController::class, 'download'])->name('download.catalog');
     // Route::get('/products-details', function () { return view('product-intro'); })->name('products.detail.mock');
 
     Route::get('/contact', [ContactController::class, 'index'])->name('contact');
+    Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
 });
 
@@ -154,6 +157,9 @@ Route::prefix('admin')->group(function () {
         Route::resource('brandsInfos', \App\Http\Controllers\Admin\BrandsInfoController::class, ["as" => 'admin']);
         Route::resource('productCategoriesInfos', \App\Http\Controllers\Admin\ProductCategoriesInfoController::class, ["as" => 'admin']);
         Route::resource('productsInfos', \App\Http\Controllers\Admin\ProductsInfoController::class, ["as" => 'admin']);
+        Route::resource('contactInfos', \App\Http\Controllers\Admin\ContactInfoController::class, ["as" => 'admin']);
+        Route::resource('catalogInfos', \App\Http\Controllers\Admin\CatalogInfoController::class, ["as" => 'admin']);
+
 
         // AJAX 預覽清洗結果的路由
         Route::post('/seo/preview', [\App\Http\Controllers\Admin\SeoSettingController::class, 'preview'])->name('admin.seo.preview');
@@ -170,3 +176,25 @@ Route::prefix('admin')->group(function () {
         Route::any('adminUsers/destroy/{id}', [\App\Http\Controllers\Admin\AdminAccountController::class, 'destroy'])->name('admin.adminUsers.destroy');
     });
 });
+
+// Route::resource('admin/contact-infos', App\Http\Controllers\Admin\ContactInfoController::class)
+//     ->names([
+//         'index' => 'admin.contactInfos.index',
+//         'store' => 'admin.contactInfos.store',
+//         'show' => 'admin.contactInfos.show',
+//         'update' => 'admin.contactInfos.update',
+//         'destroy' => 'admin.contactInfos.destroy',
+//         'create' => 'admin.contactInfos.create',
+//         'edit' => 'admin.contactInfos.edit'
+//     ]);
+
+// Route::resource('admin/catalog-infos', App\Http\Controllers\Admin\CatalogInfoController::class)
+//     ->names([
+//         'index' => 'admin.catalogInfos.index',
+//         'store' => 'admin.catalogInfos.store',
+//         'show' => 'admin.catalogInfos.show',
+//         'update' => 'admin.catalogInfos.update',
+//         'destroy' => 'admin.catalogInfos.destroy',
+//         'create' => 'admin.catalogInfos.create',
+//         'edit' => 'admin.catalogInfos.edit'
+//     ]);

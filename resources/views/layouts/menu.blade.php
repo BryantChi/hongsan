@@ -73,6 +73,19 @@
 </li>
 
 
+<li class="nav-item">
+    <a href="{{ localized_route('admin.contactInfos.index') }}" class="nav-link {{ Request::is('admin/contactInfos*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-envelope"></i>
+        <p>聯絡我們表單</p>
+    </a>
+</li>
+
+<li class="nav-item">
+    <a href="{{ localized_route('admin.catalogInfos.index') }}" class="nav-link {{ Request::is('admin/catalogInfos*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>型錄表單</p>
+    </a>
+</li>
 
 {{-- <li class="nav-item">
     <a href="{{ localized_route('admin.brandsInfos.index') }}" class="nav-link {{ Request::is('admin/brandsInfos*') ? 'active' : '' }}">

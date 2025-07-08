@@ -20,7 +20,8 @@ class ProductsInfo extends Model implements TranslatableContract
         'purchase_lease', // 新增購買/租賃欄位
         'version',
         'quick_bucket_changer',
-        'operating_converter'
+        'operating_converter',
+        'pdf' // PDF欄位
     ];
 
     // 定義可翻譯屬性
@@ -40,6 +41,7 @@ class ProductsInfo extends Model implements TranslatableContract
         'version' => 'string',
         'quick_bucket_changer' => 'boolean',
         'operating_converter' => 'boolean',
+        'pdf' => 'json', // PDF欄位
     ];
 
     public static array $rules = [
@@ -48,6 +50,7 @@ class ProductsInfo extends Model implements TranslatableContract
         'product_categories_id' => 'required|exists:product_categories,id',
         'purchase_lease' => 'nullable|string|max:255',
         'version' => 'nullable|string|max:255',
+        'pdf' => 'nullable|file|mimes:pdf|max:2048', // PDF欄位
     ];
 
     public static array $translationRules = [
