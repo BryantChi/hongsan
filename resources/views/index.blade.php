@@ -231,7 +231,7 @@
                                 <div class="new-date text-end text-sub">
                                     {{ \Carbon\Carbon::parse($news->created_at)->format('Y.m.d') }}</div>
                                 <a href="{{ localized_route('news.detail', ['id' => $news->id]) }}">
-                                    <div class="hp-new-title mb-2">{{ $news->translate(App::getLocale())->title }}</div>
+                                    <div class="hp-new-title text-ellipsis mb-2">{{ $news->translate(App::getLocale())->title }}</div>
                                 </a>
                                 @php
                                     $content = preg_replace(
@@ -245,7 +245,7 @@
                                     // $preview = mb_substr($cleanText, 0, 100);
                                 @endphp
                                 <p class="fw-normal">
-                                    {{ Str::limit($cleanText, 100, '...more') }}
+                                    {{ Str::limit($cleanText, 50, '...more') }}
                                 </p>
                                 <div class="mt-4">
                                     <a href="{{ localized_route('news.detail', ['id' => $news->id]) }}">

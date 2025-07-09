@@ -8,6 +8,8 @@ use App\Http\Controllers\AppBaseController;
 use App\Repositories\Admin\ProductCategoriesInfoRepository;
 use Illuminate\Http\Request;
 use Flash;
+use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 
 class ProductCategoriesInfoController extends AppBaseController

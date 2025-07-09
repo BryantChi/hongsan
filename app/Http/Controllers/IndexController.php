@@ -19,7 +19,7 @@ class IndexController extends Controller
         $products = \App\Models\Admin\ProductsInfo::with(['translations' => function ($query) {
             $query->where('locale', app()->getLocale());
         }])->orderBy('created_at', 'desc')
-            ->limit(10)
+            ->limit(4)
             ->get();
 
         // 取得最新消息資訊

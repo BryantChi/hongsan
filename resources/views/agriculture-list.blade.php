@@ -70,7 +70,7 @@
                                     @if (!empty($brandsInfo))
                                         @foreach ($brandsInfo as $brand)
                                             <li class="wow fadeInUp" data-wow-delay="0.1s">
-                                                <a href="{{ localized_route('agriculture', ['brand' => $brand->id]) }}') }}" class="text-18">{{ $brand->translateOrDefault(app()->getLocale())->name }}</a>
+                                                <a href="{{ localized_route('agriculture', ['brand' => $brand->id]) }}" class="text-18">{{ $brand->translateOrDefault(app()->getLocale())->name }}</a>
                                             </li>
                                         @endforeach
                                     @endif

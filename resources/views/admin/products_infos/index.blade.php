@@ -33,6 +33,15 @@
 
 @push('page_css')
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.6.2/css/buttons.dataTables.min.css">
+    <style>
+        .min-w-300 {
+            min-width: 300px;
+        }
+
+        #products-infos-table tbody td {
+            vertical-align: top;
+        }
+    </style>
 @endpush
 
 
@@ -44,13 +53,28 @@
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.html5.min.js">
     </script>
     <script>
+         // 定義一個全局變數
+        var dataTable;
+
         $(function() {
             let scrollX_enable = "{{ count($productsInfos) > 0 ? 1 : 0 }}" == true;
             if($(window).width() > 1280) { scrollX_enable = false }
             else { scrollX_enable = "{{ count($productsInfos) > 0 ? 1 : 0 }}" == true; }
 
-            var table = $('#products-infos-table').DataTable({
-                lengthChange: true, // 呈現選單
+            dataTable = $('#products-infos-table').DataTable({
+                processing: true,
+                serverSide: false, // 由於我們已經預先處理了所有數據，不需要服務器端處理
+                ajax: {
+                    url: "{{ route('admin.productsInfos.data') }}",
+                    // 避免 DataTable 自動添加不必要的參數
+                    data: function(d) {
+                        return $.extend({}, d, {});
+                    }
+                },
+                deferRender: true,
+                // deferLoading: true,      // 延遲載入
+                scroller: true,          // 啟用滾動分頁
+                lengthChange: true,
                 // 全部顯示
                 // lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "全部"]],
                 // 每頁顯示數量選單
@@ -67,6 +91,30 @@
                 language: {
                     url: "https://cdn.datatables.net/plug-ins/1.11.3/i18n/zh_Hant.json"
                 },
+                columns: [
+                    { data: 'id' },
+                    { data: 'name', orderable: false },
+                    { data: 'application_category' },
+                    { data: 'brand' },
+                    { data: 'product_category' },
+                    { data: 'version' },
+                    { data: 'quick_bucket_changer', orderable: false },
+                    { data: 'operating_converter', orderable: false },
+                    { data: 'piping', orderable: false },
+                    { data: 'glue_block', orderable: false },
+                    { data: 'actions', orderable: false }
+                ],
+                columnDefs: [
+                    {
+                        targets: [1, 8, 9],
+                        width: '300px',
+                        className: 'min-w-300'
+                    },
+                    {
+                        targets: [10],
+                        width: '120px'
+                    }
+                ]
                 // columnDefs: [{
                 //     'targets': 0,
                 //     'searchable': false,
@@ -95,11 +143,16 @@
                 //     }
                 // ],
             });
+
+            // dataTable.draw();
         })
 
-        setTimeout(() => {
-            table.draw();
-        }, 600);
+        // 確保 table 變數在作用域內
+        // setTimeout(() => {
+        //     if (table) {
+        //         table.draw();
+        //     }
+        // }, 600);
 
     </script>
 @endpush

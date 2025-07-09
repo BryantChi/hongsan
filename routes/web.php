@@ -146,6 +146,7 @@ Route::prefix('admin')->group(function () {
     Route::middleware(['auth'])->group(function () {
         Route::resource('seoSettings', \App\Http\Controllers\Admin\SeoSettingController::class, ["as" => 'admin']);
         // Route::resource('marqueeInfos', App\Http\Controllers\Admin\MarqueeInfoController::class, ["as" => 'admin']);
+        Route::resource('heroSlides', \App\Http\Controllers\Admin\HeroSlideController::class, ["as" => 'admin']);
         Route::resource('newsInfos', \App\Http\Controllers\Admin\NewsInfoController::class, ["as" => 'admin']);
         // Route::resource('caseInfos', App\Http\Controllers\Admin\CaseInfoController::class, ["as" => 'admin']);
         // Route::resource('categories', App\Http\Controllers\Admin\CategoryController::class, ["as" => 'admin']);
@@ -161,6 +162,7 @@ Route::prefix('admin')->group(function () {
         Route::resource('contactInfos', \App\Http\Controllers\Admin\ContactInfoController::class, ["as" => 'admin']);
         Route::resource('catalogInfos', \App\Http\Controllers\Admin\CatalogInfoController::class, ["as" => 'admin']);
 
+        Route::get('/products-infos/data', [\App\Http\Controllers\Admin\ProductsInfoController::class, 'getDataTableData'])->name('admin.productsInfos.data');
 
         // AJAX 預覽清洗結果的路由
         Route::post('/seo/preview', [\App\Http\Controllers\Admin\SeoSettingController::class, 'preview'])->name('admin.seo.preview');

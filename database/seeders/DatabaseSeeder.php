@@ -12,11 +12,25 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
+        // 創建用戶
+        // $this->call(UserSeeder::class);
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        // 創建應用類別
+        // $this->call(ApplicationCategorySeeder::class);
+
+        // 創建品牌
+        $this->call(BrandSeeder::class);
+
+        // 創建產品分類
+        $this->call(ProductCategorySeeder::class);
+
+        // 創建產品資料
+        $this->call(ProductSeeder::class);
+
+        // 創建新聞資料
+        $this->call(NewsSeeder::class);
+
+        // 創建友站連結
+        // $this->call(LinkSeeder::class);
     }
 }

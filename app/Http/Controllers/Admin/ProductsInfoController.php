@@ -8,8 +8,14 @@ use App\Http\Controllers\AppBaseController;
 use App\Repositories\Admin\ProductsInfoRepository;
 use Illuminate\Http\Request;
 use App\Models\Admin\ProductImage;
+use App\Models\Admin\ProductsInfo;
 use Flash;
 use Illuminate\Support\Facades\Storage;
+// 加入這行來引入 Form 類別
+use Collective\Html\FormFacade as Form;
+use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 
 class ProductsInfoController extends AppBaseController
 {
@@ -24,12 +30,147 @@ class ProductsInfoController extends AppBaseController
         $this->productsInfoRepository = $productsInfoRepo;
     }
 
+    public function getDataTableData(Request $request)
+    {
+        try {
+        // $productsInfos = $this->productsInfoRepository->all()
+        //     ->load([
+        //         'translations',
+        //         'applicationCategory',  // 需添加此關聯到 ProductsInfo 模型
+        //         'brand',                // 需添加此關聯到 ProductsInfo 模型
+        //         'productCategory'       // 需添加此關聯到 ProductsInfo 模型
+        //     ]);
+        // $draw = $request->get('draw');
+        // $start = $request->get('start', 0);
+        // // 最關鍵的修改：確保 length 永遠有值
+        // $length = $request->get('length', 10);
+
+        // // 如果 length 為 -1，表示要取得所有資料
+        // if ($length == -1) {
+        //     $length = 1000; // 設置一個較大的數值，避免無限制查詢
+        // }
+        $search = $request->get('search')['value'] ?? '';
+
+        $query = ProductsInfo::with(['translations', 'applicationCategory', 'brand', 'productCategory']);
+
+        // 加入搜尋條件
+        if (!empty($search)) {
+            $query->whereHas('translations', function($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%");
+
+            });
+        }
+
+        // $recordsTotal = $query->count();
+        // $recordsFiltered = $recordsTotal;
+
+        // 只取得需要的分頁資料
+        // $products = $query->skip($start)->take($length)->get();
+        $products = $query->get();
+
+        $data = [];
+        foreach ($products as $product) {
+            // 產品名稱處理
+            $nameHtml = '';
+            $translationsCount = count($product->translations);
+            foreach ($product->translations as $index => $translation) {
+                $isLast = ($index === $translationsCount - 1);
+                $langName = strtoupper($translation->locale) === 'ZH_TW' ? '中文' : 'English';
+                $nameHtml .= '<div class="d-flex flex-lg-row flex-column justify-content-start align-items-start mb-1 pb-2 ' .
+                            ($isLast ? 'border-bottom-0' : 'border-bottom') . '">' .
+                            '<span class="col-md-6 mr-2 font-weight-bold">' . $langName . ':</span>' .
+                            '<span class="col text-start text-wrap">' . $translation->name . '</span></div>';
+            }
+
+            // 應用類別名稱
+            $applicationCategoriesInfo = $product->applicationCategory ? $product->applicationCategory->name : '無';
+            if ($product->application_categories_info_id == 1) {
+                $applicationCategoriesInfo .= ' - ' .
+                    ($product->purchase_lease == 'purchase' ? '購買' :
+                    ($product->purchase_lease == 'lease' ? '租賃' : '無'));
+            }
+
+            // 品牌名稱
+            $brands = $product->brand ? $product->brand->name : '無';
+
+            // 產品類別名稱
+            $productCategoriesInfo = $product->productCategory ? $product->productCategory->name : '無';
+
+            // 配管與膠塊處理
+            $pipingHtml = '';
+            $glueBlockHtml = '';
+            $translationsCount = count($product->translations);
+            foreach ($product->translations as $index => $translation) {
+                $isLast = ($index === $translationsCount - 1);
+                $langName = strtoupper($translation->locale) === 'ZH_TW' ? '中文' : 'English';
+
+                $pipingHtml .= '<div class="d-flex flex-lg-row flex-column justify-content-start align-items-start mb-1 pb-2 ' .
+                            ($isLast ? 'border-bottom-0' : 'border-bottom') . '">' .
+                            '<span class="col-md-6 mr-2 font-weight-bold">' . $langName . ':</span>' .
+                            '<span class="col text-start text-wrap">' . $translation->piping . '</span></div>';
+
+                $glueBlockHtml .= '<div class="d-flex flex-lg-row flex-column justify-content-start align-items-start mb-1 pb-2 ' .
+                            ($isLast ? 'border-bottom-0' : 'border-bottom') . '">' .
+                            '<span class="col-md-6 mr-2 font-weight-bold">' . $langName . ':</span>' .
+                            '<span class="col text-start text-wrap">' . $translation->glue_block . '</span></div>';
+            }
+
+            // 操作按鈕
+            $actions = Form::open(['route' => ['admin.productsInfos.destroy', $product->id], 'method' => 'delete']) .
+                    '<div class="btn-group">' .
+                    '<a href="' . localized_route('admin.productsInfos.edit', [$product->id]) . '"' .
+                    'class="btn btn-default btn-md"><i class="far fa-edit"></i></a>' .
+                    Form::button('<i class="far fa-trash-alt"></i>', ['type' => 'button', 'class' => 'btn btn-danger btn-md', 'onclick' => "return confirm('Are you sure?')"]) .
+                    '</div>' .
+                    Form::close();
+            // $actions = '<form action="' . route('admin.productsInfos.destroy', $product->id) . '" method="POST">' .
+            // csrf_field() .
+            // method_field('DELETE') .
+            // '<div class="btn-group">' .
+            // '<a href="' . route('admin.productsInfos.edit', [$product->id]) . '" ' .
+            // 'class="btn btn-default btn-md"><i class="far fa-edit"></i></a>' .
+            // '<button type="submit" class="btn btn-danger btn-md" onclick="return confirm(\'確定要刪除此產品嗎?\')"><i class="far fa-trash-alt"></i></button>' .
+            // '</div>' .
+            // '</form>';
+
+            $data[] = [
+                'id' => $product->id,
+                'name' => $nameHtml,
+                'application_category' => $applicationCategoriesInfo,
+                'brand' => $brands,
+                'product_category' => $productCategoriesInfo,
+                'version' => $product->version,
+                'quick_bucket_changer' => $product->quick_bucket_changer ?
+                    '<i class="fas fa-check text-success"></i>' : '<i class="fas fa-times text-danger"></i>',
+                'operating_converter' => $product->operating_converter ?
+                    '<i class="fas fa-check text-success"></i>' : '<i class="fas fa-times text-danger"></i>',
+                'piping' => $pipingHtml,
+                'glue_block' => $glueBlockHtml,
+                'actions' => $actions
+            ];
+        }
+
+        return response()->json(['data' => $data]);
+        // return response()->json([
+        //     'draw' => intval($draw),
+        //     'recordsTotal' => intval($recordsTotal),
+        //     'recordsFiltered' => intval($recordsFiltered),
+        //     'data' => $data
+        // ]);
+
+        } catch (\Exception $e) {
+        \Log::error('DataTable error: ' . $e->getMessage() . ' at ' . $e->getFile() . ':' . $e->getLine());
+        return response()->json(['error' => $e->getMessage()], 500);
+    }
+    }
+
     /**
      * Display a listing of the ProductsInfo.
      */
     public function index(Request $request)
     {
-        $productsInfos = $this->productsInfoRepository->paginate(10);
+        // $productsInfos = $this->productsInfoRepository->all();
+        $productsInfos = collect([]);
 
         return view('admin.products_infos.index')
             ->with('productsInfos', $productsInfos);
@@ -169,10 +310,11 @@ class ProductsInfoController extends AppBaseController
         // }
 
         // 處理檔案上傳
-        $input['pdf'] = $this->handleFileUpload($request->file('pdf'), '', 'catalog_files');
-        // 如果沒有上傳檔案，則設置為空字串
-        if (!$input['pdf']) {
-            $input['pdf'] = '';
+        if ($request->hasFile('pdf')) {
+            $input['pdf'] = $this->handleFileUpload($request->file('pdf'), $productsInfo->pdf, 'catalog_files');
+        } else {
+            // 如果沒有上傳檔案，則保留原有的 PDF 路徑
+            $input['pdf'] = $productsInfo->pdf;
         }
 
         // 處理多語系資料

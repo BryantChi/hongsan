@@ -7,9 +7,9 @@
 <div class="clearfix w-100"></div>
 
 <!-- Purchase_Lease Field -->
-<div class="form-group col-sm-6" id="purchase_lease_container" style="display:none;">
+<div class="form-group col-sm-6" id="purchase_lease_container">
     {!! Form::label('purchase_lease', '產品購買/租賃:') !!}
-    {!! Form::select('purchase_lease', ['' => '請選擇', 'purchase' => '購買', 'lease' => '租賃'], null, ['class' => 'form-control', 'placeholder' => '請選擇產品購買/租賃方式', 'required' => true]) !!}
+    {!! Form::select('purchase_lease', ['' => '請選擇', 'purchase' => '購買', 'lease' => '租賃'], null, ['class' => 'form-control', 'id' => 'purchase_lease', 'placeholder' => '請選擇產品購買/租賃方式', 'required' => true]) !!}
 </div>
 <div class="clearfix w-100"></div>
 
@@ -102,7 +102,7 @@
     {!! Form::label('pdf', '產品PDF檔案:') !!}
     <div class="custom-file">
         <input type="file" class="custom-file-input" id="pdf" name="pdf" accept=".pdf">
-        <label class="custom-file-label" for="pdf">選擇PDF檔案</label>
+        <label class="custom-file-label pdf_label" for="pdf">選擇PDF檔案</label>
     </div>
     <div class="mt-2">
         @if (isset($productsInfo) && $productsInfo->pdf)
@@ -120,7 +120,7 @@
         <div class="custom-file">
             <input type="file" class="custom-file-input" id="product_images" name="product_images[]" multiple
                 accept="image/*">
-            <label class="custom-file-label" for="product_images">選擇圖片（可多選）</label>
+            <label class="custom-file-label product_images_label" for="product_images">選擇圖片（可多選）</label>
         </div>
     </div>
     <small class="text-muted">可拖曳圖片進行排序，<span id="remaining-count">剩餘可上傳: 10 張</span>，每個產品最多10張圖片</small>
@@ -206,6 +206,15 @@
         }, 5000); // 5秒後自動關閉
 
         $(function() {
+
+            // pdf 檔案選擇器
+            $('#pdf').on('change', function() {
+                // 更新標籤顯示
+                const pdfFileName = this.files.length > 0 ? this.files[0].name : '選擇PDF檔案';
+                $('.pdf_label').text(pdfFileName);
+            });
+
+
             // 用於追蹤目前選擇的檔案
             let selectedFiles = [];
             let fileIndices = {};
@@ -214,7 +223,7 @@
             const MAX_IMAGES = 10;
 
             // 顯示檔案名稱
-            $('.custom-file-input').on('change', function() {
+            $('#product_images').on('change', function() {
                 const inputFiles = Array.from(this.files);
 
                 // 檢查總圖片數量是否會超過限制
@@ -273,9 +282,9 @@
             function updateFileLabel() {
                 const fileNames = selectedFiles.map(file => file.name);
                 if (fileNames.length > 0) {
-                    $('.custom-file-label').html(fileNames.join(', '));
+                    $('.product_images_label').html(fileNames.join(', '));
                 } else {
-                    $('.custom-file-label').html('選擇圖片（可多選）');
+                    $('.product_images_label').html('選擇圖片（可多選）');
                 }
             }
 
@@ -289,7 +298,7 @@
                 // 如果已達上限，禁用上傳按鈕
                 if (remainingCount <= 0) {
                     $('#product_images').prop('disabled', true);
-                    $('.custom-file-label').text('已達上傳上限');
+                    $('.product_images_label').text('已達上傳上限');
                 } else {
                     $('#product_images').prop('disabled', false);
                 }
@@ -403,7 +412,7 @@
                 fileIndices = {};
 
                 // 重置標籤文字
-                $('.custom-file-label').html('選擇圖片（可多選）');
+                $('.product_images_label').html('選擇圖片（可多選）');
             }
 
             // 表單提交前處理
@@ -454,7 +463,7 @@
             // 儲存當前產品的品牌和產品類別ID (如果是編輯頁面)
             var currentBrandId = {{ isset($productsInfo) && $productsInfo->brands_info_id ? $productsInfo->brands_info_id : 'null' }};
             var currentProductCategoryId = {{ isset($productsInfo) && $productsInfo->product_categories_id ? $productsInfo->product_categories_id : 'null' }};
-
+            $('#purchase_lease_container').hide();
             // 應用類別選擇變更事件
             $('#application_categories_info_id').on('change', function() {
                 var applicationCategoryId = $(this).val();
@@ -462,11 +471,11 @@
                 // 控制 purchase_lease 欄位顯示和必填狀態
                 if (applicationCategoryId == 1) { // 1為建設機械
                     $('#purchase_lease_container').show();
-                    $('#purchase_lease_field').prop('required', true);
+                    $('#purchase_lease').prop('required', true);
                 } else {
                     $('#purchase_lease_container').hide();
-                    $('#purchase_lease_field').prop('required', false);
-                    $('#purchase_lease_field').val(''); // 清空選擇的值
+                    $('#purchase_lease').prop('required', false);
+                    $('#purchase_lease').val(''); // 清空選擇的值
                 }
 
                 // 清空產品品牌和產品類別下拉選單
@@ -530,10 +539,15 @@
                 // 檢查並設置 purchase_lease 欄位的初始顯示狀態
                 if ($('#application_categories_info_id').val() == 1) {
                     $('#purchase_lease_container').show();
-                    $('#purchase_lease_field').prop('required', true);
+                    $('#purchase_lease').prop('required', true);
+
+                    // 如果是編輯頁面，設置已保存的值
+                    @if(isset($productsInfo) && $productsInfo->purchase_lease)
+                        $('#purchase_lease').val('{{ $productsInfo->purchase_lease }}');
+                    @endif
                 } else {
                     $('#purchase_lease_container').hide();
-                    $('#purchase_lease_field').prop('required', false);
+                    $('#purchase_lease').prop('required', false);
                 }
             });
         });

@@ -8,6 +8,9 @@ use App\Http\Controllers\AppBaseController;
 use App\Repositories\Admin\CatalogInfoRepository;
 use Illuminate\Http\Request;
 use Flash;
+use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 
 class CatalogInfoController extends AppBaseController
 {

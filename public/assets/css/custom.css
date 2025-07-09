@@ -229,7 +229,7 @@ p {
   /* width: 100vw; */
 }
 
-#hero .item1 {
+/* #hero .item1 {
   background-image: url(../images/00-hp/banner1_624.jpg);
 }
 #hero .item2 {
@@ -237,7 +237,7 @@ p {
 }
 #hero .item3 {
   background-image: url(../images/00-hp/banner3_624.jpg);
-}
+} */
 
 @media (max-width: 768px) {
   #hero .item1,
@@ -280,7 +280,7 @@ p {
   }
 }
 
-@media (min-width: 768px) and (max-width: 1024px) {
+/* @media (min-width: 768px) and (max-width: 1024px) {
   #hero .item1 {
     background-image: url(../images/00-hp/banner1_1024.jpg);
   }
@@ -302,7 +302,7 @@ p {
   #hero .item3 {
     background-image: url(../images/00-hp/banner3_1280.jpg);
   }
-}
+} */
 
 /* @media (min-width: 1280px) and (max-width: 1440px) {
     #hero .item1 {
@@ -316,7 +316,7 @@ p {
     }
 } */
 
-@media (min-width: 1440px) {
+/* @media (min-width: 1440px) {
   #hero .item1 {
     background-image: url(../images/00-hp/banner1_1920.jpg);
   }
@@ -326,7 +326,7 @@ p {
   #hero .item3 {
     background-image: url(../images/00-hp/banner3_1920.jpg);
   }
-}
+} */
 
 .navbar .navbar-brand {
   position: relative;
@@ -999,7 +999,7 @@ p {
 .construction-mask img {
     width: 120px;
     height: auto;
-    margin-bottom: 10px;
+    /* margin-bottom: 10px; */
 }
 
 .construction-mask p {
@@ -1259,4 +1259,14 @@ p {
 
 .prod-intro-header {
     border-bottom: 1px solid rgba(180,180,180,1);
+}
+
+/* 文字只顯示一行，超出顯示... */
+.text-ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: -webkit-box;
+    -webkit-line-clamp: 1; /* 限制行數 */
+    -webkit-box-orient: vertical;
 }

@@ -72,13 +72,13 @@
                 </div>
 
                 <div class="col-lg-4">
-                    <img src="{{ asset('assets/images/01/case01.jpg') }}" class="img-fluid" alt="">
+                    <img src="{{ app()->getLocale() == 'zh_TW' ? asset('assets/images/01/case01.jpg') : asset('assets/images/01/case01_en.jpg') }}" class="img-fluid" alt="">
                 </div>
                 <div class="col-lg-4">
-                    <img src="{{ asset('assets/images/01/case02.jpg') }}" class="img-fluid" alt="">
+                    <img src="{{ app()->getLocale() == 'zh_TW' ? asset('assets/images/01/case02.jpg') : asset('assets/images/01/case02_en.jpg') }}" class="img-fluid" alt="">
                 </div>
                 <div class="col-lg-4">
-                    <img src="{{ asset('assets/images/01/case03.jpg') }}" class="img-fluid" alt="">
+                    <img src="{{ app()->getLocale() == 'zh_TW' ? asset('assets/images/01/case03.jpg') : asset('assets/images/01/case03_en.jpg') }}" class="img-fluid" alt="">
                 </div>
             </div>
         </div>

@@ -65,4 +65,19 @@ class ProductsInfo extends Model implements TranslatableContract
         return $this->hasMany(ProductImage::class, 'product_id')->orderBy('sort_order', 'asc');
     }
 
+    public function applicationCategory()
+    {
+        return $this->belongsTo(\App\Models\Admin\ApplicationCategoriesInfo::class, 'application_categories_info_id');
+    }
+
+    public function brand()
+    {
+        return $this->belongsTo(\App\Models\Admin\BrandsInfo::class, 'brands_info_id');
+    }
+
+    public function productCategory()
+    {
+        return $this->belongsTo(\App\Models\Admin\ProductCategories::class, 'product_categories_id');
+    }
+
 }

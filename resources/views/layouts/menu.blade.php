@@ -22,6 +22,14 @@
 </li>
 
 <li class="nav-item">
+    <a href="{{ localized_route('admin.heroSlides.index') }}" class="nav-link {{ Request::is('admin/heroSlides*') ? 'active' : '' }}">
+        <span class="mr-2 brand-image"><i class="fas fa-images"></i></span>
+        <p>輪播圖設定</p>
+    </a>
+</li>
+
+
+<li class="nav-item">
     <a href="{{ localized_route('admin.translationsInfos.index') }}" class="nav-link {{ Request::is('admin/translationsInfos*') ? 'active' : '' }}">
         <span class="mr-2 brand-image"><i class="fas fa-language"></i></span>
         <p>通用翻譯設定</p>

@@ -36,7 +36,7 @@
 
                 </div>
 
-                <div class="row">
+                <div class="row g-2">
                     <div class="col-lg-3">
                         <a href="{{ localized_route('attachments') }}">
                             <div class="construction wow fadeInUp" data-wow-delay="0.1s">
@@ -52,9 +52,9 @@
                         <div class="col-lg-3">
                             <a href="{{ localized_route('attachments', ['category' => $category->id]) }}">
                                 <div class="construction wow fadeInUp" data-wow-delay="0.1s">
-                                    <img src="{{ asset('uploads/' . ($category->image ?? '')) }}" class="img-fluid" alt="">
+                                    <img src="{{ ($category->image ?? null) == null ? asset('assets/images/03/acc_pic.jpg') :  asset('uploads/' . ($category->image ?? '')) }}" class="img-fluid" alt="">
                                     <div class="construction-mask d-flex flex-column justify-content-center align-items-center text-center">
-                                        <img src="{{ asset('uploads/' . ($category->icon ?? '')) }}" class="img-fluid icon" alt="">
+                                        <img src="{{ ($category->icon ?? null) == null ? asset('assets/images/03/acc_icon.png') : asset('uploads/' . ($category->icon ?? '')) }}" class="img-fluid icon" alt="">
                                         <p>{{ $category->translate(app()->getLocale())->name }}</p>
                                     </div>
                                 </div>

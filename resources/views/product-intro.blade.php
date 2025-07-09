@@ -57,9 +57,9 @@
                                     <span class="text-main" style="width: 120px">廠牌</span>
                                     <span class="text-44">
                                         @php
-                                            $brand = \App\Models\Admin\BrandsInfo::find($product->brand_id);
+                                            $brand = \App\Models\Admin\BrandsInfo::find($product->brands_info_id);
                                             $brandName = $brand
-                                                ? $brand->translate(app()->getLocale())->name ?? ''
+                                                ? $brand->translate(app()->getLocale())->name
                                                 : '';
                                         @endphp
                                         {{ $brandName }}
@@ -92,8 +92,8 @@
                                         alt="">
                                     <span class="text-main" style="width: 120px">快速換斗器</span>
                                     <span class="text-44">
-                                        @if ($product->quick_bucket_changer ?? false)
-                                            <i class="bi bi-check"></i>
+                                        @if ($product->quick_bucket_changer)
+                                            <i class="fas fa-check text-44"></i>
                                         @endif
                                     </span>
                                 </p>
@@ -102,8 +102,8 @@
                                         alt="">
                                     <span class="text-main" style="width: 120px">操作轉換器</span>
                                     <span class="text-44">
-                                        @if ($product->operation_converter ?? false)
-                                            <i class="bi bi-check"></i>
+                                        @if ($product->operating_converter)
+                                            <i class="fas fa-check text-44"></i>
                                         @endif
                                     </span>
                                 </p>
@@ -135,7 +135,7 @@
                                 </div>
                             </a>
                             {{-- 如果有型錄才顯示下載按鈕 --}}
-                            @if ($product->catalog ?? false)
+                            @if ($product->pdf ?? false)
                                 <div
                                     class="bg-main download-pdf text-center d-flex justify-content-center align-items-center animate-hover-2 py-3 px-2 mb-2">
                                     <img src="{{ asset('assets/images/03/icon_download.png') }}" class="img-fluid mr-2"

@@ -94,5 +94,21 @@ class AppServiceProvider extends ServiceProvider
             // 將計數資料傳遞給視圖
             $view->with('visitorCount', $count)->with('visitorCountToday', $countToday);
         });
+
+        View::composer(['layouts_main.hero'], function ($view) {
+
+            // 取得所有 Hero Slide 資料
+            $heroSlides = \App\Models\Admin\HeroSlide::with([
+                'translations' => function ($query) {
+                    $query->where('locale', app()->getLocale());
+                }
+            ])->where('status', 1)
+              ->orderBy('sort_order', 'asc')
+              ->get();
+
+            // 將資料傳遞給視圖
+            $view->with('heroSlides', $heroSlides);
+
+        });
     }
 }

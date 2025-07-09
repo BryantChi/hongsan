@@ -2,14 +2,18 @@
 
 namespace App\Repositories\Admin;
 
-use App\Models\Admin\TranslationsInfo;
+use App\Models\Admin\HeroSlide;
 use App\Repositories\BaseRepository;
 
-class TranslationsInfoRepository extends BaseRepository
+class HeroSlideRepository extends BaseRepository
 {
     protected $fieldSearchable = [
-        'key',
-        'translations'
+        'title',
+        'link',
+        'image_624',
+        'image_1024',
+        'image_1280',
+        'image_1920'
     ];
 
     public function getFieldsSearchable(): array
@@ -19,7 +23,7 @@ class TranslationsInfoRepository extends BaseRepository
 
     public function model(): string
     {
-        return TranslationsInfo::class;
+        return HeroSlide::class;
     }
 
     /**
