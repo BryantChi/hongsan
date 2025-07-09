@@ -117,8 +117,8 @@
                         </div>
                         <div class="ab-ser-content">
                             <p class="text-18 fw-normal">
-                                {{__('page_wy_about_content_service_aa')}}<br>
-                                {{__('page_wy_about_content_service_aaa')}}
+                                {!! nl2br(__('page_wy_about_content_service_aa')) !!}<br>
+                                {!! nl2br(__('page_wy_about_content_service_aaa')) !!}
                             </p>
                         </div>
                     </div>
@@ -136,11 +136,11 @@
                     <div class="ab-ser-box d-flex flex-lg-row flex-column justify-content-center align-items-center h-100 px-lg-5 px-3 py-4">
                         <div class="icon text-center me-lg-3 mb-lg-0 mb-3">
                             <img src="{{ asset('assets/images/01/a_ser_icon02.jpg') }}" class="img-fluid mb-22" alt="">
-                            <h5 class="text-main">{{__('page_wy_about_content_service_b')}}</h5>
+                            <h5 class="text-main">{!!__('page_wy_about_content_service_b')!!}</h5>
                         </div>
                         <div class="ab-ser-content">
                             <p class="text-18 fw-normal">
-                                {{__('page_wy_about_content_service_bb')}}
+                                {!!nl2br(__('page_wy_about_content_service_bb'))!!}
                             </p>
                         </div>
                     </div>
@@ -153,11 +153,11 @@
                     <div class="ab-ser-box d-flex flex-lg-row flex-column justify-content-center align-items-center h-100 px-lg-5 px-3 py-4">
                         <div class="icon text-center me-lg-3 mb-lg-0 mb-3">
                             <img src="{{ asset('assets/images/01/a_ser_icon03.jpg') }}" class="img-fluid mb-22" alt="">
-                            <h5 class="text-main">{{__('page_wy_about_content_service_c')}}</h5>
+                            <h5 class="text-main">{!!__('page_wy_about_content_service_c')!!}</h5>
                         </div>
                         <div class="ab-ser-content">
                             <p class="text-18 fw-normal">
-                                {{__('page_wy_about_content_service_cc')}}
+                                {!!nl2br(__('page_wy_about_content_service_cc'))!!}
                             </p>
                         </div>
                     </div>
@@ -175,11 +175,11 @@
                     <div class="ab-ser-box d-flex flex-lg-row flex-column justify-content-center align-items-center h-100 px-lg-5 px-3 py-4">
                         <div class="icon text-center me-lg-3 mb-lg-0 mb-3">
                             <img src="{{ asset('assets/images/01/a_ser_icon04.jpg') }}" class="img-fluid mb-22" alt="">
-                            <h5 class="text-main">{{__('page_wy_about_content_service_d')}}</h5>
+                            <h5 class="text-main">{!!__('page_wy_about_content_service_d')!!}</h5>
                         </div>
                         <div class="ab-ser-content">
                             <p class="text-18 fw-normal">
-                                {{__('page_wy_about_content_service_dd')}}
+                                {!! nl2br(__('page_wy_about_content_service_dd')) !!}
                             </p>
                         </div>
                     </div>

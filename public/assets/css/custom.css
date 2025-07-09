@@ -191,9 +191,10 @@ p {
 @media (max-width: 768px) {
     .dropdown-menu {
         left: 0 !important;
-        width: 100% !important;
+        width: fit-content !important;
         background-color: white !important;
         border: unset !important;
+        transform: unset !important;
     }
     .dropdown-item {
         text-align: left !important;
@@ -913,12 +914,14 @@ p {
 
 
 .history-year {
+    font-size: 1.4rem;
     border-radius: 50%;
     width: 96px;
     height: 96px;
 }
 @media (max-width: 768px) {
     .history-year {
+        font-size: 1.25rem;
         width: 64px;
         height: 64px;
     }
