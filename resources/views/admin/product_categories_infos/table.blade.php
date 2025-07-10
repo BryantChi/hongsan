@@ -5,6 +5,7 @@
             <tr>
                 <th>ID</th>
                 <th>圖片</th>
+                <th>Icon</th>
                 <th>名稱</th>
                 <th>應用類別</th>
                 <th>Slug</th>
@@ -21,6 +22,14 @@
                             <img src="{{ url('') . '/uploads/' . $productCategoriesInfo->image }}" style="max-width: 100px; max-height: 100px;">
                         @else
                             <span class="text-muted">無圖片</span>
+                        @endif
+                    </td>
+                    <td>
+                        {{-- 顯示 Icon，如果有的話 --}}
+                        @if ($productCategoriesInfo->icon ?? null)
+                            <img src="{{ url('') . '/uploads/' . $productCategoriesInfo->icon }}" style="max-width: 100px; max-height: 100px;">
+                        @else
+                            <span class="text-muted">無 Icon</span>
                         @endif
                     </td>
                     {{-- 顯示品牌名稱 --}}

@@ -23,7 +23,7 @@
     {!! Form::label('icon', '分類圖示:') !!}
     <div class="custom-file">
         <input type="file" class="custom-file-input" id="icon" name="icon" accept="image/*">
-        <label class="custom-file-label" for="icon">Choose file</label>
+        <label class="custom-file-label icon-label" for="icon">Choose file</label>
     </div>
     <div class="img-preview-icon mt-2">
         @if ($productCategoriesInfo->icon ?? null)
@@ -40,7 +40,7 @@
     {!! Form::label('image', '圖片:') !!}
     <div class="custom-file">
         <input type="file" class="custom-file-input" id="image" name="image" accept="image/*">
-        <label class="custom-file-label" for="image">Choose file</label>
+        <label class="custom-file-label image-label" for="image">Choose file</label>
     </div>
     <div class="img-preview-cover mt-2">
         @if ($productCategoriesInfo->image ?? null)
@@ -89,6 +89,10 @@
             };
 
             fileReader.readAsDataURL(fileInput.files[0]);
+
+            // label 更新
+            let fileName = fileInput.files[0].name;
+            $(fileInput).next('.image-label').html(fileName);
         });
         $(document).on('change', '#icon', function () {
             let fileInput = this;
@@ -100,6 +104,10 @@
             };
 
             fileReader.readAsDataURL(fileInput.files[0]);
+
+            // label 更新
+            let fileName = fileInput.files[0].name;
+            $(fileInput).next('.icon-label').html(fileName);
         });
         // $(document).on('change', '[id^="plan_style_"]', function () {
         //     let fileInput = this;

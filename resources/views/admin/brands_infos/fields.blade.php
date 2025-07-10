@@ -72,6 +72,10 @@
             };
 
             fileReader.readAsDataURL(fileInput.files[0]);
+
+            // label 更新
+            let fileName = fileInput.files[0].name;
+            $(fileInput).next('.custom-file-label').html(fileName);
         });
         // $(document).on('change', '[id^="plan_style_"]', function () {
         //     let fileInput = this;
