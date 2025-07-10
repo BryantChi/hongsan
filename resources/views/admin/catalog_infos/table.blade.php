@@ -14,6 +14,7 @@
             <tbody>
             @foreach($catalogInfos as $catalogInfo)
                 <tr>
+                    <td>{{ $catalogInfo->id }}</td>
                     <td>{{ $catalogInfo->name }}</td>
                     <td>{{ $catalogInfo->phone }}</td>
                     <td>{{ $catalogInfo->loaction }}</td>

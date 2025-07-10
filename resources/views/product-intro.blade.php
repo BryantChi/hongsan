@@ -176,11 +176,11 @@
                                             <div class="col-12">
                                                 <!-- 所在地區下拉選單 -->
                                                 <div class="form-floating g-2">
-                                                    <select class="form-select" id="location" name="location" required>
+                                                    <select class="form-select" id="loaction" name="loaction" required>
                                                         <option value="" selected disabled>
                                                             {{ __('content_contact_us_list_city_option_none') }}</option>
                                                     </select>
-                                                    <label for="location">{{ __('content_contact_us_list_city') }} <span
+                                                    <label for="loaction">{{ __('content_contact_us_list_city') }} <span
                                                             class="text-danger">*</span></label>
                                                 </div>
                                             </div>
@@ -229,7 +229,7 @@
                         const lang = '{{ App::getLocale() }}';
                         // 根據語言選擇顯示中文或英文
                         const cityName = lang === 'zh_TW' ? item.CityName : item.CityEngName;
-                        $('#location').append(
+                        $('#loaction').append(
                             $('<option>', {
                                 value: item.CityName,
                                 text: cityName
