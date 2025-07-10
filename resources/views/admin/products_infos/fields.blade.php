@@ -130,8 +130,8 @@
 <div class="form-group col-sm-12">
     <label>圖片預覽與排序</label>
     <div class="row sortable-container" id="image-preview-container">
-        @if (isset($product) && $product->images->count() > 0)
-            @foreach ($product->images as $image)
+        @if (isset($productsInfo) && $productsInfo->images->count() > 0)
+            @foreach ($productsInfo->images as $image)
                 <div class="col-md-3 mb-3 image-item" data-image-id="{{ $image->id }}">
                     <div class="card">
                         <div class="card-header2 p-1 bg-light d-flex justify-content-between align-items-center">
