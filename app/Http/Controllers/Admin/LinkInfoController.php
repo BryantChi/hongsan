@@ -69,7 +69,7 @@ class LinkInfoController extends AppBaseController
 
         $linkInfo = $this->linkInfoRepository->create($input);
 
-        Flash::success('Link Info saved successfully.');
+        Flash::success('友情連結資訊新增成功。');
 
         return redirect(route('admin.linkInfos.index'));
     }
@@ -82,7 +82,7 @@ class LinkInfoController extends AppBaseController
         $linkInfo = $this->linkInfoRepository->find($id);
 
         if (empty($linkInfo)) {
-            Flash::error('Link Info not found');
+            Flash::error('找不到友情連結資訊');
 
             return redirect(route('admin.linkInfos.index'));
         }
@@ -98,7 +98,7 @@ class LinkInfoController extends AppBaseController
         $linkInfo = $this->linkInfoRepository->find($id);
 
         if (empty($linkInfo)) {
-            Flash::error('Link Info not found');
+            Flash::error('找不到友情連結資訊');
 
             return redirect(route('admin.linkInfos.index'));
         }
@@ -114,7 +114,7 @@ class LinkInfoController extends AppBaseController
         $linkInfo = $this->linkInfoRepository->find($id);
 
         if (empty($linkInfo)) {
-            Flash::error('Link Info not found');
+            Flash::error('找不到友情連結資訊');
 
             return redirect(route('admin.linkInfos.index'));
         }
@@ -136,7 +136,7 @@ class LinkInfoController extends AppBaseController
 
         $linkInfo = $this->linkInfoRepository->update($input, $id);
 
-        Flash::success('Link Info updated successfully.');
+        Flash::success('友情連結資訊更新成功。');
 
         return redirect(route('admin.linkInfos.index'));
     }

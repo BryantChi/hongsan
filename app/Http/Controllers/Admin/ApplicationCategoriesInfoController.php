@@ -47,7 +47,7 @@ class ApplicationCategoriesInfoController extends AppBaseController
 
         $applicationCategoriesInfo = $this->applicationCategoriesInfoRepository->create($input);
 
-        Flash::success('Application Categories Info saved successfully.');
+        Flash::success('應用類別資訊新增成功。');
 
         return redirect(route('admin.applicationCategoriesInfos.index'));
     }
@@ -60,7 +60,7 @@ class ApplicationCategoriesInfoController extends AppBaseController
         $applicationCategoriesInfo = $this->applicationCategoriesInfoRepository->find($id);
 
         if (empty($applicationCategoriesInfo)) {
-            Flash::error('Application Categories Info not found');
+            Flash::error('找不到應用類別資訊');
 
             return redirect(route('admin.applicationCategoriesInfos.index'));
         }
@@ -76,7 +76,7 @@ class ApplicationCategoriesInfoController extends AppBaseController
         $applicationCategoriesInfo = $this->applicationCategoriesInfoRepository->find($id);
 
         if (empty($applicationCategoriesInfo)) {
-            Flash::error('Application Categories Info not found');
+            Flash::error('找不到應用類別資訊');
 
             return redirect(route('admin.applicationCategoriesInfos.index'));
         }
@@ -92,14 +92,14 @@ class ApplicationCategoriesInfoController extends AppBaseController
         $applicationCategoriesInfo = $this->applicationCategoriesInfoRepository->find($id);
 
         if (empty($applicationCategoriesInfo)) {
-            Flash::error('Application Categories Info not found');
+            Flash::error('找不到應用類別資訊');
 
             return redirect(route('admin.applicationCategoriesInfos.index'));
         }
 
         $applicationCategoriesInfo = $this->applicationCategoriesInfoRepository->update($request->all(), $id);
 
-        Flash::success('Application Categories Info updated successfully.');
+        Flash::success('應用類別資訊更新成功。');
 
         return redirect(route('admin.applicationCategoriesInfos.index'));
     }
@@ -114,14 +114,14 @@ class ApplicationCategoriesInfoController extends AppBaseController
         $applicationCategoriesInfo = $this->applicationCategoriesInfoRepository->find($id);
 
         if (empty($applicationCategoriesInfo)) {
-            Flash::error('Application Categories Info not found');
+            Flash::error('找不到應用類別資訊');
 
             return redirect(route('admin.applicationCategoriesInfos.index'));
         }
 
         $this->applicationCategoriesInfoRepository->delete($id);
 
-        Flash::success('Application Categories Info deleted successfully.');
+        Flash::success('應用類別資訊刪除成功。');
 
         return redirect(route('admin.applicationCategoriesInfos.index'));
     }

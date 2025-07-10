@@ -25,7 +25,9 @@
                             <div class="swiper-wrapper">
                                 @foreach ($images ?? [] as $image)
                                     <div class="swiper-slide">
-                                        <img src="{{ asset('uploads/' . $image->image_path) }}" class="img-fluid w-100" />
+                                        <a href="{{ asset('uploads/' . $image->image_path) }}" data-fancybox="mygallery">
+                                            <img src="{{ asset('uploads/' . $image->image_path) }}" class="img-fluid w-100" />
+                                        </a>
                                     </div>
                                 @endforeach
 
@@ -137,7 +139,7 @@
                             {{-- 如果有型錄才顯示下載按鈕 --}}
                             @if ($product->pdf ?? false)
                                 <div
-                                    class="bg-main download-pdf text-center d-flex justify-content-center align-items-center animate-hover-2 py-3 px-2 mb-2">
+                                    class="bg-main download-pdf text-center d-flex justify-content-center align-items-center animate-hover-2 cursor-pointer py-3 px-2 mb-2">
                                     <img src="{{ asset('assets/images/03/icon_download.png') }}" class="img-fluid mr-2"
                                         alt="">
                                     <h5 class="text-white mb-0">下載型錄（pdf檔）</h5>

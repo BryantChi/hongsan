@@ -1,5 +1,5 @@
-@foreach ($heroSlides as $key => $hero)
 <style>
+@foreach ($heroSlides as $key => $hero)
     /* CSS for each hero slide */
     #hero .item{{ $key + 1 }} {
         background-image: url({{ asset('uploads/'.$hero->translate(App::getLocale())->image_624) }});
@@ -23,8 +23,8 @@
         }
     }
 
-</style>
 @endforeach
+</style>
 
 
 

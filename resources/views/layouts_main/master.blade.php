@@ -44,6 +44,13 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
+    {{-- fancybox cdn --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+
+    {{-- slick cdn --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.css" />
+
     <!-- {{-- animate cdn --}} -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css">
 
@@ -141,6 +148,11 @@
     <script src="{{asset('assets/lib/waypoints/waypoints.min.js')}}"></script>
     <script src="{{asset('assets/lib/owlcarousel/owl.carousel.min.js')}}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    {{-- fancybox cdn --}}
+    <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+    {{-- slick cdn --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.js "></script>
 
     <!-- {{-- aos.js cdn --}} -->
     <!-- <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script> -->
@@ -149,9 +161,6 @@
     <script src="{{asset('assets/js/main.js')}}?v={{time()}}"></script>
 
     <script src="{{asset('assets/js/custom.js')}}?v={{time()}}"></script>
-
-    @stack('third_party_scripts')
-    @stack('page_scripts')
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
@@ -174,42 +183,10 @@
             //     clickable: true,
             // },
         });
-
-        var linkSwiper = new Swiper(".linksSwiper", {
-            // slidesPerView: 4,
-            // spaceBetween: 30,
-            freeMode: true,
-            loop: true,
-            speed: 2500,
-            autoplay: {
-                delay: 0,
-                disableOnInteraction: false,
-                pauseOnMouseEnter: true
-            },
-            // navigation: {
-            //     nextEl: ".swiper-button-next",
-            //     prevEl: ".swiper-button-prev",
-            // },
-            // pagination: {
-            //     el: ".swiper-pagination",
-            //     clickable: true,
-            // },
-            breakpoints: {
-                640: {
-                    slidesPerView: 1,
-                    spaceBetween: 5
-                },
-                768: {
-                    slidesPerView: 2,
-                    spaceBetween: 10
-                },
-                1024: {
-                    slidesPerView: 4,
-                    spaceBetween: 15
-                },
-            }
-        });
     </script>
+
+    @stack('third_party_scripts')
+    @stack('page_scripts')
 </body>
 
 </html>

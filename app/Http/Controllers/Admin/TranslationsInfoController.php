@@ -56,7 +56,7 @@ class TranslationsInfoController extends AppBaseController
 
         $translationsInfo = $this->translationsInfoRepository->create($input);
 
-        Flash::success('Translations Info saved successfully.');
+        Flash::success('翻譯資訊新增成功。');
 
         return redirect(route('admin.translationsInfos.index'));
     }
@@ -69,7 +69,7 @@ class TranslationsInfoController extends AppBaseController
         $translationsInfo = $this->translationsInfoRepository->find($id);
 
         if (empty($translationsInfo)) {
-            Flash::error('Translations Info not found');
+            Flash::error('找不到翻譯資訊');
 
             return redirect(route('admin.translationsInfos.index'));
         }
@@ -85,7 +85,7 @@ class TranslationsInfoController extends AppBaseController
         $translationsInfo = $this->translationsInfoRepository->find($id);
 
         if (empty($translationsInfo)) {
-            Flash::error('Translations Info not found');
+            Flash::error('找不到翻譯資訊');
 
             return redirect(route('admin.translationsInfos.index'));
         }
@@ -101,7 +101,7 @@ class TranslationsInfoController extends AppBaseController
         $translationsInfo = $this->translationsInfoRepository->find($id);
 
         if (empty($translationsInfo)) {
-            Flash::error('Translations Info not found');
+            Flash::error('找不到翻譯資訊');
 
             return redirect(route('admin.translationsInfos.index'));
         }
@@ -117,7 +117,7 @@ class TranslationsInfoController extends AppBaseController
 
         $translationsInfo = $this->translationsInfoRepository->update($input, $id);
 
-        Flash::success('Translations Info updated successfully.');
+        Flash::success('翻譯資訊更新成功。');
 
         return redirect(route('admin.translationsInfos.index'));
     }
@@ -132,7 +132,7 @@ class TranslationsInfoController extends AppBaseController
         $translationsInfo = $this->translationsInfoRepository->find($id);
 
         if (empty($translationsInfo)) {
-            Flash::error('Translations Info not found');
+            Flash::error('找不到翻譯資訊');
 
             return redirect(route('admin.translationsInfos.index'));
         }
@@ -144,7 +144,7 @@ class TranslationsInfoController extends AppBaseController
             Cache::forget('translations.' . $locale);
         }
 
-        Flash::success('Translations Info deleted successfully.');
+        Flash::success('翻譯資訊刪除成功。');
 
         return redirect(route('admin.translationsInfos.index'));
     }

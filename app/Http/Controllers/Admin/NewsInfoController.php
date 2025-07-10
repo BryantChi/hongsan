@@ -91,7 +91,7 @@ class NewsInfoController extends AppBaseController
         }
         $newsInfo->save();
 
-        Flash::success('News Info saved successfully.');
+        Flash::success('最新消息資訊新增成功。');
 
         return redirect(route('admin.newsInfos.index'));
     }
@@ -108,7 +108,7 @@ class NewsInfoController extends AppBaseController
         $newsInfo = $this->newsInfoRepository->find($id);
 
         if (empty($newsInfo)) {
-            Flash::error('News Info not found');
+            Flash::error('找不到最新消息資訊');
 
             return redirect(route('admin.newsInfos.index'));
         }
@@ -128,7 +128,7 @@ class NewsInfoController extends AppBaseController
         $newsInfo = $this->newsInfoRepository->find($id);
 
         if (empty($newsInfo)) {
-            Flash::error('News Info not found');
+            Flash::error('找不到最新消息資訊');
 
             return redirect(route('admin.newsInfos.index'));
         }
@@ -152,7 +152,7 @@ class NewsInfoController extends AppBaseController
         $newsInfo = $this->newsInfoRepository->find($id);
 
         if (empty($newsInfo)) {
-            Flash::error('News Info not found');
+            Flash::error('找不到最新消息資訊');
 
             return redirect(route('admin.newsInfos.index'));
         }
@@ -183,7 +183,7 @@ class NewsInfoController extends AppBaseController
         }
         $newsInfo->save();
 
-        Flash::success('News Info updated successfully.');
+        Flash::success('最新消息資訊更新成功。');
 
         return redirect(route('admin.newsInfos.index'));
     }
@@ -202,7 +202,7 @@ class NewsInfoController extends AppBaseController
         $newsInfo = $this->newsInfoRepository->find($id);
 
         if (empty($newsInfo)) {
-            Flash::error('News Info not found');
+            Flash::error('找不到最新消息資訊');
 
             return redirect(route('admin.newsInfos.index'));
         }
@@ -214,7 +214,7 @@ class NewsInfoController extends AppBaseController
 
         $this->newsInfoRepository->delete($id);
 
-        Flash::success('News Info deleted successfully.');
+        Flash::success('最新消息資訊刪除成功。');
 
         return redirect(route('admin.newsInfos.index'));
     }

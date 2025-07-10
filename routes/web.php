@@ -89,8 +89,10 @@ Route::group([
     Route::get('/construction', [CatetypeController::class, 'construction'])->name('construction');
     Route::get('/construction-rent', [CatetypeController::class, 'constructionRent'])->name('construction.rent');
     Route::get('/construction-rent-list', [CatetypeController::class, 'constructionRentList'])->name('construction.rent.list');
+    Route::get('/construction-rent/{id}', [CatetypeController::class, 'productIntro'])->name('construction.rent.detail');
     Route::get('/construction-buy', [CatetypeController::class, 'constructionBuy'])->name('construction.buy');
     Route::get('/construction-buy-list', [CatetypeController::class, 'constructionBuyList'])->name('construction.buy.list');
+    Route::get('/construction-buy/{id}', [CatetypeController::class, 'productIntro'])->name('construction.buy.detail');
 
     Route::get('/agriculture', [AgricultureController::class, 'index'])->name('agriculture');
     Route::get('/agriculture/{id}', [AgricultureController::class, 'productIntro'])->name('agriculture.detail');

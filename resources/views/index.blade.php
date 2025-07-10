@@ -120,66 +120,62 @@
 
             <div class="container mb-4 px-lg-auto px-3">
                 <div class="row g-4">
-                    @foreach ($products ?? [] as $product)
-                        <div class="col-lg-3 col-6">
-                            <a href="{{ localized_route('products.detail', ['id' => $product->id]) }}">
-                                <div class="hot-item-box animate-hover-15">
-                                    @php
-                                        $product_img = \App\Models\Admin\ProductImage::where('product_id', $product->id)
-                                            ->orderBy('sort_order', 'asc')
-                                            ->first();
-                                        $prod_img = $product_img->image_path ?? '';
-                                    @endphp
-                                    <img src="{{ asset('uploads/' . $prod_img) }}" class="img-fluid">
-                                    {{-- <img src="{{ asset('assets/images/00-hp/hot_pic.jpg') }}" class="img-fluid"
-                                        alt=""> --}}
-                                    <div class="hot-item-content bg-main text-center py-lg-3 py-2 px-3">
-                                        <h5 class="text-white">
-                                            {{ $product->translateOrDefault(app()->getLocale())->name }}
-                                        </h5>
+                    {{-- <div class="col-12">
+                        <div class="swiper hotSwiper">
+                            <div class="swiper-wrapper">
+                                @foreach ($products ?? [] as $product)
+                                    <div class="swiper-slide">
+                                        <a href="{{ localized_route('products.detail', ['id' => $product->id]) }}">
+                                            <div class="hot-item-box animate-hover-15">
+                                                @php
+                                                    $product_img = \App\Models\Admin\ProductImage::where('product_id', $product->id)
+                                                        ->orderBy('sort_order', 'asc')
+                                                        ->first();
+                                                    $prod_img = $product_img->image_path ?? '';
+                                                @endphp
+                                                <img src="{{ asset('uploads/' . $prod_img) }}" class="img-fluid">
+                                                <div class="hot-item-content bg-main text-center py-lg-3 py-2 px-3">
+                                                    <h5 class="text-white">
+                                                        {{ $product->translateOrDefault(app()->getLocale())->name }}
+                                                    </h5>
+                                                </div>
+                                            </div>
+                                        </a>
                                     </div>
-                                </div>
-                            </a>
-                        </div>
-                    @endforeach
-
-                    @if (($products ?? [])->isEmpty())
-                        <div class="col-lg-3 col-6">
-                            <div class="hot-item-box animate-hover-15">
-                                <img src="{{ asset('assets/images/00-hp/hot_pic.jpg') }}" class="img-fluid" alt="">
-                                <div class="hot-item-content bg-main text-center py-lg-3 py-2 px-3">
-                                    <h5 class="text-white">熱銷產品</h5>
-                                </div>
+                                @endforeach
                             </div>
+                            <div class="swiper-button-next"></div>
+                            <div class="swiper-button-prev"></div>
+                            <div class="swiper-pagination"></div>
                         </div>
-                        <div class="col-lg-3 col-6">
-                            <div class="hot-item-box animate-hover-15">
-                                <img src="{{ asset('assets/images/00-hp/hot_pic.jpg') }}" class="img-fluid"
-                                    alt="">
-                                <div class="hot-item-content bg-main text-center py-lg-3 py-2 px-3">
-                                    <h5 class="text-white">熱銷產品</h5>
+                    </div> --}}
+                    <div class="col-12">
+                        <div class="row g-3 hotSlick">
+                            @foreach ($products ?? [] as $product)
+                                <div class="col-lg-3 col-6 px-2">
+                                    <a href="{{ localized_route('products.detail', ['id' => $product->id]) }}">
+                                        <div class="hot-item-box animate-hover-15">
+                                            @php
+                                                $product_img = \App\Models\Admin\ProductImage::where(
+                                                    'product_id',
+                                                    $product->id,
+                                                )
+                                                    ->orderBy('sort_order', 'asc')
+                                                    ->first();
+                                                $prod_img = $product_img->image_path ?? '';
+                                            @endphp
+                                            <img src="{{ asset('uploads/' . $prod_img) }}" class="img-fluid">
+                                            <div class="hot-item-content bg-main text-center py-lg-3 py-2 px-3">
+                                                <h5 class="text-white">
+                                                    {{ $product->translateOrDefault(app()->getLocale())->name }}
+                                                </h5>
+                                            </div>
+                                        </div>
+                                    </a>
                                 </div>
-                            </div>
+                            @endforeach
                         </div>
-                        <div class="col-lg-3 col-6">
-                            <div class="hot-item-box animate-hover-15">
-                                <img src="{{ asset('assets/images/00-hp/hot_pic.jpg') }}" class="img-fluid"
-                                    alt="">
-                                <div class="hot-item-content bg-main text-center py-lg-3 py-2 px-3">
-                                    <h5 class="text-white">熱銷產品</h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-6">
-                            <div class="hot-item-box animate-hover-15">
-                                <img src="{{ asset('assets/images/00-hp/hot_pic.jpg') }}" class="img-fluid"
-                                    alt="">
-                                <div class="hot-item-content bg-main text-center py-lg-3 py-2 px-3">
-                                    <h5 class="text-white">熱銷產品</h5>
-                                </div>
-                            </div>
-                        </div>
-                    @endif
+                    </div>
 
                     <div class="col-12 mt-4">
                         <a href="{{ localized_route('products') }}">
@@ -231,7 +227,8 @@
                                 <div class="new-date text-end text-sub">
                                     {{ \Carbon\Carbon::parse($news->created_at)->format('Y.m.d') }}</div>
                                 <a href="{{ localized_route('news.detail', ['id' => $news->id]) }}">
-                                    <div class="hp-new-title text-ellipsis mb-2">{{ $news->translate(App::getLocale())->title }}</div>
+                                    <div class="hp-new-title text-ellipsis mb-2">
+                                        {{ $news->translate(App::getLocale())->title }}</div>
                                 </a>
                                 @php
                                     $content = preg_replace(
@@ -463,7 +460,7 @@
                             @endif
                         </div>
                         <!-- <div class="swiper-button-next"></div>
-                                            <div class="swiper-button-prev"></div> -->
+                                                <div class="swiper-button-prev"></div> -->
                         <!-- <div class="swiper-pagination"></div> -->
                     </div>
                 </div>
@@ -601,11 +598,11 @@
                             </div>
                             <!-- 驗證碼 -->
                             <!-- <div class="col-lg-12">
-                                                        <div class="form-floating g-2">
-                                                            <input type="text" class="form-control" id="captcha" name="captcha" placeholder="請輸入驗證碼" required/>
-                                                            <label for="captcha">驗證碼 <span class="text-danger">*</span></label>
-                                                        </div>
-                                                    </div> -->
+                                                            <div class="form-floating g-2">
+                                                                <input type="text" class="form-control" id="captcha" name="captcha" placeholder="請輸入驗證碼" required/>
+                                                                <label for="captcha">驗證碼 <span class="text-danger">*</span></label>
+                                                            </div>
+                                                        </div> -->
 
                             <!-- 清除重填、送出按鈕 -->
                             <div class="col-12 d-flex flex-row align-items-center justify-content-center g-2">
@@ -648,6 +645,118 @@
         // 重置按鈕事件
         $('.btn-reset').on('click', function() {
             $('#contactForm')[0].reset();
+        });
+
+        // slick slider for hostSlick
+        // 這裡可以根據需要調整 slick 的參數
+        // 電腦4, 平板3, 手機2, 小手機1
+        // 自動輪播
+        var hostSlick = $('.hotSlick').slick({
+            dots: true,
+            arrows: true,
+            infinite: true,
+            speed: 300,
+            centerPadding: '100px',
+            slidesToShow: 4,
+            slidesToScroll: 1,
+            autoplay: true,
+            autoplaySpeed: 2000,
+            pauseOnHover: true,
+            responsive: [{
+                breakpoint: 1200,
+                settings: {
+                    slidesToShow: 4,
+                    slidesToScroll: 1
+                }
+            }, {
+                breakpoint: 992,
+                settings: {
+                    slidesToShow: 3,
+                    slidesToScroll: 1
+                }
+            }, {
+                breakpoint: 768,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 1
+                }
+            }, {
+                breakpoint: 576,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1
+                }
+            }],
+
+
+        });
+
+        var hotSwiper = new Swiper(".hotSwiper", {
+            // slidesPerView: 4,
+            spaceBetween: 20,
+            loop: true,
+            speed: 2500,
+            autoplay: {
+                delay: 3000,
+                disableOnInteraction: false,
+            },
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+            breakpoints: {
+                1200: {
+                    slidesPerView: 4,
+                },
+                992: {
+                    slidesPerView: 3,
+                },
+                768: {
+                    slidesPerView: 2,
+                },
+                576: {
+                    slidesPerView: 1,
+                },
+            }
+        });
+
+        var linkSwiper = new Swiper(".linksSwiper", {
+            // slidesPerView: 4,
+            // spaceBetween: 30,
+            freeMode: true,
+            loop: true,
+            speed: 2500,
+            autoplay: {
+                delay: 0,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true
+            },
+            // navigation: {
+            //     nextEl: ".swiper-button-next",
+            //     prevEl: ".swiper-button-prev",
+            // },
+            // pagination: {
+            //     el: ".swiper-pagination",
+            //     clickable: true,
+            // },
+            breakpoints: {
+                640: {
+                    slidesPerView: 1,
+                    spaceBetween: 5
+                },
+                768: {
+                    slidesPerView: 2,
+                    spaceBetween: 10
+                },
+                1024: {
+                    slidesPerView: 4,
+                    spaceBetween: 15
+                },
+            }
         });
     </script>
 @endpush

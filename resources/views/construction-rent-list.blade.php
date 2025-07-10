@@ -87,18 +87,20 @@
 
                             @foreach ($machineryList ?? [] as $machinery)
                                 <div class="col-lg-3 col-6">
-                                    <div class="hot-item-box animate-hover-15">
-                                        @php
-                                            $product_img = \App\Models\Admin\ProductImage::where('product_id', $machinery->id)
-                                                ->orderBy('sort_order', 'asc')
-                                                ->first();
-                                            $prod_img = $product_img->image_path ?? ''
-                                        @endphp
-                                        <img src="{{ asset('uploads/' . $prod_img) }}" class="img-fluid">
-                                        <div class="hot-item-content bg-main text-center py-lg-3 py-2 px-3">
-                                            <h5 class="text-white">{{ $machinery->name }}</h5>
+                                    <a href="{{ localized_route('construction.rent.detail', ['id' => $machinery->id]) }}">
+                                        <div class="hot-item-box animate-hover-15">
+                                            @php
+                                                $product_img = \App\Models\Admin\ProductImage::where('product_id', $machinery->id)
+                                                    ->orderBy('sort_order', 'asc')
+                                                    ->first();
+                                                $prod_img = $product_img->image_path ?? ''
+                                            @endphp
+                                            <img src="{{ asset('uploads/' . $prod_img) }}" class="img-fluid">
+                                            <div class="hot-item-content bg-main text-center py-lg-3 py-2 px-3">
+                                                <h5 class="text-white">{{ $machinery->name }}</h5>
+                                            </div>
                                         </div>
-                                    </div>
+                                    </a>
                                 </div>
                             @endforeach
 
