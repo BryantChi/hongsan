@@ -95,7 +95,7 @@
                                                     ->first();
                                                 $prod_img = $product_img->image_path ?? ''
                                             @endphp
-                                            <img src="{{ asset('uploads/' . $prod_img) }}" class="img-fluid">
+                                            <img src="{{ asset('uploads/' . ($machinery->prod_img_cover ?? $prod_img) ) }}" class="img-fluid">
                                             <div class="hot-item-content bg-main text-center py-lg-3 py-2 px-3">
                                                 <h5 class="text-white">{{ $machinery->name }}</h5>
                                             </div>

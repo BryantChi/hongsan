@@ -16,6 +16,7 @@ class ProductsInfo extends Model implements TranslatableContract
 
     // 非翻譯欄位
     public $fillable = [
+        'prod_img_cover',
         'application_categories_info_id',
         'brands_info_id',
         'product_categories_id',
@@ -36,6 +37,7 @@ class ProductsInfo extends Model implements TranslatableContract
 
     protected $casts = [
         'id' => 'integer',
+        'prod_img_cover' => 'json',
         'application_categories_info_id' => 'integer',
         'brands_info_id' => 'integer',
         'product_categories_id' => 'integer',
@@ -47,6 +49,7 @@ class ProductsInfo extends Model implements TranslatableContract
     ];
 
     public static array $rules = [
+        'prod_img_cover' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:1024', // 封面圖片
         'application_categories_info_id' => 'required|exists:application_categories_infos,id',
         'brands_info_id' => 'required|exists:brands_infos,id',
         'product_categories_id' => 'required|exists:product_categories,id',

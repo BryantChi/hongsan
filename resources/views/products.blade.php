@@ -34,7 +34,7 @@
                                             ->first();
                                         $prod_img = $product_img->image_path ?? ''
                                     @endphp
-                                    <img src="{{ asset('uploads/' . $prod_img) }}" class="img-fluid">
+                                    <img src="{{ asset('uploads/' . ($product->prod_img_cover ?? $prod_img)) }}" class="img-fluid">
                                     {{-- <img src="{{ asset('assets/images/00-hp/hot_pic.jpg') }}" class="img-fluid"
                                         alt=""> --}}
                                     <div class="hot-item-content bg-main text-center py-lg-3 py-2 px-3">

@@ -53,6 +53,12 @@ Route::any('/clear-cache', function () {
     return redirect()->to("/{$locale}");
 });
 
+Route::any('/migrate', function () {
+    Artisan::call('migrate');
+    // return "Migration completed";
+    return redirect()->to('/admin');
+});
+
 Route::group([
     'prefix' => '{locale}',                     // URL 前綴，如 /zh_TW 或 /en
     'middleware' => ['setlocale'],             // 設定語系

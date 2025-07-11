@@ -21,6 +21,7 @@
 <!-- Icon Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('icon', '分類圖示:') !!}
+    <p class="text-muted">建議尺寸: 120x120px</p>
     <div class="custom-file">
         <input type="file" class="custom-file-input" id="icon" name="icon" accept="image/*">
         <label class="custom-file-label icon-label" for="icon">Choose file</label>
@@ -38,6 +39,12 @@
 <!-- Cover Front Image Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('image', '圖片:') !!}
+    <p class="text-muted">
+        建議尺寸:<br>
+        建設機械 類別尺寸： 528x480px<br>
+        液壓配件 類別尺寸： 400x288px<br>
+        其他類別尺寸： 800x480px<br>
+    </p>
     <div class="custom-file">
         <input type="file" class="custom-file-input" id="image" name="image" accept="image/*">
         <label class="custom-file-label image-label" for="image">Choose file</label>

@@ -97,6 +97,24 @@
     </div>
 </div>
 
+<!-- Prod Img Cover Field -->
+<div class="form-group col-sm-6">
+    {!! Form::label('prod_img_cover', '產品封面圖片:') !!}
+    {{-- 尺寸說明 --}}
+    <p class="text-muted">建議尺寸: 400x328px</p>
+    <div class="custom-file">
+        <input type="file" class="custom-file-input" id="prod_img_cover" name="prod_img_cover" accept="image/*">
+        <label class="custom-file-label prod_img_cover_label" for="prod_img_cover">選擇產品封面圖片</label>
+    </div>
+    <div class="img-preview-prod-img-cover mt-2">
+        @if (isset($productsInfo) && $productsInfo->prod_img_cover)
+            <p>預覽</p>
+            <img src="{{ asset('uploads/' . $productsInfo->prod_img_cover) }}" style="max-width: 200px; max-height: 200px;">
+        @endif
+    </div>
+</div>
+<div class="clearfix w-100"></div>
+
 <!-- PDF Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('pdf', '產品PDF檔案:') !!}
@@ -116,6 +134,8 @@
 <!-- Product Images Field -->
 <div class="form-group col-sm-12">
     {!! Form::label('product_images', '產品圖片:') !!}
+    {{-- 尺寸說明 --}}
+    <p class="text-muted">建議尺寸: 1024x648px</p>
     <div class="input-group">
         <div class="custom-file">
             <input type="file" class="custom-file-input" id="product_images" name="product_images[]" multiple
@@ -206,6 +226,30 @@
         }, 5000); // 5秒後自動關閉
 
         $(function() {
+
+            // prod_img_cover 檔案選擇器
+            $('#prod_img_cover').on('change', function() {
+                // 檢查是否選擇了檔案
+                if (this.files.length === 0) {
+                    // 如果沒有選擇檔案，清除預覽區域
+                    $(this).closest('.form-group').find('.img-preview-prod-img-cover').html('');
+                    $('.prod_img_cover_label').text('選擇產品封面圖片');
+                    return;
+                }
+                let fileInput = this;
+                let fileReader = new FileReader();
+
+                fileReader.onload = function(e) {
+                    let previewHtml = `<p for="">預覽</p><img src="${e.target.result}" style="max-width: 200px; max-height: 200px;">`;
+                    $(fileInput).closest('.form-group').find('.img-preview-prod-img-cover').html(previewHtml);
+                };
+
+                fileReader.readAsDataURL(fileInput.files[0]);
+
+                // 更新標籤顯示
+                const coverFileName = this.files.length > 0 ? this.files[0].name : '選擇產品封面圖片';
+                $('.prod_img_cover_label').text(coverFileName);
+            });
 
             // pdf 檔案選擇器
             $('#pdf').on('change', function() {

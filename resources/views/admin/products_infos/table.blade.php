@@ -4,6 +4,7 @@
             <thead>
             <tr>
                 <th>ID</th>
+                <th>產品圖片</th>
                 <th>名稱</th>
                 <th>應用類別</th>
                 <th>產品品牌</th>

@@ -93,6 +93,7 @@
                 },
                 columns: [
                     { data: 'id' },
+                    { data: 'prod_img_cover', orderable: false, searchable: false },
                     { data: 'name', orderable: false },
                     { data: 'application_category' },
                     { data: 'brand' },

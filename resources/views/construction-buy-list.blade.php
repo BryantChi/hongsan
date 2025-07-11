@@ -48,7 +48,7 @@
                                     @if (!empty($categoriesInfo))
                                         @foreach ($categoriesInfo ?? [] as $category)
                                             <li class="wow fadeInUp" data-wow-delay="0.1s">
-                                                <a href="{{ localized_route('attachments', ['category' => $category->id, 'brand' => request('brand')]) }}" class="text-18">{{ $category->translateOrDefault(app()->getLocale())->name }}</a>
+                                                <a href="{{ localized_route('construction.buy.list', ['category' => $category->id, 'brand' => request('brand')]) }}" class="{{ request('category') == $category->id ? 'text-main fw-bold' : 'text-18' }}">{{ $category->translateOrDefault(app()->getLocale())->name }}</a>
                                             </li>
                                         @endforeach
                                     @endif
@@ -70,7 +70,7 @@
                                                     ->first();
                                                 $prod_img = $product_img->image_path ?? ''
                                             @endphp
-                                            <img src="{{ asset('uploads/' . $prod_img) }}" class="img-fluid">
+                                            <img src="{{ asset('uploads/' . ($machinery->prod_img_cover ?? $prod_img)) }}" class="img-fluid">
                                             <div class="hot-item-content bg-main text-center py-lg-3 py-2 px-3">
                                                 <h5 class="text-white">
                                                     {{ $machinery->translateOrDefault(app()->getLocale())->name }}

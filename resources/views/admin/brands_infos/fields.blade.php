@@ -21,6 +21,9 @@
 <!-- Cover Front Image Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('image', '圖片:') !!}
+    <p class="text-muted">
+        建議尺寸: 800x480px
+    </p>
     <div class="custom-file">
         <input type="file" class="custom-file-input" id="image" name="image" accept="image/*">
         <label class="custom-file-label" for="image">Choose file</label>

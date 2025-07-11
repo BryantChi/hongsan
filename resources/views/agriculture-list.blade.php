@@ -70,7 +70,7 @@
                                     @if (!empty($brandsInfo))
                                         @foreach ($brandsInfo as $brand)
                                             <li class="wow fadeInUp" data-wow-delay="0.1s">
-                                                <a href="{{ localized_route('agriculture', ['brand' => $brand->id]) }}" class="text-18">{{ $brand->translateOrDefault(app()->getLocale())->name }}</a>
+                                                <a href="{{ localized_route('agriculture', ['brand' => $brand->id]) }}" class="{{ request('brand') == $brand->id ? 'text-main fw-bold' : 'text-18' }}">{{ $brand->translateOrDefault(app()->getLocale())->name }}</a>
                                             </li>
                                         @endforeach
                                     @endif
@@ -92,7 +92,7 @@
                                                     ->first();
                                                 $prod_img = $product_img->image_path ?? ''
                                             @endphp
-                                            <img src="{{ asset('uploads/' . $prod_img) }}" class="img-fluid">
+                                            <img src="{{ asset('uploads/' . ($agriculture->prod_img_cover ?? $prod_img)) }}" class="img-fluid">
                                             <div class="hot-item-content bg-main text-center py-lg-3 py-2 px-3">
                                                 <h5 class="text-white">{{$agriculture->translateOrDefault(app()->getLocale())->name}}</h5>
                                             </div>

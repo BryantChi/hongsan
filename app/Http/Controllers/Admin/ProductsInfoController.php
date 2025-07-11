@@ -70,6 +70,16 @@ class ProductsInfoController extends AppBaseController
 
         $data = [];
         foreach ($products as $product) {
+            // 產品封面圖片,Html
+            $coverImage = $product->prod_img_cover;
+            $coverImageHtml = '';
+            if ($coverImage) {
+                $coverImageHtml = '<img src="' . asset('uploads/' . $coverImage) . '" class="img-fluid" alt="產品封面圖片">';
+            } else {
+                $coverImageHtml = '<p class="text-muted">無封面圖片</p>';
+            }
+
+
             // 產品名稱處理
             $nameHtml = '';
             $translationsCount = count($product->translations);
@@ -135,6 +145,7 @@ class ProductsInfoController extends AppBaseController
 
             $data[] = [
                 'id' => $product->id,
+                'prod_img_cover' => $coverImageHtml,
                 'name' => $nameHtml,
                 'application_category' => $applicationCategoriesInfo,
                 'brand' => $brands,
@@ -202,6 +213,9 @@ class ProductsInfoController extends AppBaseController
         // if (empty($input['slug']) && isset($input[config('translatable.fallback_locale')]['name'])) {
         //     $input['slug'] = \Illuminate\Support\Str::slug($input[config('translatable.fallback_locale')]['name']);
         // }
+
+        // 處理圖片上傳
+        $input['prod_img_cover'] = $this->processImage($request->file('prod_img_cover'), 'product_cover_image');
 
         // 處理檔案上傳
         $input['pdf'] = $this->handleFileUpload($request->file('pdf'), '', 'catalog_files');
@@ -308,6 +322,9 @@ class ProductsInfoController extends AppBaseController
         // if (empty($input['slug']) && isset($input[config('translatable.fallback_locale')]['name'])) {
         //     $input['slug'] = \Illuminate\Support\Str::slug($input[config('translatable.fallback_locale')]['name']);
         // }
+
+        // 處理圖片上傳
+       $input['prod_img_cover'] = $this->handleImageUpload($request->file('prod_img_cover'), $productsInfo->prod_img_cover, 'product_cover_image');
 
         // 處理檔案上傳
         if ($request->hasFile('pdf')) {
@@ -476,6 +493,67 @@ class ProductsInfoController extends AppBaseController
 
         // 若無新檔案，返回舊檔案路徑
         return $existingFilePath;
+    }
+
+    // 共用的圖片處理函式
+    function processImage($image, $uploadDir, $resizeWidth = 800, $quality = 75)
+    {
+        if ($image) {
+            $path = public_path('uploads/images/' . $uploadDir) . '/';
+            $filename = time() . '_' . $image->getClientOriginalName();
+
+            if (!file_exists($path)) {
+                mkdir($path, 0755, true);
+            }
+
+            // 壓縮圖片
+            $image = Image::make($image)
+                ->orientate()
+                // ->resize($resizeWidth, null, function ($constraint) {
+                //     $constraint->aspectRatio();
+                //     $constraint->upsize();
+                // })
+                ->encode('jpg', $quality); // 設定 JPG 格式和品質
+            $image->save($path . $filename);
+
+            return 'images/' . $uploadDir . '/' . $filename;
+        }
+
+        return '';
+    }
+
+    // 共用圖片處理函式
+    function handleImageUpload($newImage, $existingImagePath, $uploadDir, $resizeWidth = 800, $quality = 75)
+    {
+        if ($newImage) {
+            $path = public_path('uploads/images/' . $uploadDir . '/');
+            $filename = time() . '_' . $newImage->getClientOriginalName();
+
+            // 確保目錄存在
+            if (!file_exists($path)) {
+                mkdir($path, 0755, true);
+            }
+
+            // 若已有圖片，刪除舊圖片
+            if (!empty($existingImagePath) && File::exists(public_path('uploads/' . $existingImagePath))) {
+                File::delete(public_path('uploads/' . $existingImagePath));
+            }
+
+            // 壓縮並保存新圖片
+            $image = Image::make($newImage)
+                ->orientate()
+                // ->resize($resizeWidth, null, function ($constraint) {
+                //     $constraint->aspectRatio();
+                //     $constraint->upsize();
+                // })
+                ->encode('jpg', $quality); // 設定 JPG 格式和品質
+            $image->save($path . $filename);
+
+            return 'images/' . $uploadDir . '/' . $filename;
+        }
+
+        // 若無新圖片，返回舊圖片路徑
+        return $existingImagePath;
     }
 
     /**
