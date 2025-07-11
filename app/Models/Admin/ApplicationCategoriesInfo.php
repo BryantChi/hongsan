@@ -8,6 +8,8 @@ class ApplicationCategoriesInfo extends Model
 {
     public $table = 'application_categories_infos';
 
+    protected $dates = ['deleted_at'];
+
     public $fillable = [
         'name'
     ];
@@ -18,8 +20,8 @@ class ApplicationCategoriesInfo extends Model
     ];
 
     public static array $rules = [
-        
+
     ];
 
-    
+
 }

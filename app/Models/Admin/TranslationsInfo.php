@@ -8,6 +8,8 @@ class TranslationsInfo extends Model
 {
     public $table = 'translations_infos';
 
+    protected $dates = ['deleted_at'];
+
     public $fillable = [
         'key',
         'translations',

@@ -12,6 +12,8 @@ class HeroSlide extends Model implements TranslatableContract
 
     public $table = 'hero_slides';
 
+    protected $dates = ['deleted_at'];
+
     public $translatedAttributes = [
         'title',
         'image_624',

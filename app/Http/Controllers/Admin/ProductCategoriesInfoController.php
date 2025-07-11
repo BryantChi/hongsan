@@ -27,7 +27,7 @@ class ProductCategoriesInfoController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $productCategoriesInfos = $this->productCategoriesInfoRepository->paginate(10);
+        $productCategoriesInfos = $this->productCategoriesInfoRepository->all();
 
         return view('admin.product_categories_infos.index')
             ->with('productCategoriesInfos', $productCategoriesInfos);
@@ -57,7 +57,7 @@ class ProductCategoriesInfoController extends AppBaseController
 
         // 自動生成 slug (如果沒有提供)
         // if (empty($input['slug']) && isset($input[config('translatable.fallback_locale')]['name'])) {
-        $input['slug'] = Str::slug($input[config('translatable.fallback_locale')]['name']);
+        $input['slug'] = Str::slug($input['en']['name'] ?? time());
         // }
 
         // 處理圖片上傳
@@ -148,7 +148,7 @@ class ProductCategoriesInfoController extends AppBaseController
 
         // 自動更新 slug (如果沒有提供)
         // if (empty($input['slug']) && isset($input[config('translatable.fallback_locale')]['name'])) {
-            $input['slug'] = Str::slug($input[config('translatable.fallback_locale')]['name']);
+            $input['slug'] = Str::slug($input['en']['name'] ?? time());
         // }
 
         // 處理圖片上傳

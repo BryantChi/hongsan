@@ -120,7 +120,7 @@ class ProductsInfoController extends AppBaseController
                     '<div class="btn-group">' .
                     '<a href="' . localized_route('admin.productsInfos.edit', [$product->id]) . '"' .
                     'class="btn btn-default btn-md"><i class="far fa-edit"></i></a>' .
-                    Form::button('<i class="far fa-trash-alt"></i>', ['type' => 'button', 'class' => 'btn btn-danger btn-md', 'onclick' => "return confirm('Are you sure?')"]) .
+                    Form::button('<i class="far fa-trash-alt"></i>', ['type' => 'button', 'class' => 'btn btn-danger btn-md', 'onclick' => "return check(this)"]) .
                     '</div>' .
                     Form::close();
             // $actions = '<form action="' . route('admin.productsInfos.destroy', $product->id) . '" method="POST">' .

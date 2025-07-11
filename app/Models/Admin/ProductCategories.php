@@ -12,6 +12,8 @@ class ProductCategories extends Model implements TranslatableContract
 
     public $table = 'product_categories';
 
+    protected $dates = ['deleted_at'];
+
     public $fillable = [
         'application_categories_info_id',
         'slug',
@@ -27,7 +29,6 @@ class ProductCategories extends Model implements TranslatableContract
     protected $casts = [
         'id' => 'integer',
         'application_categories_info_id' => 'integer',
-        'name' => 'string',
         'slug' => 'string',
         'icon' => 'json',
         'image' => 'json',

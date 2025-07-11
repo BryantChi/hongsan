@@ -28,7 +28,7 @@ class BrandsInfoController extends AppBaseController
     public function index()
     {
         // 取得所有品牌資訊
-        $brandsInfos = $this->brandsInfoRepository->paginate(10);
+        $brandsInfos = $this->brandsInfoRepository->all();
 
         return view('admin.brands_infos.index')
             ->with('brandsInfos', $brandsInfos);
@@ -58,8 +58,8 @@ class BrandsInfoController extends AppBaseController
 
         // 自動生成 slug (如果沒有提供)
         // if (empty($input['slug']) && isset($input[config('translatable.fallback_locale')]['name'])) {
-        $input['slug'] = Str::slug($input[config('translatable.fallback_locale')]['name']);
-        // }
+        $input['slug'] = Str::slug($input['en']['name'] ?? time());
+        // } ?? time()
 
         // 處理圖片上傳
         $input['image'] = $this->processImage($request->file('image'), 'brands_image');
@@ -146,7 +146,7 @@ class BrandsInfoController extends AppBaseController
 
         // 自動更新 slug (如果沒有提供)
         // if (empty($input['slug']) && isset($input[config('translatable.fallback_locale')]['name'])) {
-            $input['slug'] = Str::slug($input[config('translatable.fallback_locale')]['name']);
+            $input['slug'] = Str::slug($input['en']['name'] ?? time());
         // }
 
         // 處理圖片上傳

@@ -1,5 +1,5 @@
 <div class="card-body p-0">
-    <div class="table-responsive">
+    <div class="table-responsive p-3">
         <table class="table" id="brands-infos-table">
             <thead>
             <tr>
@@ -71,9 +71,9 @@
         </table>
     </div>
 
-    <div class="card-footer clearfix">
+    {{-- <div class="card-footer clearfix">
         <div class="float-right">
             @include('adminlte-templates::common.paginate', ['records' => $brandsInfos])
         </div>
-    </div>
+    </div> --}}
 </div>

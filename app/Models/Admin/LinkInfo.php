@@ -8,6 +8,8 @@ class LinkInfo extends Model
 {
     public $table = 'link_infos';
 
+    protected $dates = ['deleted_at'];
+
     public $fillable = [
         'name',
         'url',

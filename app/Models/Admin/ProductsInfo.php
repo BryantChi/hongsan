@@ -12,6 +12,8 @@ class ProductsInfo extends Model implements TranslatableContract
 
     public $table = 'products_infos';
 
+    protected $dates = ['deleted_at'];
+
     // 非翻譯欄位
     public $fillable = [
         'application_categories_info_id',

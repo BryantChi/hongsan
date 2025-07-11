@@ -8,6 +8,8 @@ class ContactInfo extends Model
 {
     public $table = 'contact_infos';
 
+    protected $dates = ['deleted_at'];
+
     public $fillable = [
         'name',
         'machine_type',

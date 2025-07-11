@@ -12,9 +12,12 @@ class BrandsInfo extends Model implements TranslatableContract
 
     public $table = 'brands_infos';
 
+    protected $dates = ['deleted_at'];
+
     public $fillable = [
         'application_categories_info_id',
-        'slug'
+        'slug',
+        'image'
     ];
 
     // 可翻譯的欄位
@@ -25,7 +28,6 @@ class BrandsInfo extends Model implements TranslatableContract
     protected $casts = [
         'id' => 'integer',
         'application_categories_info_id' => 'integer',
-        'name' => 'string',
         'slug' => 'string',
         'image' => 'json',
     ];

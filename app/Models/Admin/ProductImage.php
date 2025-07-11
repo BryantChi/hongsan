@@ -12,6 +12,8 @@ class ProductImage extends Model
         'sort_order'
     ];
 
+    protected $dates = ['deleted_at'];
+
     public function product()
     {
         return $this->belongsTo(ProductsInfo::class, 'product_id');

@@ -1,5 +1,5 @@
 <div class="card-body p-0">
-    <div class="table-responsive">
+    <div class="table-responsive p-3">
         <table class="table" id="product-categories-infos-table">
             <thead>
             <tr>
@@ -70,7 +70,7 @@
                                class='btn btn-default btn-md'>
                                 <i class="far fa-edit"></i>
                             </a>
-                            {!! Form::button('<i class="far fa-trash-alt"></i>', ['type' => 'button', 'class' => 'btn btn-danger btn-md', 'onclick' => "return confirm('Are you sure?')"]) !!}
+                            {!! Form::button('<i class="far fa-trash-alt"></i>', ['type' => 'button', 'class' => 'btn btn-danger btn-md', 'onclick' => "return check(this)"]) !!}
                         </div>
                         {!! Form::close() !!}
                     </td>
@@ -80,9 +80,9 @@
         </table>
     </div>
 
-    <div class="card-footer clearfix">
+    {{-- <div class="card-footer clearfix">
         <div class="float-right">
             @include('adminlte-templates::common.paginate', ['records' => $productCategoriesInfos])
         </div>
-    </div>
+    </div> --}}
 </div>
