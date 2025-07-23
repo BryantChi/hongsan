@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 2,
+            "activePatchIndex": 4,
             "patches": [
                 {
                     "date": 1753257637749,
@@ -16,6 +16,14 @@
                 {
                     "date": 1753269711288,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -87,10 +87,16 @@\n         $seoInfo = SeoSettingRepository::getInfo('/products');\n \n         // 取得產品資訊，並載入翻譯\n         $product = ProductsInfo::with(['translations' => function ($query) {\n-            $query->where('locale', app()->getLocale());\n-        }])->findOrFail($id);\n+                $query->where('locale', app()->getLocale());\n+            },\n+            'productCategories' => function ($query) {\n+                $query->with(['translations' => function ($q) {\n+                    $q->where('locale', app()->getLocale());\n+                }]);\n+            }\n+        ])->findOrFail($id);\n \n         // 取得產品圖片\n         $images = $product->images;\n \n"
+                },
+                {
+                    "date": 1753272921166,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -35,10 +35,10 @@\n         if ($request->has('category')) {\n             $category = $request->input('category');\n             // $query->where('product_categories_id', $category);\n             $query->whereHas('productCategories', function($q) use ($category) {\n-                $q->where('id', $category);\n-            });\n+        $q->where('product_categories.id', $category);\n+    });\n         }\n \n         // 分頁查詢\n         $attachmentsList = $query->orderBy('created_at', 'desc')->paginate(12);\n"
+                },
+                {
+                    "date": 1753272927017,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -35,10 +35,10 @@\n         if ($request->has('category')) {\n             $category = $request->input('category');\n             // $query->where('product_categories_id', $category);\n             $query->whereHas('productCategories', function($q) use ($category) {\n-        $q->where('product_categories.id', $category);\n-    });\n+                $q->where('product_categories.id', $category);\n+            });\n         }\n \n         // 分頁查詢\n         $attachmentsList = $query->orderBy('created_at', 'desc')->paginate(12);\n"
                 }
             ],
             "date": 1753257637749,

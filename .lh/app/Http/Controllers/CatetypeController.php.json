@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 1,
+            "activePatchIndex": 3,
             "patches": [
                 {
                     "date": 1753263609808,
@@ -12,6 +12,14 @@
                 {
                     "date": 1753269695421,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -182,10 +182,16 @@\n         $seoInfo = SeoSettingRepository::getInfo('/products');\n \n         // 取得產品資訊，並載入翻譯\n         $product = ProductsInfo::with(['translations' => function ($query) {\n-            $query->where('locale', app()->getLocale());\n-        }])->findOrFail($id);\n+                $query->where('locale', app()->getLocale());\n+            },\n+            'productCategories' => function ($query) {\n+                $query->with(['translations' => function ($q) {\n+                    $q->where('locale', app()->getLocale());\n+                }]);\n+            }\n+        ])->findOrFail($id);\n \n         // 取得產品圖片\n         $images = $product->images;\n \n"
+                },
+                {
+                    "date": 1753272921165,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -67,10 +67,10 @@\n         if ($request->has('category')) {\n             $category = $request->input('category');\n             // $query->where('product_categories_id', $category);\n             $query->whereHas('productCategories', function($q) use ($category) {\n-                $q->where('id', $category);\n-            });\n+        $q->where('product_categories.id', $category);\n+    });\n         }\n \n         // 分頁查詢\n         $machineryList = $query->orderBy('created_at', 'desc')->paginate(12);\n@@ -143,10 +143,10 @@\n         if ($request->has('category')) {\n             $category = $request->input('category');\n             // $query->where('product_categories_id', $category);\n             $query->whereHas('productCategories', function($q) use ($category) {\n-                $q->where('id', $category);\n-            });\n+        $q->where('product_categories.id', $category);\n+    });\n         }\n \n         // 分頁查詢\n         $machineryList = $query->orderBy('created_at', 'desc')->paginate(12);\n"
+                },
+                {
+                    "date": 1753272955130,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -67,10 +67,10 @@\n         if ($request->has('category')) {\n             $category = $request->input('category');\n             // $query->where('product_categories_id', $category);\n             $query->whereHas('productCategories', function($q) use ($category) {\n-        $q->where('product_categories.id', $category);\n-    });\n+                $q->where('product_categories.id', $category);\n+            });\n         }\n \n         // 分頁查詢\n         $machineryList = $query->orderBy('created_at', 'desc')->paginate(12);\n@@ -143,10 +143,10 @@\n         if ($request->has('category')) {\n             $category = $request->input('category');\n             // $query->where('product_categories_id', $category);\n             $query->whereHas('productCategories', function($q) use ($category) {\n-        $q->where('product_categories.id', $category);\n-    });\n+                $q->where('product_categories.id', $category);\n+            });\n         }\n \n         // 分頁查詢\n         $machineryList = $query->orderBy('created_at', 'desc')->paginate(12);\n"
                 }
             ],
             "date": 1753263609807,

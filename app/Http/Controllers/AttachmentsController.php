@@ -36,7 +36,7 @@ class AttachmentsController extends Controller
             $category = $request->input('category');
             // $query->where('product_categories_id', $category);
             $query->whereHas('productCategories', function($q) use ($category) {
-                $q->where('id', $category);
+                $q->where('product_categories.id', $category);
             });
         }
 
