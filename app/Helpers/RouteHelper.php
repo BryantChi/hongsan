@@ -13,7 +13,7 @@ if (!function_exists('localized_route')) {
     {
         // 確保參數是陣列
         if (!is_array($parameters)) {
-            $parameters = [$parameters];
+            $parameters = ['id' => $parameters];
         }
 
         // 添加當前語系作為參數
