@@ -1,0 +1,30 @@
+{
+    "sourceFile": "app/Models/Admin/ProductsInfo.php",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 3,
+            "patches": [
+                {
+                    "date": 1753263522368,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1753265941231,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -86,8 +86,8 @@\n     // }\n \n     public function productCategories()\n     {\n-        return $this->belongsToMany(ProductCategories::class, 'product_product_categories', 'product_id', 'product_category_id');\n+        return $this->belongsToMany(ProductCategories::class, 'product_prod_categories', 'product_id', 'product_category_id');\n     }\n \n }\n"
+                },
+                {
+                    "date": 1753266217927,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -39,9 +39,9 @@\n         'id' => 'integer',\n         'prod_img_cover' => 'json',\n         'application_categories_info_id' => 'integer',\n         'brands_info_id' => 'integer',\n-        'product_categories_id' => 'integer',\n+        // 'product_categories_id' => 'integer',\n         'purchase_lease' => 'string', // 購買/租賃欄位\n         'version' => 'string',\n         'quick_bucket_changer' => 'boolean',\n         'operating_converter' => 'boolean',\n@@ -51,9 +51,9 @@\n     public static array $rules = [\n         'prod_img_cover' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:1024', // 封面圖片\n         'application_categories_info_id' => 'required|exists:application_categories_infos,id',\n         'brands_info_id' => 'required|exists:brands_infos,id',\n-        'product_categories_id' => 'required|exists:product_categories,id',\n+        // 'product_categories_id' => 'required|exists:product_categories,id',\n         'purchase_lease' => 'nullable|string|max:255',\n         'version' => 'nullable|string|max:255',\n         'pdf' => 'nullable|file|mimes:pdf|max:2048', // PDF欄位\n     ];\n"
+                },
+                {
+                    "date": 1753266229473,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,9 +18,9 @@\n     public $fillable = [\n         'prod_img_cover',\n         'application_categories_info_id',\n         'brands_info_id',\n-        'product_categories_id',\n+        // 'product_categories_id',\n         'purchase_lease', // 新增購買/租賃欄位\n         'version',\n         'quick_bucket_changer',\n         'operating_converter',\n"
+                }
+            ],
+            "date": 1753263522368,
+            "name": "Commit-0",
+            "content": "<?php\n\nnamespace App\\Models\\Admin;\n\nuse Illuminate\\Database\\Eloquent\\Model;\nuse Astrotomic\\Translatable\\Contracts\\Translatable as TranslatableContract;\nuse Astrotomic\\Translatable\\Translatable;\n\nclass ProductsInfo extends Model implements TranslatableContract\n{\n    use Translatable;\n\n    public $table = 'products_infos';\n\n    protected $dates = ['deleted_at'];\n\n    // 非翻譯欄位\n    public $fillable = [\n        'prod_img_cover',\n        'application_categories_info_id',\n        'brands_info_id',\n        'product_categories_id',\n        'purchase_lease', // 新增購買/租賃欄位\n        'version',\n        'quick_bucket_changer',\n        'operating_converter',\n        'pdf' // PDF欄位\n    ];\n\n    // 定義可翻譯屬性\n    public $translatedAttributes = [\n        'name',\n        'piping',\n        'glue_block',\n        'introduction'\n    ];\n\n    protected $casts = [\n        'id' => 'integer',\n        'prod_img_cover' => 'json',\n        'application_categories_info_id' => 'integer',\n        'brands_info_id' => 'integer',\n        'product_categories_id' => 'integer',\n        'purchase_lease' => 'string', // 購買/租賃欄位\n        'version' => 'string',\n        'quick_bucket_changer' => 'boolean',\n        'operating_converter' => 'boolean',\n        'pdf' => 'json', // PDF欄位\n    ];\n\n    public static array $rules = [\n        'prod_img_cover' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:1024', // 封面圖片\n        'application_categories_info_id' => 'required|exists:application_categories_infos,id',\n        'brands_info_id' => 'required|exists:brands_infos,id',\n        'product_categories_id' => 'required|exists:product_categories,id',\n        'purchase_lease' => 'nullable|string|max:255',\n        'version' => 'nullable|string|max:255',\n        'pdf' => 'nullable|file|mimes:pdf|max:2048', // PDF欄位\n    ];\n\n    public static array $translationRules = [\n        'name' => 'required|string|max:255',\n        'piping' => 'nullable|string',\n        'glue_block' => 'nullable|string',\n        'introduction' => 'nullable|string',\n    ];\n\n    public function images()\n    {\n        return $this->hasMany(ProductImage::class, 'product_id')->orderBy('sort_order', 'asc');\n    }\n\n    public function applicationCategory()\n    {\n        return $this->belongsTo(\\App\\Models\\Admin\\ApplicationCategoriesInfo::class, 'application_categories_info_id');\n    }\n\n    public function brand()\n    {\n        return $this->belongsTo(\\App\\Models\\Admin\\BrandsInfo::class, 'brands_info_id');\n    }\n\n    // public function productCategory()\n    // {\n    //     return $this->belongsTo(\\App\\Models\\Admin\\ProductCategories::class, 'product_categories_id');\n    // }\n\n    public function productCategories()\n    {\n        return $this->belongsToMany(ProductCategories::class, 'product_product_categories', 'product_id', 'product_category_id');\n    }\n\n}\n"
+        }
+    ]
+}

@@ -1,0 +1,26 @@
+{
+    "sourceFile": "app/Http/Controllers/AttachmentsController.php",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 2,
+            "patches": [
+                {
+                    "date": 1753257637749,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1753263633735,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -33,9 +33,12 @@\n \n         // 如果有分類搜尋\n         if ($request->has('category')) {\n             $category = $request->input('category');\n-            $query->where('product_categories_id', $category);\n+            // $query->where('product_categories_id', $category);\n+            $query->whereHas('productCategories', function($q) use ($category) {\n+                $q->where('id', $category);\n+            });\n         }\n \n         // 分頁查詢\n         $attachmentsList = $query->orderBy('created_at', 'desc')->paginate(12);\n"
+                },
+                {
+                    "date": 1753269711288,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -87,10 +87,16 @@\n         $seoInfo = SeoSettingRepository::getInfo('/products');\n \n         // 取得產品資訊，並載入翻譯\n         $product = ProductsInfo::with(['translations' => function ($query) {\n-            $query->where('locale', app()->getLocale());\n-        }])->findOrFail($id);\n+                $query->where('locale', app()->getLocale());\n+            },\n+            'productCategories' => function ($query) {\n+                $query->with(['translations' => function ($q) {\n+                    $q->where('locale', app()->getLocale());\n+                }]);\n+            }\n+        ])->findOrFail($id);\n \n         // 取得產品圖片\n         $images = $product->images;\n \n"
+                }
+            ],
+            "date": 1753257637749,
+            "name": "Commit-0",
+            "content": "<?php\n\nnamespace App\\Http\\Controllers;\n\nuse App\\Models\\Admin\\ProductsInfo;\nuse App\\Repositories\\Admin\\SeoSettingRepository;\nuse Illuminate\\Http\\Request;\n\nclass AttachmentsController extends Controller\n{\n    //\n    public function index(Request $request)\n    {\n        $seoInfo = SeoSettingRepository::getInfo('/attachments');\n\n        $query = ProductsInfo::query();\n\n        $query->with([\n                'translations' => function ($query) {\n                    $query->where('locale', app()->getLocale());\n                }\n            ]);\n\n        // 這裡可以根據需要添加其他條件\n        $query->where('application_categories_info_id', 2); // 2 是液壓類別的 ID\n\n        // 如果有搜尋條件，可以在這裡添加\n        // 依品牌搜尋\n        if ($request->has('brand')) {\n            $brand = $request->input('brand');\n            $query->where('brands_info_id', $brand);\n        }\n\n        // 如果有分類搜尋\n        if ($request->has('category')) {\n            $category = $request->input('category');\n            $query->where('product_categories_id', $category);\n        }\n\n        // 分頁查詢\n        $attachmentsList = $query->orderBy('created_at', 'desc')->paginate(12);\n\n        // 取得目前語系翻譯所有品牌資訊,\n        $brandsInfo = \\App\\Models\\Admin\\BrandsInfo::query()\n            ->with([\n                'translations' => function ($query) {\n                    $query->where('locale', app()->getLocale());\n                }\n            ])\n            ->where('application_categories_info_id', 2)\n            ->get();\n\n        // 取得目前語系翻譯所有分類資訊,\n        $categoriesInfo = \\App\\Models\\Admin\\ProductCategories::query()\n            ->with([\n                'translations' => function ($query) {\n                    $query->where('locale', app()->getLocale());\n                }\n            ])\n            ->where('application_categories_info_id', 2)\n            ->get();\n\n        return view('attachments-list', compact('seoInfo', 'brandsInfo', 'categoriesInfo', 'attachmentsList'));\n    }\n\n    public function pgCategory()\n    {\n        // 取得 SEO 設定\n        $seoInfo = SeoSettingRepository::getInfo('/attachments');\n\n        // 取得產品分類資訊，並載入翻譯\n        $categories = \\App\\Models\\Admin\\ProductCategories::with(['translations' => function ($query) {\n            $query->where('locale', app()->getLocale());\n        }])\n        ->where('application_categories_info_id', 2) // 2 是液壓類別的 ID\n        ->orderBy('created_at', 'desc')->get();\n\n        return view('attachments-category-list', compact('seoInfo', 'categories'));\n    }\n\n    public function productIntro($locale, $id)\n    {\n        // 取得 SEO 設定\n        $seoInfo = SeoSettingRepository::getInfo('/products');\n\n        // 取得產品資訊，並載入翻譯\n        $product = ProductsInfo::with(['translations' => function ($query) {\n            $query->where('locale', app()->getLocale());\n        }])->findOrFail($id);\n\n        // 取得產品圖片\n        $images = $product->images;\n\n        return view('product-intro', compact('product', 'seoInfo', 'images'));\n    }\n}\n"
+        }
+    ]
+}

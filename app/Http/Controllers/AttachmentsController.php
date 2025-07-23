@@ -34,7 +34,10 @@ class AttachmentsController extends Controller
         // 如果有分類搜尋
         if ($request->has('category')) {
             $category = $request->input('category');
-            $query->where('product_categories_id', $category);
+            // $query->where('product_categories_id', $category);
+            $query->whereHas('productCategories', function($q) use ($category) {
+                $q->where('id', $category);
+            });
         }
 
         // 分頁查詢
@@ -85,8 +88,14 @@ class AttachmentsController extends Controller
 
         // 取得產品資訊，並載入翻譯
         $product = ProductsInfo::with(['translations' => function ($query) {
-            $query->where('locale', app()->getLocale());
-        }])->findOrFail($id);
+                $query->where('locale', app()->getLocale());
+            },
+            'productCategories' => function ($query) {
+                $query->with(['translations' => function ($q) {
+                    $q->where('locale', app()->getLocale());
+                }]);
+            }
+        ])->findOrFail($id);
 
         // 取得產品圖片
         $images = $product->images;

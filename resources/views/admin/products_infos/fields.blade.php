@@ -22,7 +22,7 @@
 <!-- Product Categories Id Field -->
 <div class="form-group col-sm-4">
     {!! Form::label('product_categories_id', '產品類別:') !!}
-    {!! Form::select('product_categories_id', [], null, ['class' => 'form-control', 'placeholder' => '請先選擇應用類別', 'id' => 'product_categories_id', 'required' => true]) !!}
+    {!! Form::select('product_categories_id[]', [], null, ['class' => 'form-control', 'id' => 'product_categories_id', 'placeholder' => '請先選擇應用類別', 'multiple', 'required' => true]) !!}
 </div>
 
 <!-- Version Field -->
@@ -226,6 +226,16 @@
         }, 5000); // 5秒後自動關閉
 
         $(function() {
+
+            $('#brands_info_id').select2({
+                placeholder: '請先選擇應用類別',
+                allowClear: true
+            });
+
+            $('#product_categories_id').select2({
+                placeholder: '請先選擇應用類別',
+                allowClear: true
+            });
 
             // prod_img_cover 檔案選擇器
             $('#prod_img_cover').on('change', function() {
@@ -506,7 +516,9 @@
 
             // 儲存當前產品的品牌和產品類別ID (如果是編輯頁面)
             var currentBrandId = {{ isset($productsInfo) && $productsInfo->brands_info_id ? $productsInfo->brands_info_id : 'null' }};
-            var currentProductCategoryId = {{ isset($productsInfo) && $productsInfo->product_categories_id ? $productsInfo->product_categories_id : 'null' }};
+            var currentProductCategoryIds = @if(isset($productsInfo) && $productsInfo->productCategories)
+                               {!! json_encode($productsInfo->productCategories->pluck('id')->toArray()) !!}
+                               @else [] @endif;
             $('#purchase_lease_container').hide();
             // 應用類別選擇變更事件
             $('#application_categories_info_id').on('change', function() {
@@ -561,9 +573,11 @@
                                 );
                             });
 
-                            // 如果是編輯頁面，選中原有的產品類別
-                            if (currentProductCategoryId) {
-                                $('#product_categories_id').val(currentProductCategoryId);
+                            // 如果是編輯頁面，選中原有的產品類別(使用正確的變數名稱)
+                            if (currentProductCategoryIds && currentProductCategoryIds.length > 0) {
+                                $('#product_categories_id').val(currentProductCategoryIds);
+                                // 觸發change事件以更新Select2顯示
+                                $('#product_categories_id').trigger('change');
                             }
                         }
                     },

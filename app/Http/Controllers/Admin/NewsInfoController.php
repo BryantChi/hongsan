@@ -233,10 +233,10 @@ class NewsInfoController extends AppBaseController
             // 壓縮圖片
             $image = Image::make($image)
                 ->orientate()
-                ->resize($resizeWidth, null, function ($constraint) {
-                    $constraint->aspectRatio();
-                    $constraint->upsize();
-                })
+                // ->resize($resizeWidth, null, function ($constraint) {
+                //     $constraint->aspectRatio();
+                //     $constraint->upsize();
+                // })
                 ->encode('jpg', $quality); // 設定 JPG 格式和品質
             $image->save($path . $filename);
 
@@ -266,10 +266,10 @@ class NewsInfoController extends AppBaseController
             // 壓縮並保存新圖片
             $image = Image::make($newImage)
                 ->orientate()
-                ->resize($resizeWidth, null, function ($constraint) {
-                    $constraint->aspectRatio();
-                    $constraint->upsize();
-                })
+                // ->resize($resizeWidth, null, function ($constraint) {
+                //     $constraint->aspectRatio();
+                //     $constraint->upsize();
+                // })
                 ->encode('jpg', $quality); // 設定 JPG 格式和品質
             $image->save($path . $filename);
 

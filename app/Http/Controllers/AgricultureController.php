@@ -54,8 +54,14 @@ class AgricultureController extends Controller
 
         // 取得產品資訊，並載入翻譯
         $product = ProductsInfo::with(['translations' => function ($query) {
-            $query->where('locale', app()->getLocale());
-        }])->findOrFail($id);
+                $query->where('locale', app()->getLocale());
+            },
+            'productCategories' => function ($query) {
+                $query->with(['translations' => function ($q) {
+                    $q->where('locale', app()->getLocale());
+                }]);
+            }
+        ])->findOrFail($id);
 
         // 取得產品圖片
         $images = $product->images;

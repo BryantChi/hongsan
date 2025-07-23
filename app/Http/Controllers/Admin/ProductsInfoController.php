@@ -51,7 +51,7 @@ class ProductsInfoController extends AppBaseController
         // }
         $search = $request->get('search')['value'] ?? '';
 
-        $query = ProductsInfo::with(['translations', 'applicationCategory', 'brand', 'productCategory']);
+        $query = ProductsInfo::with(['translations', 'applicationCategory', 'brand', 'productCategories']);
 
         // 加入搜尋條件
         if (!empty($search)) {
@@ -104,7 +104,15 @@ class ProductsInfoController extends AppBaseController
             $brands = $product->brand ? $product->brand->name : '無';
 
             // 產品類別名稱
-            $productCategoriesInfo = $product->productCategory ? $product->productCategory->name : '無';
+            $productCategoriesInfo = '無';
+            if ($product->productCategories && $product->productCategories->count() > 0) {
+                $categoryNames = $product->productCategories->pluck('name')->toArray();
+                // 使用 implode 來處理多個類別名稱，並用 <br> 分隔，span class="badge badge-info" 標籤包住
+                $categoryNames = array_map(function($name) {
+                    return '<span class="badge badge-info">' . $name . '</span>';
+                }, $categoryNames);
+                $productCategoriesInfo = implode('<br>', $categoryNames);
+            }
 
             // 配管與膠塊處理
             $pipingHtml = '';
@@ -235,7 +243,15 @@ class ProductsInfoController extends AppBaseController
             }
         }
 
+        $prod_categories_id = $input['product_categories_id'] ?? [];
+        unset($input['product_categories_id']); // 移除以免影響主表資料
+
         $productsInfo = $this->productsInfoRepository->create($input);
+
+        // 處理產品類別關聯
+        if (!empty($prod_categories_id)) {
+            $productsInfo->productCategories()->sync($prod_categories_id);
+        }
 
         // 處理多語系翻譯
         foreach ($translationData as $locale => $data) {
@@ -284,6 +300,10 @@ class ProductsInfoController extends AppBaseController
     public function edit($id)
     {
         $productsInfo = $this->productsInfoRepository->find($id);
+
+        // 確保載入產品類別關聯
+        $productsInfo->load('productCategories');
+
 
         if (empty($productsInfo)) {
             Flash::error('找不到產品資訊');
@@ -344,7 +364,18 @@ class ProductsInfoController extends AppBaseController
             }
         }
 
+        $prod_categories_id = $input['product_categories_id'] ?? [];
+        unset($input['product_categories_id']); // 移除以免影響主表資料
+
         $productsInfo = $this->productsInfoRepository->update($input, $id);
+
+        // 處理產品類別關聯
+        if (!empty($prod_categories_id)) {
+            $productsInfo->productCategories()->sync($prod_categories_id);
+        } else {
+            // 如果沒有提供產品類別，則清除所有關聯
+            $productsInfo->productCategories()->detach();
+        }
 
         // 處理多語系翻譯
         foreach ($translationData as $locale => $data) {

@@ -1,0 +1,18 @@
+{
+    "sourceFile": "app/Http/Controllers/ProductsController.php",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1753269747259,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1753269747259,
+            "name": "Commit-0",
+            "content": "<?php\n\nnamespace App\\Http\\Controllers;\n\nuse App\\Repositories\\Admin\\SeoSettingRepository;\nuse Illuminate\\Http\\Request;\n\nclass ProductsController extends Controller\n{\n    //\n    public function index()\n    {\n        $seoInfo = SeoSettingRepository::getInfo('/products');\n        // 取得產品資訊，並載入翻譯\n        $products = \\App\\Models\\Admin\\ProductsInfo::with(['translations' => function ($query) {\n            $query->where('locale', app()->getLocale());\n        }])->orderBy('created_at', 'desc')->get();\n\n        return view('products')\n            ->with('seoInfo', $seoInfo)\n            ->with('products', $products);\n    }\n\n    public function productIntro($locale, $id)\n    {\n        // 取得 SEO 設定\n        $seoInfo = SeoSettingRepository::getInfo('/products');\n\n        // 取得產品資訊，並載入翻譯\n        $product = \\App\\Models\\Admin\\ProductsInfo::with(['translations' => function ($query) {\n                $query->where('locale', app()->getLocale());\n            },\n            'productCategories' => function ($query) {\n                $query->with(['translations' => function ($q) {\n                    $q->where('locale', app()->getLocale());\n                }]);\n            }\n        ])->findOrFail($id);\n\n        // 取得產品圖片\n        $images = $product->images;\n\n        return view('product-intro', compact('seoInfo', 'product', 'images'));\n    }\n}\n"
+        }
+    ]
+}

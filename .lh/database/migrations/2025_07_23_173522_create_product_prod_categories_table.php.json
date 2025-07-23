@@ -1,0 +1,18 @@
+{
+    "sourceFile": "database/migrations/2025_07_23_173522_create_product_prod_categories_table.php",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1753263414915,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1753263414915,
+            "name": "Commit-0",
+            "content": "<?php\n\nuse Illuminate\\Database\\Migrations\\Migration;\nuse Illuminate\\Database\\Schema\\Blueprint;\nuse Illuminate\\Support\\Facades\\Schema;\n\nreturn new class extends Migration\n{\n    /**\n     * Run the migrations.\n     */\n    public function up(): void\n    {\n        Schema::create('product_prod_categories', function (Blueprint $table) {\n            $table->id();\n            $table->unsignedBigInteger('product_id');\n            $table->unsignedBigInteger('product_category_id');\n            $table->timestamps();\n\n            $table->foreign('product_id')->references('id')->on('products_infos')->onDelete('cascade');\n            $table->foreign('product_category_id')->references('id')->on('product_categories')->onDelete('cascade');\n\n            $table->unique(['product_id', 'product_category_id']);\n        });\n    }\n\n    /**\n     * Reverse the migrations.\n     */\n    public function down(): void\n    {\n        Schema::dropIfExists('product_prod_categories');\n    }\n};\n"
+        }
+    ]
+}

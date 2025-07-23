@@ -26,7 +26,8 @@
                                 @foreach ($images ?? [] as $image)
                                     <div class="swiper-slide">
                                         <a href="{{ asset('uploads/' . $image->image_path) }}" data-fancybox="mygallery">
-                                            <img src="{{ asset('uploads/' . $image->image_path) }}" class="img-fluid w-100" />
+                                            <img src="{{ asset('uploads/' . $image->image_path) }}"
+                                                class="img-fluid w-100" />
                                         </a>
                                     </div>
                                 @endforeach
@@ -60,9 +61,7 @@
                                     <span class="text-44">
                                         @php
                                             $brand = \App\Models\Admin\BrandsInfo::find($product->brands_info_id);
-                                            $brandName = $brand
-                                                ? $brand->translate(app()->getLocale())->name
-                                                : '';
+                                            $brandName = $brand ? $brand->translate(app()->getLocale())->name : '';
                                         @endphp
                                         {{ $brandName }}
                                     </span>
@@ -71,8 +70,9 @@
                                     <img src="{{ asset('assets/images/03/pro_icon2.png') }}" class="img-fluid"
                                         alt="">
                                     <span class="text-main" style="width: 120px">車款</span>
+
                                     <span class="text-44">
-                                        @php
+                                        {{-- @php
                                             $category = \App\Models\Admin\ProductCategories::find(
                                                 $product->application_categories_info_id,
                                             );
@@ -80,7 +80,15 @@
                                                 ? $category->translate(app()->getLocale())->name ?? ''
                                                 : '';
                                         @endphp
-                                        {{ $categoryName }}
+                                        {{ $categoryName }} --}}
+                                        @if ($product->productCategories && $product->productCategories->count() > 0)
+                                            @foreach($product->productCategories as $category)
+                                                {{ $category->translate(app()->getLocale())->name }}
+                                                @if (!$loop->last)
+                                                、
+                                                @endif
+                                            @endforeach
+                                        @endif
                                     </span>
                                 </p>
                                 <p class="mb-0 d-flex align-items-center py-1">
