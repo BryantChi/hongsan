@@ -109,6 +109,10 @@
 
 
                         </div>
+
+                        <div class="overflow-auto mt-5 mb-3">
+                            {{ $attachmentsList->onEachSide(3)->links('layouts_main.custom-pagination') }}
+                        </div>
                     </div>
 
 

@@ -18,7 +18,7 @@ class NewsController extends Controller
                 $query->where('locale', app()->getLocale());
             }
         ]);
-        $newsItems = $query->where('status', '1')->get();
+        $newsItems = $query->where('status', '1')->paginate(12);
 
         return view('news')
             ->with('seoInfo', $seoInfo)

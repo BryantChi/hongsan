@@ -14,7 +14,7 @@ class ProductsController extends Controller
         // 取得產品資訊，並載入翻譯
         $products = \App\Models\Admin\ProductsInfo::with(['translations' => function ($query) {
             $query->where('locale', app()->getLocale());
-        }])->orderBy('created_at', 'desc')->get();
+        }])->orderBy('created_at', 'desc')->paginate(12);
 
         return view('products')
             ->with('seoInfo', $seoInfo)

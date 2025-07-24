@@ -7,7 +7,7 @@
     <title>{{ config('app.name') }}</title>
 
     <!-- Favicon -->
-    <link href="{{ asset('assets/img/fimgs/favicon.ico') }}" rel="icon">
+    <link href="{{ asset('assets/images/fimgs/favicon.ico') }}" rel="icon">
 
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
