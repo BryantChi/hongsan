@@ -61,7 +61,7 @@
                 </div>
 
                 <div class="overflow-auto mt-5 mb-3">
-                    {{ $products->onEachSide(3)->links('layouts_main.custom-pagination') }}
+                    {{ $products->appends(request()->query())->onEachSide(3)->links('layouts_main.custom-pagination') }}
                 </div>
             </div>
         </div>

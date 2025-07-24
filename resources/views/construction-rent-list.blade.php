@@ -119,7 +119,7 @@
                         </div>
 
                         <div class="overflow-auto mt-5 mb-3">
-                            {{ $machineryList->onEachSide(3)->links('layouts_main.custom-pagination') }}
+                            {{ $machineryList->appends(request()->query())->onEachSide(3)->links('layouts_main.custom-pagination') }}
                         </div>
                     </div>
 
